@@ -1,5 +1,14 @@
-import { discoverTemplates } from "./TemplateDiscoveryService";
+import { TemplatePackage } from "../models";
+import { TemplateDiscoveryService } from "./TemplateDiscoveryService";
 
-export async function getTemplates() {
-    return await discoverTemplates();
+export class TemplateService {
+
+    async getTemplates(): Promise<TemplatePackage[]> {
+
+        const discoveryService = new TemplateDiscoveryService();
+
+        return await discoveryService.discover();
+
+    }
+
 }

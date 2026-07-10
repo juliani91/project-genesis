@@ -1,6 +1,8 @@
-import { TemplatePackage } from "../models/TemplatePackage";
-import { PreparationResult } from "../models/PreparationResult";
-import { enrichWithWizard } from "./TemplatePackageService";
+import {
+    TemplatePackage,
+    PreparationResult
+} from "../models";
+import { TemplatePackageService } from "./TemplatePackageService";
 import { TemplateValidator } from "../validators/TemplateValidator";
 import { VariableCollectionService } from "./VariableCollectionService";
 
@@ -13,8 +15,11 @@ async prepare(
     try {
 
         // Step 1 - Enrich the template
+        const templatePackageService =
+            new TemplatePackageService();
+
         const enrichedTemplate =
-            await enrichWithWizard(template);
+            await templatePackageService.enrichWithWizard(template);
 
         // Step 2 - Validate the enriched template
         const validator = new TemplateValidator();

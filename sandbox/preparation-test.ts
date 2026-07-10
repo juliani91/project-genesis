@@ -1,9 +1,12 @@
-import { discoverTemplates } from "../lib/services/TemplateDiscoveryService";
+import { TemplateDiscoveryService } from "../lib/services/TemplateDiscoveryService";
 import { PreparationService } from "../lib/services/PreparationService";
 
 async function main() {
 
-    const templates = await discoverTemplates();
+    const discoveryService = new TemplateDiscoveryService();
+
+    const templates =
+        await discoveryService.discover();
 
     console.log(`Discovered ${templates.length} template(s).`);
 

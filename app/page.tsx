@@ -1,7 +1,12 @@
-import { getTemplates } from "@/lib/services/TemplateService";
+import { TemplateService } from "@/lib/services/TemplateService";
 
 export default async function Home() {
-    const templates = await getTemplates();
+
+    const templateService = new TemplateService();
+
+    const templates =
+        await templateService.getTemplates();
+
 
     return (
         <main className="p-10">

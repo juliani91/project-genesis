@@ -1,6 +1,6 @@
 import { promises as fs } from "fs";
 
-import { Wizard } from "../models/Wizard";
+import { Wizard } from "../models";
 
 export async function loadWizard(
     wizardPath: string

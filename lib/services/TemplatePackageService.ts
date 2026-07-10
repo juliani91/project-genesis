@@ -1,22 +1,25 @@
 import path from "path";
 
 import { loadWizard } from "../loaders/WizardLoader";
-import { TemplatePackage } from "../models/TemplatePackage";
+import { TemplatePackage } from "../models";
 
-export async function enrichWithWizard(
-    template: TemplatePackage
-): Promise<TemplatePackage> {
+export class TemplatePackageService {
 
-    const wizard = await loadWizard(
-        path.join(template.path, "wizard.json")
-    );
+    async enrichWithWizard(
+        template: TemplatePackage
+    ): Promise<TemplatePackage> {
 
-    return {
-        ...template,
+        const wizard = await loadWizard(
+            path.join(template.path, "wizard.json")
+        );
 
-        descriptors: {
-            ...template.descriptors,
-            wizard
-        }
-    };
+        return {
+            ...template,
+            descriptors: {
+                ...template.descriptors,
+                wizard
+            }
+        };
+    }
+
 }
