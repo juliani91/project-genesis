@@ -1,0 +1,23 @@
+{
+  "id": "architect-builder",
+  "name": "Architect / Builder Workflow",
+  "description": "Generates a structured software project using the Architect / Builder methodology.",
+  "version": "1.0.0",
+  "author": "Project Genesis",
+  "category": "Project Workflow",
+  "genesisVersion": ">=1.0.0",
+
+  "tags": [
+    "architecture",
+    "planning",
+    "documentation",
+    "workflow"
+  ],
+
+  "capabilities": [
+    "markdown",
+    "planning",
+    "sprints",
+    "architect-builder"
+  ]
+}

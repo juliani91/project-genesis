@@ -1,0 +1,42 @@
+{
+  "title": "Architect / Builder Workflow",
+
+  "description": "Configure your new project.",
+
+  "steps": [
+    {
+      "id": "project",
+
+      "title": "Project Information",
+
+      "description": "Basic information about the project.",
+
+      "fields": [
+        {
+          "key": "projectName",
+          "label": "Project Name",
+          "type": "string",
+          "required": true
+        },
+        {
+          "key": "clientName",
+          "label": "Client Name",
+          "type": "string",
+          "required": false
+        },
+        {
+          "key": "projectDescription",
+          "label": "Project Description",
+          "type": "multiline",
+          "required": true
+        },
+        {
+          "key": "techStack",
+          "label": "Tech Stack",
+          "type": "string",
+          "required": true
+        }
+      ]
+    }
+  ]
+}
