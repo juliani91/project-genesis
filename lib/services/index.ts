@@ -3,3 +3,7 @@ export * from "./TemplateDiscoveryService";
 export * from "./TemplatePackageService";
 export * from "./TemplateService";
 export * from "./VariableCollectionService";
+export * from "./GenerationPlanner";
+export * from "./FolderGenerator";
+export * from "./FileGenerator";
+export * from "./GenerationService";

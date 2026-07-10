@@ -24,6 +24,34 @@ Build the core engine capable of generating a project from a template.
 
 Generate a complete project structure from a single template.
 
+# Sprint 5 — Generation Engine
+
+## Objective
+
+Build the first executable generation pipeline.
+
+## Completed
+
+- Defined the Generation Engine specification.
+- Created `GeneratedFolder`.
+- Created `GeneratedFile`.
+- Created `GenerationPlan`.
+- Created `GenerationPlanner`.
+- Created `FolderGenerator`.
+- Created `FileGenerator`.
+- Created `GenerationService`.
+- Verified folder and file generation through a sandbox test.
+
+## Current Limitation
+
+Generation plans are currently constructed manually.
+
+Template-driven folder and file planning will be implemented in the next sprint.
+
+## Status
+
+Complete
+
 ---
 
 # Milestone 2 — Template System

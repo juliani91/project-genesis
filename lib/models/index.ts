@@ -5,3 +5,6 @@ export * from "./TemplateManifest";
 export * from "./TemplatePackage";
 export * from "./VariableCollection";
 export * from "./Wizard";
+export * from "./GeneratedFolder";
+export * from "./GeneratedFile";
+export * from "./GenerationPlan";
