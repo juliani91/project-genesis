@@ -198,3 +198,26 @@ Potential future enhancements include:
 - Template versioning
 - Cloud synchronization
 - Multi-user collaboration
+
+
+# Sprint 7 – Rendering Engine
+
+## Objective
+
+Extract rendering responsibilities from the Generation Planner.
+
+## Completed
+
+- Created Rendering Engine specification.
+- Introduced RenderedContent model.
+- Added TemplateRenderer.
+- Added render mode.
+- Added copy mode.
+- Added unsupported mode handling.
+- Refactored GenerationPlanner.
+- Added unresolved placeholder detection.
+- Added end-to-end rendering validation.
+
+## Status
+
+Complete

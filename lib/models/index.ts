@@ -8,3 +8,6 @@ export * from "./Wizard";
 export * from "./GeneratedFolder";
 export * from "./GeneratedFile";
 export * from "./GenerationPlan";
+export * from "./FolderDescriptor";
+export * from "./FileDescriptor";
+export * from "./RenderedContent";

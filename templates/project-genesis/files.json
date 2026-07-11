@@ -1,0 +1,32 @@
+[
+  {
+    "source": "README.md",
+    "destination": "README.md",
+    "mode": "render"
+  },
+  {
+    "source": "CLAUDE.md",
+    "destination": "CLAUDE.md",
+    "mode": "render"
+  },
+  {
+    "source": "Docs/ARCHITECTURE.md",
+    "destination": "Docs/ARCHITECTURE.md",
+    "mode": "render"
+  },
+  {
+    "source": "Planning/STATE.md",
+    "destination": "Planning/STATE.md",
+    "mode": "render"
+  },
+  {
+    "source": "Planning/Sprints/Requirements.md",
+    "destination": "Planning/Sprints/Requirements.md",
+    "mode": "render"
+  },
+  {
+  "source": "copy-test.txt",
+  "destination": "Content/copy-test.txt",
+  "mode": "copy"
+  }
+]

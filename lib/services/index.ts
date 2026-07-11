@@ -7,3 +7,4 @@ export * from "./GenerationPlanner";
 export * from "./FolderGenerator";
 export * from "./FileGenerator";
 export * from "./GenerationService";
+export * from "./TemplateRenderer";

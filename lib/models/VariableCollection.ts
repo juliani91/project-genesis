@@ -16,4 +16,24 @@ export class VariableCollection {
     toObject(): Record<string, string> {
         return Object.fromEntries(this.variables);
     }
+
+    public resolve(contents: string): string {
+
+    return contents.replace(
+        /\{\{([A-Z0-9_]+)\}\}/g,
+        (
+            originalPlaceholder,
+            variableName: string
+        ) => {
+
+            const value =
+                this.variables.get(variableName);
+
+            return value ??
+                originalPlaceholder;
+
+        }
+    );
+
+}
 }

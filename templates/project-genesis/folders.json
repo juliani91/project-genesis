@@ -1,0 +1,50 @@
+[
+  {
+    "path": "Docs"
+  },
+  {
+    "path": "Planning"
+  },
+  {
+    "path": "Planning/Meetings"
+  },
+  {
+    "path": "Planning/Sprints"
+  },
+  {
+    "path": "References"
+  },
+  {
+    "path": "Samples"
+  },
+  {
+    "path": "Scripts"
+  },
+  {
+    "path": "Src"
+  },
+  {
+    "path": "Templates"
+  },
+  {
+    "path": "Tests"
+  },
+  {
+    "path": "Builds"
+  },
+  {
+    "path": "Clients"
+  },
+  {
+    "path": "Content"
+  },
+  {
+    "path": "Patterns"
+  },
+  {
+    "path": "Pipeline"
+  },
+  {
+    "path": "Reference"
+  }
+]

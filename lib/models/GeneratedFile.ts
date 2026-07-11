@@ -23,6 +23,6 @@ export interface GeneratedFile {
     /**
      * File contents after variable replacement.
      */
-    contents: string;
+    contents: string | Buffer;
 
 }

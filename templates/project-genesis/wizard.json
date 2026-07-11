@@ -1,37 +1,32 @@
 {
-  "title": "Architect / Builder Workflow",
-
-  "description": "Configure your new project.",
-
+  "title": "Project Genesis",
+  "description": "Configure the generated project workspace.",
   "steps": [
     {
       "id": "project",
-
       "title": "Project Information",
-
       "description": "Basic information about the project.",
-
       "fields": [
         {
-          "key": "projectName",
+          "key": "PROJECT_NAME",
           "label": "Project Name",
           "type": "string",
           "required": true
         },
         {
-          "key": "clientName",
+          "key": "CLIENT_NAME",
           "label": "Client Name",
           "type": "string",
           "required": false
         },
         {
-          "key": "projectDescription",
+          "key": "PROJECT_DESCRIPTION",
           "label": "Project Description",
           "type": "multiline",
           "required": true
         },
         {
-          "key": "techStack",
+          "key": "TECH_STACK",
           "label": "Tech Stack",
           "type": "string",
           "required": true

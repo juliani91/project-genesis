@@ -17,6 +17,17 @@ export class TemplateValidator {
         if (!template.descriptors.wizard) {
             errors.push("Wizard descriptor has not been loaded.");
         }
+        if (!template.descriptors.folders) {
+            errors.push(
+                "Folder descriptors have not been loaded."
+            );
+        }
+
+        if (!template.descriptors.files) {
+            errors.push(
+                "File descriptors have not been loaded."
+            );
+        }
 
         return errors;
     }

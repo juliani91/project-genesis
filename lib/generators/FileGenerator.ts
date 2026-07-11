@@ -18,11 +18,22 @@ export class FileGenerator {
                 recursive: true
             });
 
-            await fs.writeFile(
-                file.destinationPath,
-                file.contents,
-                "utf-8"
-            );
+            if (typeof file.contents === "string") {
+
+                await fs.writeFile(
+                    file.destinationPath,
+                    file.contents,
+                    "utf-8"
+                );
+
+            } else {
+
+                await fs.writeFile(
+                    file.destinationPath,
+                    file.contents
+                );
+
+            }
 
         }
 
