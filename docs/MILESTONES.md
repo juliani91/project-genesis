@@ -221,3 +221,34 @@ Extract rendering responsibilities from the Generation Planner.
 ## Status
 
 Complete
+
+# Sprint 8 – Generation Rules
+
+## Objective
+
+Introduce conditional folder and file generation based on prepared template variables.
+
+## Completed
+
+- Added the Generation Rule specification.
+- Added the base `GenerationRule` model.
+- Added `ConditionRule`.
+- Added optional rule support to folder descriptors.
+- Added optional rule support to file descriptors.
+- Added `ConditionEvaluator`.
+- Integrated rule evaluation into `GenerationPlanner`.
+- Added simple single-rule planning tests.
+- Added multiple-rule planning tests.
+- Verified conditional generation through the full filesystem pipeline.
+
+## Rule Behavior
+
+- Descriptors without rules are always included.
+- Descriptors with rules require every rule to evaluate to true.
+- Missing variables cause condition rules to evaluate to false.
+- Unsupported rule types produce an explicit error.
+- Excluded file descriptors are skipped before rendering.
+
+## Status
+
+Complete

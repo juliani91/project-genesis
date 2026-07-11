@@ -8,3 +8,4 @@ export * from "./FolderGenerator";
 export * from "./FileGenerator";
 export * from "./GenerationService";
 export * from "./TemplateRenderer";
+export * from "./ConditionEvaluator";

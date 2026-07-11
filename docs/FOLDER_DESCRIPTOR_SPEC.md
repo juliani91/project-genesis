@@ -63,6 +63,26 @@ No filesystem operations occur during planning.
 
 ---
 
+# Generation Rules
+
+Folder descriptors may define optional generation rules.
+
+Example:
+
+```json
+{
+  "path": "Docker",
+  "rules": [
+    {
+      "type": "condition",
+      "variable": "USE_DOCKER",
+      "equals": "true"
+    }
+  ]
+}
+```
+---
+
 # Future Extensions
 
 Future versions may support:

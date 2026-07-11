@@ -4,9 +4,11 @@ import {
     GeneratedFile,
     GeneratedFolder,
     GenerationPlan,
+    GenerationRule,
     PreparedTemplate
 } from "../models";
 
+import { ConditionEvaluator } from "./ConditionEvaluator";
 import { TemplateRenderer } from "./TemplateRenderer";
 
 export class GenerationPlanner {
@@ -48,8 +50,14 @@ export class GenerationPlanner {
                 .descriptors
                 .folders ?? [];
 
-        return folderDescriptors.map(
-            (descriptor) => {
+        return folderDescriptors
+            .filter((descriptor) =>
+                this.shouldInclude(
+                    descriptor.rules,
+                    preparedTemplate
+                )
+            )
+            .map((descriptor) => {
 
                 return {
                     path: path.join(
@@ -61,8 +69,7 @@ export class GenerationPlanner {
                         descriptor.path
                 };
 
-            }
-        );
+            });
 
     }
 
@@ -83,6 +90,15 @@ export class GenerationPlanner {
         const files: GeneratedFile[] = [];
 
         for (const descriptor of fileDescriptors) {
+
+            if (
+                !this.shouldInclude(
+                    descriptor.rules,
+                    preparedTemplate
+                )
+            ) {
+                continue;
+            }
 
             const sourcePath = path.join(
                 template.path,
@@ -116,6 +132,27 @@ export class GenerationPlanner {
         }
 
         return files;
+
+    }
+
+    private shouldInclude(
+        rules: readonly GenerationRule[] | undefined,
+        preparedTemplate: PreparedTemplate
+    ): boolean {
+
+        if (!rules || rules.length === 0) {
+            return true;
+        }
+
+        const evaluator =
+            new ConditionEvaluator();
+
+        return rules.every((rule) =>
+            evaluator.evaluate(
+                rule,
+                preparedTemplate.variables
+            )
+        );
 
     }
 

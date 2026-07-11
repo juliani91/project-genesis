@@ -46,5 +46,30 @@
   },
   {
     "path": "Reference"
-  }
+  },
+  {
+    "path": "Docker",
+    "rules": [
+      {
+        "type": "condition",
+        "variable": "USE_DOCKER",
+        "equals": "true"
+      }
+    ]
+  },
+  {
+  "path": "Database/PostgreSQL",
+  "rules": [
+    {
+      "type": "condition",
+      "variable": "USE_DATABASE",
+      "equals": "true"
+    },
+    {
+      "type": "condition",
+      "variable": "DATABASE",
+      "equals": "postgres"
+    }
+  ]
+}
 ]

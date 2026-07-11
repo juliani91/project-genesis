@@ -28,5 +28,34 @@
   "source": "copy-test.txt",
   "destination": "Content/copy-test.txt",
   "mode": "copy"
-  }
+  },
+  {
+  "source": "Docker/Dockerfile",
+  "destination": "Docker/Dockerfile",
+  "mode": "render",
+  "rules": [
+    {
+      "type": "condition",
+      "variable": "USE_DOCKER",
+      "equals": "true"
+    }
+  ]
+},
+{
+  "source": "Database/PostgreSQL/README.md",
+  "destination": "Database/PostgreSQL/README.md",
+  "mode": "render",
+  "rules": [
+    {
+      "type": "condition",
+      "variable": "USE_DATABASE",
+      "equals": "true"
+    },
+    {
+      "type": "condition",
+      "variable": "DATABASE",
+      "equals": "postgres"
+    }
+  ]
+}
 ]

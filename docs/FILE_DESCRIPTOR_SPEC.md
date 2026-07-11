@@ -177,6 +177,35 @@ Examples include:
 
 ---
 
+# Generation Rules
+
+File descriptors may define optional generation rules.
+
+Example:
+
+```json
+{
+  "source": "Dockerfile",
+  "destination": "Dockerfile",
+  "mode": "render",
+  "rules": [
+    {
+      "type": "condition",
+      "variable": "USE_DOCKER",
+      "equals": "true"
+    }
+  ]
+}
+```
+
+When no rules are present, the file is always included.
+
+When rules are present, all rules must evaluate to true for the file to participate in the Generation Plan.
+
+Rules are evaluated during planning before the source file is rendered.
+
+---
+
 # Future Extensions
 
 Future versions may support:

@@ -11,3 +11,5 @@ export * from "./GenerationPlan";
 export * from "./FolderDescriptor";
 export * from "./FileDescriptor";
 export * from "./RenderedContent";
+export * from "./GenerationRule";
+export * from "./ConditionRule";

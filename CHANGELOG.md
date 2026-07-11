@@ -48,3 +48,26 @@
 
 - Unsupported rendering modes now fail explicitly.
 - Missing template variables are detected before generation.
+
+## v0.4.0
+
+### Added
+
+- Generation rule specification
+- GenerationRule model
+- ConditionRule model
+- ConditionEvaluator
+- Folder descriptor rules
+- File descriptor rules
+- Conditional project generation
+- Single-rule and multiple-rule sandbox tests
+
+### Changed
+
+- GenerationPlanner now evaluates descriptor rules before planning.
+- Excluded files are skipped before rendering.
+
+### Fixed
+
+- Unsupported generation rule types now fail explicitly.
+- Missing condition variables now exclude descriptors predictably.

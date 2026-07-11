@@ -1,3 +1,5 @@
+import { GenerationRule } from "./GenerationRule";
+
 export type FileDescriptorMode =
     | "render"
     | "copy";
@@ -26,4 +28,12 @@ export interface FileDescriptor {
      * or copied without modification.
      */
     mode: FileDescriptorMode;
+
+    /**
+     * Optional rules that determine whether this file
+     * participates in generation planning.
+     *
+     * All rules must evaluate to true.
+     */
+    rules?: GenerationRule[];
 }
