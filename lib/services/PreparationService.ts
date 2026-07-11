@@ -1,17 +1,23 @@
 import {
     PreparationResult,
-    TemplatePackage
+    TemplatePackage,
+    VariableCollection,
+    Wizard,
+    WizardAnswer
 } from "../models";
 
 import { TemplateValidator } from "../validators";
 
 import { TemplatePackageService } from "./TemplatePackageService";
+import { VariableCollectionBuilder } from "./VariableCollectionBuilder";
 import { VariableCollectionService } from "./VariableCollectionService";
+import { WizardRuntime } from "./WizardRuntime";
 
 export class PreparationService {
 
     public async prepare(
-        template: TemplatePackage
+        template: TemplatePackage,
+        answers?: readonly WizardAnswer[]
     ): Promise<PreparationResult> {
 
         try {
@@ -38,7 +44,9 @@ export class PreparationService {
                 new TemplateValidator();
 
             const validationErrors =
-                validator.validate(enrichedTemplate);
+                validator.validate(
+                    enrichedTemplate
+                );
 
             if (validationErrors.length > 0) {
 
@@ -49,13 +57,28 @@ export class PreparationService {
 
             }
 
-            const variableCollectionService =
-                new VariableCollectionService();
+            const wizard =
+                enrichedTemplate.descriptors.wizard;
+
+            if (!wizard) {
+
+                return {
+                    success: false,
+                    errors: [
+                        "Wizard descriptor has not been loaded."
+                    ]
+                };
+
+            }
 
             const variables =
-                variableCollectionService.collect(
-                    enrichedTemplate
-                );
+                answers
+                    ? this.buildVariablesFromAnswers(
+                        wizard,
+                        answers
+                    )
+                    : new VariableCollectionService()
+                        .collect(enrichedTemplate);
 
             return {
                 success: true,
@@ -84,5 +107,25 @@ export class PreparationService {
         }
 
     }
+private buildVariablesFromAnswers(
+    wizard: Wizard,
+    answers: readonly WizardAnswer[]
+): VariableCollection {
+
+    const runtime =
+        new WizardRuntime();
+
+    const session =
+        runtime.execute(
+            wizard,
+            answers
+        );
+
+    const builder =
+        new VariableCollectionBuilder();
+
+    return builder.build(session);
+
+}
 
 }

@@ -32,6 +32,31 @@
           "required": true
         }
       ]
+    },
+    {
+      "id": "generation-options",
+      "title": "Generation Options",
+      "description": "Choose optional project capabilities.",
+      "fields": [
+        {
+          "key": "USE_DOCKER",
+          "label": "Use Docker",
+          "type": "string",
+          "required": true
+        },
+        {
+          "key": "USE_DATABASE",
+          "label": "Use a Database",
+          "type": "string",
+          "required": true
+        },
+        {
+          "key": "DATABASE",
+          "label": "Database",
+          "type": "string",
+          "required": true
+        }
+      ]
     }
   ]
 }

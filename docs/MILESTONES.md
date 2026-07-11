@@ -252,3 +252,28 @@ Introduce conditional folder and file generation based on prepared template vari
 ## Status
 
 Complete
+
+---
+
+# Sprint 9 – Wizard Runtime
+
+## Objective
+
+Replace manual variable creation with a wizard-driven runtime.
+
+## Completed
+
+- Wizard Runtime specification
+- WizardAnswer model
+- WizardSession model
+- WizardRuntime
+- WizardSessionValidator
+- VariableCollectionBuilder
+- Wizard-driven PreparationService
+- Wizard-driven Generation pipeline
+- Automatic CREATED_DATE variable
+- End-to-end wizard pipeline demonstration
+
+## Status
+
+Complete

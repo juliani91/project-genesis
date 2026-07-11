@@ -1,15 +1,17 @@
-import { VariableCollection } from "../models/VariableCollection";
-import { TemplatePackage } from "../models/TemplatePackage";
+import {
+    TemplatePackage,
+    VariableCollection
+} from "../models";
 
 export class VariableCollectionService {
 
-    collect(
+    public collect(
         template: TemplatePackage
     ): VariableCollection {
 
-        // Sprint 4:
-        // No wizard execution yet.
-        // Return an empty collection.
+        // Temporary compatibility path for older callers that
+        // do not yet provide WizardAnswer collections.
+        void template;
 
         return new VariableCollection();
 

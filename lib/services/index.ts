@@ -9,3 +9,6 @@ export * from "./FileGenerator";
 export * from "./GenerationService";
 export * from "./TemplateRenderer";
 export * from "./ConditionEvaluator";
+export * from "./WizardRuntime";
+export * from "./VariableCollectionBuilder";
+export * from "./VariableCollectionService";

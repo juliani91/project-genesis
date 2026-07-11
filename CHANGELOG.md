@@ -71,3 +71,21 @@
 
 - Unsupported generation rule types now fail explicitly.
 - Missing condition variables now exclude descriptors predictably.
+
+## v0.5.0
+
+### Added
+
+- WizardRuntime
+- WizardSession
+- WizardAnswer
+- WizardSessionValidator
+- VariableCollectionBuilder
+- Wizard-driven preparation
+- Wizard-driven generation
+- Automatic CREATED_DATE variable
+
+### Changed
+
+- PreparationService now supports wizard answers.
+- Generation pipeline is driven by WizardAnswer collections.
