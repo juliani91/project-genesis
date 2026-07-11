@@ -14,10 +14,10 @@ async function main(): Promise<void> {
 
     const wizard: Wizard = {
         title:
-            "Automated Wizard Runner Test",
+            "Automated Typed Wizard Test",
 
         description:
-            "Tests answer collection without console input.",
+            "Tests typed answer collection.",
 
         steps: [
             {
@@ -37,16 +37,37 @@ async function main(): Promise<void> {
                         required: true
                     },
                     {
-                        key: "CLIENT_NAME",
-                        label: "Client Name",
-                        type: "string",
-                        required: false
-                    },
-                    {
                         key: "PROJECT_DESCRIPTION",
                         label: "Project Description",
                         type: "multiline",
                         required: true
+                    },
+                    {
+                        key: "USE_DOCKER",
+                        label: "Use Docker",
+                        type: "boolean",
+                        required: true
+                    },
+                    {
+                        key: "DATABASE",
+                        label: "Database",
+                        type: "select",
+                        required: true,
+
+                        options: [
+                            {
+                                label: "PostgreSQL",
+                                value: "postgres"
+                            },
+                            {
+                                label: "SQLite",
+                                value: "sqlite"
+                            },
+                            {
+                                label: "None",
+                                value: "none"
+                            }
+                        ]
                     }
                 ]
             }
@@ -56,9 +77,10 @@ async function main(): Promise<void> {
     const promptProvider =
         new TestPromptProvider([
             "",
-            "Automated Test Project",
-            "",
-            "A generated test description."
+            "Typed Runner Project",
+            "A typed wizard runner test.",
+            "true",
+            "postgres"
         ]);
 
     const runner =
@@ -97,10 +119,10 @@ async function main(): Promise<void> {
         )
     );
 
-    if (answers.length !== 3) {
+    if (answers.length !== 4) {
 
         throw new Error(
-            "WizardRunner did not return three answers."
+            "WizardRunner did not return four answers."
         );
 
     }
@@ -109,7 +131,7 @@ async function main(): Promise<void> {
         answers[0].key !==
             "PROJECT_NAME" ||
         answers[0].value !==
-            "Automated Test Project"
+            "Typed Runner Project"
     ) {
 
         throw new Error(
@@ -120,22 +142,9 @@ async function main(): Promise<void> {
 
     if (
         answers[1].key !==
-            "CLIENT_NAME" ||
-        answers[1].value !==
-            ""
-    ) {
-
-        throw new Error(
-            "The optional CLIENT_NAME answer was not preserved as empty."
-        );
-
-    }
-
-    if (
-        answers[2].key !==
             "PROJECT_DESCRIPTION" ||
-        answers[2].value !==
-            "A generated test description."
+        answers[1].value !==
+            "A typed wizard runner test."
     ) {
 
         throw new Error(
@@ -144,28 +153,66 @@ async function main(): Promise<void> {
 
     }
 
-    if (messages.length !== 4) {
+    if (
+        answers[2].key !==
+            "USE_DOCKER" ||
+        answers[2].value !==
+            "true"
+    ) {
 
         throw new Error(
-            `Expected four prompt attempts but received ${messages.length}.`
+            "USE_DOCKER was not collected correctly."
+        );
+
+    }
+
+    if (
+        answers[3].key !==
+            "DATABASE" ||
+        answers[3].value !==
+            "postgres"
+    ) {
+
+        throw new Error(
+            "DATABASE was not collected correctly."
+        );
+
+    }
+
+    if (messages.length !== 5) {
+
+        throw new Error(
+            `Expected five prompt attempts but received ${messages.length}.`
         );
 
     }
 
     if (
         !messages[3].includes(
-            "Project Description"
+            "Use Docker"
         )
     ) {
 
         throw new Error(
-            "The multiline prompt message was not recorded correctly."
+            "The boolean prompt was not used."
+        );
+
+    }
+
+    if (
+        !messages[4].includes(
+            "Database"
+        )
+    ) {
+
+        throw new Error(
+            "The select prompt was not used."
         );
 
     }
 
     console.log(
-        "Automated wizard runner test completed successfully."
+        "Automated typed WizardRunner test completed successfully."
     );
 
 }
@@ -173,7 +220,7 @@ async function main(): Promise<void> {
 main().catch((error: unknown) => {
 
     console.error(
-        "Automated wizard runner test failed.",
+        "Automated typed WizardRunner test failed.",
         error
     );
 

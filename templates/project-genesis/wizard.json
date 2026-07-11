@@ -40,21 +40,39 @@
       "fields": [
         {
           "key": "USE_DOCKER",
-          "label": "Use Docker",
-          "type": "string",
+          "label": "Use Docker?",
+          "type": "boolean",
           "required": true
         },
         {
           "key": "USE_DATABASE",
-          "label": "Use a Database",
-          "type": "string",
+          "label": "Use a Database?",
+          "type": "boolean",
           "required": true
         },
         {
           "key": "DATABASE",
           "label": "Database",
-          "type": "string",
-          "required": true
+          "type": "select",
+          "required": true,
+          "options": [
+            {
+              "label": "PostgreSQL",
+              "value": "postgres"
+            },
+            {
+              "label": "SQLite",
+              "value": "sqlite"
+            },
+            {
+              "label": "SQL Server",
+              "value": "sqlserver"
+            },
+            {
+              "label": "None",
+              "value": "none"
+            }
+          ]
         }
       ]
     }

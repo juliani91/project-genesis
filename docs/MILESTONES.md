@@ -307,3 +307,36 @@ Create the first interactive command-line interface for Project Genesis.
 
 ```bash
 npm run genesis
+
+# Sprint 11 – Typed Wizard Fields
+
+## Objective
+
+Replace error-prone free-text configuration values with typed wizard fields and guided prompts.
+
+## Completed
+
+- Added the Typed Wizard specification.
+- Added `WizardOption`.
+- Expanded `WizardFieldType` with `boolean` and `select`.
+- Added optional select-field options.
+- Added boolean prompts.
+- Added select prompts.
+- Expanded the `PromptProvider` contract.
+- Added automated typed-prompt testing.
+- Updated `WizardRunner` to choose prompts by field type.
+- Added typed wizard field-definition validation.
+- Added typed wizard answer validation.
+- Updated the Project Genesis template to use boolean and select fields.
+- Verified typed answers through the complete generation pipeline.
+
+## Supported Field Types
+
+- `string`
+- `multiline`
+- `boolean`
+- `select`
+
+## Status
+
+Complete

@@ -246,3 +246,9 @@ The CLI is available through:
 
 ```bash
 npm run genesis
+
+```md
+- Boolean prompts
+- Select prompts
+- Typed prompt routing
+- Typed answer validation

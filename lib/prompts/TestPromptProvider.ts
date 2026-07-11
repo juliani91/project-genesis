@@ -1,4 +1,5 @@
 import { PromptProvider } from "./PromptProvider";
+import { WizardOption } from "../models";
 
 export class TestPromptProvider
     implements PromptProvider {
@@ -48,5 +49,50 @@ export class TestPromptProvider
         ];
 
     }
+
+    public async confirm(
+    message: string
+    ): Promise<string> {
+
+        return this.ask(message);
+
+    }
+
+    public async select(
+    message: string,
+    options: readonly WizardOption[]
+): Promise<string> {
+
+    if (options.length === 0) {
+
+        throw new Error(
+            `No options are available for prompt: ${message}`
+        );
+
+    }
+
+    const response =
+        await this.ask(message);
+
+    const matchingOption =
+        options.find(
+            (option) =>
+                option.value === response
+        );
+
+    if (!matchingOption) {
+
+        throw new Error(
+            [
+                `Invalid test selection for prompt "${message}":`,
+                response
+            ].join(" ")
+        );
+
+    }
+
+    return matchingOption.value;
+
+}
 
 }

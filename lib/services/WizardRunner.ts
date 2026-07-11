@@ -74,10 +74,9 @@ export class WizardRunner {
         while (true) {
 
             const value =
-                await promptProvider.ask(
-                    this.buildPromptMessage(
-                        field
-                    )
+                await this.collectFieldValue(
+                    field,
+                    promptProvider
                 );
 
             if (
@@ -99,6 +98,47 @@ export class WizardRunner {
             };
 
         }
+
+    }
+
+    private async collectFieldValue(
+        field: WizardField,
+        promptProvider: PromptProvider
+    ): Promise<string> {
+
+        if (field.type === "boolean") {
+
+            return promptProvider.confirm(
+                field.label
+            );
+
+        }
+
+        if (field.type === "select") {
+
+            if (
+                !field.options ||
+                field.options.length === 0
+            ) {
+
+                throw new Error(
+                    `Select field "${field.key}" does not define any options.`
+                );
+
+            }
+
+            return promptProvider.select(
+                field.label,
+                field.options
+            );
+
+        }
+
+        return promptProvider.ask(
+            this.buildPromptMessage(
+                field
+            )
+        );
 
     }
 
