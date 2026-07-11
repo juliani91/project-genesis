@@ -277,3 +277,33 @@ Replace manual variable creation with a wizard-driven runtime.
 ## Status
 
 Complete
+
+---
+
+# Sprint 10 – Interactive Wizard Runner
+
+## Objective
+
+Create the first interactive command-line interface for Project Genesis.
+
+## Completed
+
+- Added the Interactive Runner specification.
+- Added the `PromptProvider` abstraction.
+- Added `ConsolePromptProvider`.
+- Added `TestPromptProvider`.
+- Added `WizardRunner`.
+- Added required-field reprompting.
+- Added field-type prompt formatting.
+- Added automated answer-collection testing.
+- Added `GenerationRequest`.
+- Added `ProjectGenerationService`.
+- Added the CLI entry point.
+- Added the `npm run genesis` command.
+- Added safe existing-output protection.
+- Verified full and basic interactive generation.
+
+## CLI Command
+
+```bash
+npm run genesis

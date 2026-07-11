@@ -89,3 +89,29 @@
 
 - PreparationService now supports wizard answers.
 - Generation pipeline is driven by WizardAnswer collections.
+
+```md
+## v0.6.0
+
+### Added
+
+- Interactive Runner specification
+- PromptProvider abstraction
+- ConsolePromptProvider
+- TestPromptProvider
+- WizardRunner
+- GenerationRequest
+- ProjectGenerationService
+- Project Genesis CLI
+- `npm run genesis`
+- Required-field reprompting
+- Existing output-directory protection
+
+### Changed
+
+- Project generation can now be initiated through an interactive CLI.
+- Wizard answers are collected dynamically instead of being hardcoded.
+
+### Fixed
+
+- Added `tsx` as a local development dependency so npm scripts work reliably.

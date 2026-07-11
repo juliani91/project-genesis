@@ -12,3 +12,6 @@ export * from "./ConditionEvaluator";
 export * from "./WizardRuntime";
 export * from "./VariableCollectionBuilder";
 export * from "./VariableCollectionService";
+export * from "./WizardRunner";
+export * from "./ProjectGenerationService";
+

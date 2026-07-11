@@ -15,3 +15,4 @@ export * from "./GenerationRule";
 export * from "./ConditionRule";
 export * from "./WizardAnswer";
 export * from "./WizardSession";
+export * from "./GenerationRequest";
