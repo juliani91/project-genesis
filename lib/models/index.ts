@@ -17,3 +17,4 @@ export * from "./WizardAnswer";
 export * from "./WizardSession";
 export * from "./GenerationRequest";
 export * from "./WizardOption";
+export * from "./FieldVisibilityRule";

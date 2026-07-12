@@ -115,3 +115,57 @@
 ### Fixed
 
 - Added `tsx` as a local development dependency so npm scripts work reliably.
+
+## v0.7.0
+
+### Added
+
+- Typed Wizard specification
+- WizardOption model
+- Boolean wizard fields
+- Select wizard fields
+- Boolean console prompts
+- Select console prompts
+- Typed prompt routing in WizardRunner
+- Typed field-definition validation
+- Typed answer validation
+- End-to-end typed wizard pipeline test
+
+### Changed
+
+- Project Genesis wizard now uses guided boolean and select prompts.
+- Docker and database configuration no longer rely on free-text values.
+- PromptProvider now supports `confirm()` and `select()`.
+
+### Fixed
+
+- Invalid boolean answers are rejected.
+- Invalid select values are rejected.
+- Select fields without options are rejected.
+- Duplicate select option values are rejected.
+
+## v0.8.0
+
+### Added
+
+- Conditional Wizard specification
+- FieldVisibilityRule model
+- `visibleWhen` support for wizard fields
+- FieldVisibilityEvaluator
+- Conditional field-definition validation
+- Chained field visibility
+- End-to-end conditional wizard pipeline test
+
+### Changed
+
+- WizardRunner now evaluates field visibility before prompting.
+- Hidden fields no longer create WizardAnswer entries.
+- Database selection is shown only when database support is enabled.
+- The obsolete `None` database option was removed.
+
+### Fixed
+
+- Hidden required fields no longer produce missing-answer errors.
+- Unknown visibility references are rejected.
+- Self-referencing visibility rules are rejected.
+- Visibility rules that reference later fields are rejected.

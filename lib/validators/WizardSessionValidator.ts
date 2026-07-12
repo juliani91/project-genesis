@@ -4,6 +4,10 @@ import {
     WizardField
 } from "../models";
 
+import {
+    FieldVisibilityEvaluator
+} from "../services";
+
 export class WizardSessionValidator {
 
     public validate(
@@ -19,6 +23,11 @@ export class WizardSessionValidator {
             );
 
         this.validateFieldDefinitions(
+            fields,
+            errors
+        );
+
+        this.validateVisibilityRules(
             fields,
             errors
         );
@@ -71,11 +80,14 @@ export class WizardSessionValidator {
 
                 const optionValues =
                     field.options.map(
-                        (option) => option.value
+                        (option) =>
+                            option.value
                     );
 
                 const uniqueValues =
-                    new Set(optionValues);
+                    new Set(
+                        optionValues
+                    );
 
                 if (
                     uniqueValues.size !==
@@ -107,6 +119,108 @@ export class WizardSessionValidator {
 
     }
 
+    private validateVisibilityRules(
+        fields: readonly WizardField[],
+        errors: string[]
+    ): void {
+
+        const fieldIndexes =
+            new Map<string, number>();
+
+        fields.forEach(
+            (field, index) => {
+
+                fieldIndexes.set(
+                    field.key,
+                    index
+                );
+
+            }
+        );
+
+        for (
+            let index = 0;
+            index < fields.length;
+            index += 1
+        ) {
+
+            const field =
+                fields[index];
+
+            const rule =
+                field.visibleWhen;
+
+            if (!rule) {
+                continue;
+            }
+
+            if (
+                rule.variable.trim()
+                    .length === 0
+            ) {
+
+                errors.push(
+                    `Visibility rule variable is empty for field: ${field.key}.`
+                );
+
+            }
+
+            if (
+                rule.equals.trim()
+                    .length === 0
+            ) {
+
+                errors.push(
+                    `Visibility rule expected value is empty for field: ${field.key}.`
+                );
+
+            }
+
+            const referencedIndex =
+                fieldIndexes.get(
+                    rule.variable
+                );
+
+            if (
+                referencedIndex ===
+                undefined
+            ) {
+
+                errors.push(
+                    `Visibility rule for ${field.key} references unknown field: ${rule.variable}.`
+                );
+
+                continue;
+
+            }
+
+            if (
+                rule.variable ===
+                field.key
+            ) {
+
+                errors.push(
+                    `Visibility rule for ${field.key} cannot reference the same field.`
+                );
+
+                continue;
+
+            }
+
+            if (
+                referencedIndex > index
+            ) {
+
+                errors.push(
+                    `Visibility rule for ${field.key} references a later field: ${rule.variable}.`
+                );
+
+            }
+
+        }
+
+    }
+
     private validateAnswerKeys(
         fields: readonly WizardField[],
         answers: readonly WizardAnswer[],
@@ -116,7 +230,8 @@ export class WizardSessionValidator {
         const fieldKeys =
             new Set(
                 fields.map(
-                    (field) => field.key
+                    (field) =>
+                        field.key
                 )
             );
 
@@ -171,19 +286,35 @@ export class WizardSessionValidator {
         errors: string[]
     ): void {
 
+        const evaluator =
+            new FieldVisibilityEvaluator();
+
+        const collectedAnswers:
+            WizardAnswer[] = [];
+
         for (const field of fields) {
 
-            if (!field.required) {
+            const visible =
+                evaluator.isVisible(
+                    field,
+                    collectedAnswers
+                );
+
+            if (!visible) {
                 continue;
             }
 
             const answer =
                 answers.find(
                     (item) =>
-                        item.key === field.key
+                        item.key ===
+                        field.key
                 );
 
-            if (!answer) {
+            if (
+                field.required &&
+                !answer
+            ) {
 
                 errors.push(
                     `Required wizard answer is missing: ${field.key}.`
@@ -194,11 +325,22 @@ export class WizardSessionValidator {
             }
 
             if (
-                answer.value.trim().length === 0
+                field.required &&
+                answer &&
+                answer.value.trim()
+                    .length === 0
             ) {
 
                 errors.push(
                     `Required wizard answer is empty: ${field.key}.`
+                );
+
+            }
+
+            if (answer) {
+
+                collectedAnswers.push(
+                    answer
                 );
 
             }
@@ -218,7 +360,8 @@ export class WizardSessionValidator {
             const field =
                 fields.find(
                     (item) =>
-                        item.key === answer.key
+                        item.key ===
+                        answer.key
                 );
 
             if (!field) {

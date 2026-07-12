@@ -8,6 +8,8 @@ import {
     PromptProvider
 } from "../prompts";
 
+import { FieldVisibilityEvaluator } from "./FieldVisibilityEvaluator";
+
 export class WizardRunner {
 
     public async run(
@@ -17,6 +19,9 @@ export class WizardRunner {
 
         const answers:
             WizardAnswer[] = [];
+
+            const visibilityEvaluator =
+    new FieldVisibilityEvaluator();
 
         console.log("");
         console.log(
@@ -48,17 +53,33 @@ export class WizardRunner {
 
             console.log("");
 
-            for (const field of step.fields) {
+for (const field of step.fields) {
 
-                const answer =
-                    await this.promptForField(
-                        field,
-                        promptProvider
-                    );
+    const visible =
+        visibilityEvaluator.isVisible(
+            field,
+            answers
+        );
 
-                answers.push(answer);
+    if (!visible) {
 
-            }
+        console.log(
+            `Skipping "${field.label}" because its visibility rule was not satisfied.`
+        );
+
+        continue;
+
+    }
+
+        const answer =
+            await this.promptForField(
+                field,
+                promptProvider
+            );
+
+        answers.push(answer);
+
+    }
 
         }
 

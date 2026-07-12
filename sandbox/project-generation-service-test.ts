@@ -57,10 +57,6 @@ async function main(): Promise<void> {
         {
             key: "USE_DATABASE",
             value: "false"
-        },
-        {
-            key: "DATABASE",
-            value: "none"
         }
     ];
 

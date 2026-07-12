@@ -55,6 +55,10 @@
           "label": "Database",
           "type": "select",
           "required": true,
+          "visibleWhen": {
+            "variable": "USE_DATABASE",
+            "equals": "true"
+          },
           "options": [
             {
               "label": "PostgreSQL",
@@ -67,10 +71,6 @@
             {
               "label": "SQL Server",
               "value": "sqlserver"
-            },
-            {
-              "label": "None",
-              "value": "none"
             }
           ]
         }

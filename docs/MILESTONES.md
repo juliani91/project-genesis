@@ -340,3 +340,36 @@ Replace error-prone free-text configuration values with typed wizard fields and 
 ## Status
 
 Complete
+
+# Sprint 12 – Conditional Wizard Flow
+
+## Objective
+
+Allow wizard fields to appear or be skipped based on answers collected earlier in the same wizard session.
+
+## Completed
+
+- Added the Conditional Wizard specification.
+- Added `FieldVisibilityRule`.
+- Added `visibleWhen` support to `WizardField`.
+- Added `FieldVisibilityEvaluator`.
+- Added visibility-rule validation.
+- Added support for hidden required fields.
+- Added chained field visibility.
+- Updated `WizardRunner` to skip hidden fields.
+- Updated the Project Genesis wizard so database selection is shown only when database support is enabled.
+- Removed the obsolete `None` database option.
+- Added an end-to-end conditional wizard pipeline test.
+
+## Visibility Behavior
+
+- Fields without `visibleWhen` are always visible.
+- Conditional fields are evaluated immediately before prompting.
+- Missing or non-matching dependencies hide the field.
+- Hidden fields do not produce answers.
+- Hidden required fields do not produce validation errors.
+- Visibility rules may reference only earlier fields.
+
+## Status
+
+Complete

@@ -252,3 +252,7 @@ npm run genesis
 - Select prompts
 - Typed prompt routing
 - Typed answer validation
+
+- Conditional field visibility
+- Hidden-field skipping
+- Chained conditional prompts

@@ -194,3 +194,26 @@ Boolean fields display a Yes/No prompt and store:
 ```text
 true
 false
+
+Wizard fields may optionally define a `visibleWhen` rule.
+
+Example:
+
+```json
+{
+  "key": "DATABASE",
+  "label": "Database",
+  "type": "select",
+  "required": true,
+  "visibleWhen": {
+    "variable": "USE_DATABASE",
+    "equals": "true"
+  }
+}
+
+```md
+Wizard fields may define an optional `visibleWhen` rule.
+
+Fields are evaluated in declared order using answers already collected.
+
+Hidden fields are not prompted and produce no `WizardAnswer`.

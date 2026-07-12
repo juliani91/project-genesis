@@ -1,3 +1,4 @@
+import { FieldVisibilityRule } from "./FieldVisibilityRule";
 import { WizardOption } from "./WizardOption";
 
 export interface Wizard {
@@ -40,7 +41,7 @@ export interface WizardField {
     type: WizardFieldType;
 
     /**
-     * Whether the user must provide a value.
+     * Whether the user must provide a value when the field is visible.
      */
     required: boolean;
 
@@ -52,6 +53,13 @@ export interface WizardField {
      * type === "select"
      */
     options?: WizardOption[];
+
+    /**
+     * Optional rule controlling whether this field is shown.
+     *
+     * A field without this property is always visible.
+     */
+    visibleWhen?: FieldVisibilityRule;
 }
 
 export type WizardFieldType =
