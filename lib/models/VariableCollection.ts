@@ -36,4 +36,21 @@ export class VariableCollection {
     );
 
 }
+public setIfMissing(
+    key: string,
+    value: string
+): boolean {
+
+    if (this.variables.has(key)) {
+        return false;
+    }
+
+    this.variables.set(
+        key,
+        value
+    );
+
+    return true;
+
+}
 }

@@ -29,11 +29,6 @@ export class VariableCollectionBuilder {
 
         }
 
-        variables.set(
-            "CREATED_DATE",
-            session.completedAt.toISOString()
-        );
-
         return variables;
 
     }

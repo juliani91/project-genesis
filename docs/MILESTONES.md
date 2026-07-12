@@ -373,3 +373,39 @@ Allow wizard fields to appear or be skipped based on answers collected earlier i
 ## Status
 
 Complete
+
+# Sprint 13 – Computed Variables
+
+## Objective
+
+Allow Project Genesis to derive reusable template variables automatically from wizard answers and runtime context.
+
+## Completed
+
+- Added the Computed Variables specification.
+- Added `ComputedVariable`.
+- Added `VariableCollection.setIfMissing()`.
+- Added `ProjectSlugGenerator`.
+- Added `CurrentDateGenerator`.
+- Added `CurrentYearGenerator`.
+- Added `ComputedVariableService`.
+- Integrated computed variables into `PreparationService`.
+- Removed built-in date creation from `VariableCollectionBuilder`.
+- Updated the Project Genesis README template to use computed values.
+- Added an end-to-end computed-variable pipeline test.
+
+## Built-in Variables
+
+- `PROJECT_SLUG`
+- `CREATED_DATE`
+- `CURRENT_YEAR`
+
+## Collision Behavior
+
+Existing values are preserved.
+
+Computed values are added only when the target variable is missing.
+
+## Status
+
+Complete

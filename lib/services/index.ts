@@ -15,4 +15,8 @@ export * from "./VariableCollectionService";
 export * from "./WizardRunner";
 export * from "./ProjectGenerationService";
 export * from "./FieldVisibilityEvaluator";
+export * from "./ProjectSlugGenerator";
+export * from "./CurrentDateGenerator";
+export * from "./CurrentYearGenerator";
+export * from "./ComputedVariableService";
 

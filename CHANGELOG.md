@@ -169,3 +169,28 @@
 - Unknown visibility references are rejected.
 - Self-referencing visibility rules are rejected.
 - Visibility rules that reference later fields are rejected.
+
+## v0.9.0
+
+### Added
+
+- Computed Variables specification
+- ComputedVariable model
+- `VariableCollection.setIfMissing()`
+- ProjectSlugGenerator
+- CurrentDateGenerator
+- CurrentYearGenerator
+- ComputedVariableService
+- End-to-end computed-variable pipeline test
+
+### Changed
+
+- PreparationService now applies computed variables automatically.
+- VariableCollectionBuilder now copies wizard answers only.
+- The Project Genesis README template now renders project slug and current year.
+- CREATED_DATE now uses `YYYY-MM-DD`.
+
+### Fixed
+
+- Computed variables no longer overwrite existing custom values.
+- Date and year generation now use one consistent UTC timestamp.

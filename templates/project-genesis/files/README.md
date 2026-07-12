@@ -1,19 +1,18 @@
 # {{PROJECT_NAME}}
 
-## Client
+## Project Information
 
-{{CLIENT_NAME}}
+| Property | Value |
+|----------|-------|
+| Project Name | {{PROJECT_NAME}} |
+| Project Slug | {{PROJECT_SLUG}} |
+| Client | {{CLIENT_NAME}} |
+| Created | {{CREATED_DATE}} |
+| Year | {{CURRENT_YEAR}} |
+| Technology Stack | {{TECH_STACK}} |
 
 ## Description
 
 {{PROJECT_DESCRIPTION}}
-
-## Technology Stack
-
-{{TECH_STACK}}
-
-## Created
-
-{{CREATED_DATE}}
 
 This project was initialized using the Project Genesis Architect / Builder workflow.

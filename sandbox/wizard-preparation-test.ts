@@ -15,11 +15,12 @@ async function main(): Promise<void> {
     const templates =
         await discoveryService.discover();
 
-    const template = templates.find(
-        (item) =>
-            item.manifest.id ===
-            "project-genesis"
-    );
+    const template =
+        templates.find(
+            (item) =>
+                item.manifest.id ===
+                "project-genesis"
+        );
 
     if (!template) {
 
@@ -83,13 +84,29 @@ async function main(): Promise<void> {
         result.template.variables;
 
     const projectName =
-        variables.get("PROJECT_NAME");
+        variables.get(
+            "PROJECT_NAME"
+        );
 
     const clientName =
-        variables.get("CLIENT_NAME");
+        variables.get(
+            "CLIENT_NAME"
+        );
+
+    const projectSlug =
+        variables.get(
+            "PROJECT_SLUG"
+        );
 
     const createdDate =
-        variables.get("CREATED_DATE");
+        variables.get(
+            "CREATED_DATE"
+        );
+
+    const currentYear =
+        variables.get(
+            "CURRENT_YEAR"
+        );
 
     console.log(
         "PROJECT_NAME:",
@@ -102,8 +119,18 @@ async function main(): Promise<void> {
     );
 
     console.log(
+        "PROJECT_SLUG:",
+        projectSlug
+    );
+
+    console.log(
         "CREATED_DATE:",
         createdDate
+    );
+
+    console.log(
+        "CURRENT_YEAR:",
+        currentYear
     );
 
     if (
@@ -128,21 +155,51 @@ async function main(): Promise<void> {
 
     }
 
-    if (!createdDate) {
+    if (
+        projectSlug !==
+        "wizard-preparation-test"
+    ) {
 
         throw new Error(
-            "Preparation did not add the built-in CREATED_DATE variable."
+            "Preparation did not compute PROJECT_SLUG correctly."
         );
 
     }
 
-    const parsedCreatedDate =
-        Date.parse(createdDate);
-
-    if (Number.isNaN(parsedCreatedDate)) {
+    if (
+        !createdDate ||
+        !/^\d{4}-\d{2}-\d{2}$/.test(
+            createdDate
+        )
+    ) {
 
         throw new Error(
-            "CREATED_DATE was added, but it is not a valid ISO date."
+            "Preparation did not compute CREATED_DATE correctly."
+        );
+
+    }
+
+    if (
+        !currentYear ||
+        !/^\d{4}$/.test(
+            currentYear
+        )
+    ) {
+
+        throw new Error(
+            "Preparation did not compute CURRENT_YEAR correctly."
+        );
+
+    }
+
+    if (
+        variables.get(
+            "DATABASE"
+        ) !== undefined
+    ) {
+
+        throw new Error(
+            "Preparation included DATABASE even though the field was hidden."
         );
 
     }

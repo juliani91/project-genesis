@@ -77,9 +77,6 @@ function main(): void {
     const useDocker =
         variables.get("USE_DOCKER");
 
-    const createdDate =
-        variables.get("CREATED_DATE");
-
     console.log(
         "PROJECT_NAME:",
         projectName
@@ -88,11 +85,6 @@ function main(): void {
     console.log(
         "USE_DOCKER:",
         useDocker
-    );
-
-    console.log(
-        "CREATED_DATE:",
-        createdDate
     );
 
     if (
@@ -113,25 +105,6 @@ function main(): void {
 
         throw new Error(
             "USE_DOCKER was not added to the variable collection."
-        );
-
-    }
-
-    if (!createdDate) {
-
-        throw new Error(
-            "CREATED_DATE was not added to the variable collection."
-        );
-
-    }
-
-    const parsedCreatedDate =
-        Date.parse(createdDate);
-
-    if (Number.isNaN(parsedCreatedDate)) {
-
-        throw new Error(
-            "CREATED_DATE was added, but it is not a valid ISO date."
         );
 
     }

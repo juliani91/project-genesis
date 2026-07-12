@@ -7,6 +7,7 @@ import {
 } from "../models";
 
 import { TemplateValidator } from "../validators";
+import { ComputedVariableService } from "./ComputedVariableService";
 
 import { TemplatePackageService } from "./TemplatePackageService";
 import { VariableCollectionBuilder } from "./VariableCollectionBuilder";
@@ -79,6 +80,12 @@ export class PreparationService {
                     )
                     : new VariableCollectionService()
                         .collect(enrichedTemplate);
+            const computedVariableService =
+                    new ComputedVariableService();
+
+                computedVariableService.apply(
+                    variables
+                );
 
             return {
                 success: true,
