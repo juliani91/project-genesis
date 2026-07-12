@@ -20,3 +20,4 @@ export * from "./WizardOption";
 export * from "./FieldVisibilityRule";
 export * from "./ComputedVariable";
 export * from "./ResolvedTemplateFile";
+export * from "./TemplateCatalogEntry";

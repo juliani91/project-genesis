@@ -24,4 +24,5 @@ export * from "./TemplateFileInheritanceService";
 export * from "./TemplateFolderInheritanceService";
 export * from "./TemplateWizardInheritanceService";
 export * from "./TemplateInheritanceService";
-
+export * from "./TemplateCatalogService";
+export * from "./TemplateCatalogPresenter";

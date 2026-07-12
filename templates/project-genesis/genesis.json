@@ -1,21 +1,15 @@
 {
   "id": "project-genesis",
-  "name": "Project Genesis Architect / Builder Workflow",
-  "description": "Generates a structured software project using the Architect / Builder methodology.",
+  "extends": null,
+  "name": "Project Genesis",
   "version": "1.0.0",
+  "description": "Reference template for the Project Genesis Architect / Builder workflow.",
   "author": "Project Genesis",
-  "category": "Project Workflow",
-  "genesisVersion": ">=1.0.0",
+  "category": "Project Scaffolding",
   "tags": [
-    "architecture",
-    "planning",
-    "documentation",
-    "workflow"
-  ],
-  "capabilities": [
-    "markdown",
-    "planning",
-    "sprints",
-    "architect-builder"
+    "project-genesis",
+    "typescript",
+    "template",
+    "generator"
   ]
 }

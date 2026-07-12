@@ -2,7 +2,9 @@ import { promises as fs } from "fs";
 import path from "path";
 
 import {
-    GenerationRequest
+    GenerationRequest,
+    TemplateCatalogEntry,
+    WizardOption
 } from "../lib/models";
 
 import {
@@ -11,6 +13,8 @@ import {
 
 import {
     ProjectGenerationService,
+    TemplateCatalogPresenter,
+    TemplateCatalogService,
     TemplateDiscoveryService,
     TemplateInheritanceService,
     WizardRunner
@@ -33,6 +37,30 @@ async function pathExists(
         return false;
 
     }
+
+}
+
+function buildTemplateOptions(
+    catalog:
+        readonly TemplateCatalogEntry[]
+): WizardOption[] {
+
+    return catalog.map(
+        (entry) => {
+
+            return {
+                label:
+                    [
+                        entry.name,
+                        `(${entry.category})`
+                    ].join(" "),
+
+                value:
+                    entry.id
+            };
+
+        }
+    );
 
 }
 
@@ -64,28 +92,73 @@ async function main(): Promise<void> {
         const templates =
             await discoveryService.discover();
 
-        const template =
-            templates.find(
-                (item) =>
-                    item.manifest.id ===
-                    "project-genesis"
-            );
-
-        if (!template) {
+        if (templates.length === 0) {
 
             throw new Error(
-                "Project Genesis template was not found."
+                "No Project Genesis templates were discovered."
             );
 
         }
 
+        const catalogService =
+            new TemplateCatalogService();
+
+        const catalog =
+            catalogService.createCatalog(
+                templates
+            );
+
+        console.log(
+            "Available Templates"
+        );
+
+        console.log("");
+
+        const selectedTemplateId =
+            await promptProvider.select(
+                "Select a template",
+                buildTemplateOptions(
+                    catalog
+                )
+            );
+
+        const selectedEntry =
+            catalog.find(
+                (entry) =>
+                    entry.id ===
+                    selectedTemplateId
+            );
+
+        if (!selectedEntry) {
+
+            throw new Error(
+                [
+                    "The selected template could not be found:",
+                    selectedTemplateId
+                ].join(" ")
+            );
+
+        }
+
+        const template =
+            selectedEntry.template;
+
+        console.log("");
+
+        const catalogPresenter =
+            new TemplateCatalogPresenter();
+
+        console.log(
+            catalogPresenter.formatPreview(
+                selectedEntry
+            )
+        );
+
+        console.log("");
+
         const inheritanceService =
             new TemplateInheritanceService();
 
-        /*
-         * Resolve inheritance before collecting answers
-         * so inherited wizard steps are included.
-         */
         const resolvedTemplate =
             await inheritanceService.resolve(
                 template,
@@ -152,11 +225,6 @@ async function main(): Promise<void> {
         const request:
             GenerationRequest = {
 
-            /*
-             * Pass the original discovered template.
-             * PreparationService performs authoritative
-             * inheritance and descriptor resolution.
-             */
             template,
 
             answers,
@@ -184,6 +252,10 @@ async function main(): Promise<void> {
             "Generation completed successfully."
         );
         console.log("");
+
+        console.log(
+            `Template      : ${selectedEntry.name}`
+        );
 
         console.log(
             `Output Folder : ${plan.outputPath}`

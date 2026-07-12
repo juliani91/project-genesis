@@ -227,3 +227,37 @@
 - Circular inheritance chains no longer risk infinite resolution.
 - Duplicate template IDs are rejected before parent lookup.
 - Inherited files are no longer incorrectly loaded from the child template directory.
+
+## v0.11.0
+
+### Added
+
+- Template Catalog specification
+- Optional template category metadata
+- Optional template tag metadata
+- TemplateCatalogEntry model
+- TemplateCatalogService
+- Default catalog sorting
+- Category filtering
+- Tag filtering
+- Author filtering
+- Case-insensitive multi-term search
+- TemplateCatalogPresenter
+- Interactive CLI template picker
+- Template preview
+- Real catalog integration test
+- Automated catalog-driven CLI acceptance test
+
+### Changed
+
+- The CLI no longer hardcodes the `project-genesis` template ID.
+- Templates are now selected from the discovered catalog.
+- The CLI displays template details before starting the wizard.
+- The final generation summary includes the selected template name.
+
+### Fixed
+
+- Blank categories are normalized to `Uncategorized`.
+- Blank and missing tags are removed from catalog entries.
+- Blank search and filter values return the complete catalog.
+- Catalog operations do not mutate the original entry collection.

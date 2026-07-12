@@ -14,7 +14,7 @@ export interface TemplateManifest {
      * Example:
      * "base-web"
      */
-    extends?: string;
+    extends?: string | null;
 
     /**
      * Human-readable template name.
@@ -35,5 +35,25 @@ export interface TemplateManifest {
      * Template author.
      */
     author: string;
+
+    /**
+     * Optional catalog category.
+     *
+     * Examples:
+     * "Web"
+     * "Python"
+     * "Game Development"
+     */
+    category?: string;
+
+    /**
+     * Optional searchable catalog tags.
+     *
+     * Examples:
+     * "typescript"
+     * "nextjs"
+     * "api"
+     */
+    tags?: string[];
 
 }

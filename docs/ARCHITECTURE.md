@@ -260,3 +260,44 @@ It coordinates:
 `ResolvedTemplateFile` connects a file descriptor to the template path that owns its source file.
 
 This allows inherited files to be rendered from the correct parent template directory.
+
+```text
+TemplateDiscoveryService
+        ↓
+TemplateCatalogService
+        ↓
+TemplateCatalogEntry[]
+        ↓
+TemplateCatalogPresenter
+        ↓
+CLI Template Selection
+        ↓
+TemplateInheritanceService
+        ↓
+PreparationService
+
+## TemplateCatalogService
+
+`TemplateCatalogService` converts discovered templates into normalized catalog entries.
+
+It provides:
+
+- Default sorting
+- Category filtering
+- Tag filtering
+- Author filtering
+- Search by name, description, and tags
+
+## TemplateCatalogPresenter
+
+`TemplateCatalogPresenter` formats a catalog entry for user-facing preview.
+
+It displays:
+
+- Name
+- Description
+- Category
+- Version
+- Author
+- Tags
+- Parent template

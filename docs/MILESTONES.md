@@ -456,3 +456,49 @@ Allow templates to inherit common manifests, wizard steps, folders, files, and g
 ## Status
 
 Complete
+
+# Sprint 15 – Template Catalog
+
+## Objective
+
+Create a discoverable catalog of templates and replace the CLI's hardcoded template selection with an interactive picker.
+
+## Completed
+
+- Added the Template Catalog specification.
+- Added optional template category metadata.
+- Added optional template tag metadata.
+- Added `TemplateCatalogEntry`.
+- Added `TemplateCatalogService`.
+- Added catalog metadata normalization.
+- Added default sorting by category and name.
+- Added category filtering.
+- Added tag filtering.
+- Added author filtering.
+- Added case-insensitive multi-term search.
+- Added `TemplateCatalogPresenter`.
+- Added an interactive CLI template picker.
+- Added a template preview before wizard execution.
+- Added real repository catalog integration tests.
+- Added an automated catalog-driven CLI acceptance test.
+
+## Default Sorting
+
+1. Category
+2. Template name
+
+## Search Fields
+
+- Name
+- Description
+- Tags
+
+## Filters
+
+- Category
+- Tag
+- Author
+
+## Status
+
+Complete
