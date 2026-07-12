@@ -112,18 +112,66 @@ export class TemplateInheritanceService {
 
     }
 
-    private async enrichTemplate(
-        template: TemplatePackage
-    ): Promise<TemplatePackage> {
+private async enrichTemplate(
+    template: TemplatePackage
+): Promise<TemplatePackage> {
 
-        const packageService =
-            new TemplatePackageService();
+    const descriptors =
+        template.descriptors;
 
-        let enriched =
+    /*
+     * Use property-presence checks instead of checking
+     * whether the values are undefined.
+     *
+     * A descriptor property may intentionally exist with
+     * an undefined value, such as a feature template that
+     * does not define a wizard.
+     */
+    const hasWizardDescriptor =
+        Object.prototype.hasOwnProperty.call(
+            descriptors,
+            "wizard"
+        );
+
+    const hasFolderDescriptors =
+        Object.prototype.hasOwnProperty.call(
+            descriptors,
+            "folders"
+        );
+
+    const hasFileDescriptors =
+        Object.prototype.hasOwnProperty.call(
+            descriptors,
+            "files"
+        );
+
+    if (
+        hasWizardDescriptor &&
+        hasFolderDescriptors &&
+        hasFileDescriptors
+    ) {
+
+        return template;
+
+    }
+
+    const packageService =
+        new TemplatePackageService();
+
+    let enriched =
+        template;
+
+    if (!hasWizardDescriptor) {
+
+        enriched =
             await packageService
                 .enrichWithWizard(
-                    template
+                    enriched
                 );
+
+    }
+
+    if (!hasFolderDescriptors) {
 
         enriched =
             await packageService
@@ -131,15 +179,21 @@ export class TemplateInheritanceService {
                     enriched
                 );
 
+    }
+
+    if (!hasFileDescriptors) {
+
         enriched =
             await packageService
                 .enrichWithFiles(
                     enriched
                 );
 
-        return enriched;
-
     }
+
+    return enriched;
+
+}
 
     private resolveFiles(
         chain: readonly TemplatePackage[]

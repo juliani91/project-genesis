@@ -8,17 +8,24 @@ import {
 } from "../lib/models";
 
 import {
-    ConsolePromptProvider
+    ConsolePromptProvider,
+    PromptProvider
 } from "../lib/prompts";
 
 import {
     ProjectGenerationService,
     TemplateCatalogPresenter,
     TemplateCatalogService,
+    TemplateCompositionPlanner,
+    TemplateCompositionPresenter,
+    TemplateCompositionSelectionService,
+    TemplateCompositionService,
     TemplateDiscoveryService,
-    TemplateInheritanceService,
     WizardRunner
 } from "../lib/services";
+
+const DONE_FEATURE_VALUE =
+    "__done__";
 
 async function pathExists(
     targetPath: string
@@ -41,26 +48,115 @@ async function pathExists(
 }
 
 function buildTemplateOptions(
-    catalog:
+    entries:
         readonly TemplateCatalogEntry[]
 ): WizardOption[] {
 
-    return catalog.map(
-        (entry) => {
+    return entries.map(
+        (entry) => ({
+            label: [
+                entry.name,
+                `(${entry.category})`
+            ].join(" "),
 
-            return {
-                label:
-                    [
-                        entry.name,
-                        `(${entry.category})`
-                    ].join(" "),
-
-                value:
-                    entry.id
-            };
-
-        }
+            value:
+                entry.id
+        })
     );
+
+}
+
+async function selectFeatureTemplateIds(
+    featureEntries:
+        readonly TemplateCatalogEntry[],
+
+    promptProvider:
+        PromptProvider
+): Promise<string[]> {
+
+    if (
+        featureEntries.length === 0
+    ) {
+
+        console.log(
+            "No optional feature templates are available."
+        );
+
+        console.log("");
+
+        return [];
+
+    }
+
+    const selectedIds:
+        string[] = [];
+
+    while (true) {
+
+        const remainingEntries =
+            featureEntries.filter(
+                (entry) =>
+                    !selectedIds.includes(
+                        entry.id
+                    )
+            );
+
+        if (
+            remainingEntries.length === 0
+        ) {
+            break;
+        }
+
+        const options:
+            WizardOption[] = [
+            ...buildTemplateOptions(
+                remainingEntries
+            ),
+            {
+                label: "Done",
+                value:
+                    DONE_FEATURE_VALUE
+            }
+        ];
+
+        const selectedId =
+            await promptProvider.select(
+                "Select an optional feature",
+                options
+            );
+
+        if (
+            selectedId ===
+            DONE_FEATURE_VALUE
+        ) {
+            break;
+        }
+
+        selectedIds.push(
+            selectedId
+        );
+
+        const selectedEntry =
+            remainingEntries.find(
+                (entry) =>
+                    entry.id ===
+                    selectedId
+            );
+
+        console.log("");
+
+        console.log(
+            `Added feature: ${
+                selectedEntry?.name ??
+                selectedId
+            }`
+        );
+
+        console.log("");
+
+    }
+
+    return selectedIds;
 
 }
 
@@ -92,7 +188,9 @@ async function main(): Promise<void> {
         const templates =
             await discoveryService.discover();
 
-        if (templates.length === 0) {
+        if (
+            templates.length === 0
+        ) {
 
             throw new Error(
                 "No Project Genesis templates were discovered."
@@ -108,72 +206,127 @@ async function main(): Promise<void> {
                 templates
             );
 
+        const selectionService =
+            new TemplateCompositionSelectionService();
+
+        const baseEntries =
+            selectionService.getBaseTemplates(
+                catalog
+            );
+
+        const featureEntries =
+            selectionService.getFeatureTemplates(
+                catalog
+            );
+
+        if (
+            baseEntries.length === 0
+        ) {
+
+            throw new Error(
+                "No base templates were discovered."
+            );
+
+        }
+
         console.log(
-            "Available Templates"
+            "Available Base Templates"
         );
 
         console.log("");
 
-        const selectedTemplateId =
+        const selectedBaseId =
             await promptProvider.select(
-                "Select a template",
+                "Select a base template",
                 buildTemplateOptions(
-                    catalog
+                    baseEntries
                 )
             );
 
-        const selectedEntry =
-            catalog.find(
+        const selectedBaseEntry =
+            baseEntries.find(
                 (entry) =>
                     entry.id ===
-                    selectedTemplateId
+                    selectedBaseId
             );
 
-        if (!selectedEntry) {
+        if (!selectedBaseEntry) {
 
             throw new Error(
                 [
-                    "The selected template could not be found:",
-                    selectedTemplateId
+                    "The selected base template could not be found:",
+                    selectedBaseId
                 ].join(" ")
             );
 
         }
 
-        const template =
-            selectedEntry.template;
-
-        console.log("");
-
         const catalogPresenter =
             new TemplateCatalogPresenter();
 
+        console.log("");
+
         console.log(
             catalogPresenter.formatPreview(
-                selectedEntry
+                selectedBaseEntry
             )
         );
 
         console.log("");
 
-        const inheritanceService =
-            new TemplateInheritanceService();
+        const selectedFeatureIds =
+            await selectFeatureTemplateIds(
+                featureEntries,
+                promptProvider
+            );
 
-        const resolvedTemplate =
-            await inheritanceService.resolve(
-                template,
+        const compositionRequest =
+            selectionService.createRequest(
+                selectedBaseId,
+                selectedFeatureIds,
+                templates
+            );
+
+        const planner =
+            new TemplateCompositionPlanner();
+
+        const compositionPlan =
+            planner.createPlan(
+                compositionRequest,
+                templates
+            );
+
+        const compositionPresenter =
+            new TemplateCompositionPresenter();
+
+        console.log("");
+
+        console.log(
+            compositionPresenter.format(
+                compositionPlan
+            )
+        );
+
+        console.log("");
+
+        const compositionService =
+            new TemplateCompositionService();
+
+        const composedTemplate =
+            await compositionService.compose(
+                compositionPlan,
                 templates
             );
 
         const wizard =
-            resolvedTemplate
+            composedTemplate
                 .descriptors
                 .wizard;
 
         if (!wizard) {
 
             throw new Error(
-                "The selected template does not contain a wizard."
+                "The composed template does not contain a wizard."
             );
 
         }
@@ -225,7 +378,13 @@ async function main(): Promise<void> {
         const request:
             GenerationRequest = {
 
-            template,
+            /*
+             * The composed package already contains the
+             * merged wizard, folders, files, and source
+             * ownership information.
+             */
+            template:
+                composedTemplate,
 
             answers,
 
@@ -238,14 +397,13 @@ async function main(): Promise<void> {
         );
         console.log("");
 
-        const projectGenerationService =
+        const generationService =
             new ProjectGenerationService();
 
-        const plan =
-            await projectGenerationService
-                .generate(
-                    request
-                );
+        const generationPlan =
+            await generationService.generate(
+                request
+            );
 
         console.log("");
         console.log(
@@ -254,19 +412,23 @@ async function main(): Promise<void> {
         console.log("");
 
         console.log(
-            `Template      : ${selectedEntry.name}`
+            `Base Template : ${compositionPlan.baseTemplate.manifest.name}`
         );
 
         console.log(
-            `Output Folder : ${plan.outputPath}`
+            `Features      : ${compositionPlan.featureTemplates.length}`
         );
 
         console.log(
-            `Folders       : ${plan.folders.length}`
+            `Output Folder : ${generationPlan.outputPath}`
         );
 
         console.log(
-            `Files         : ${plan.files.length}`
+            `Folders       : ${generationPlan.folders.length}`
+        );
+
+        console.log(
+            `Files         : ${generationPlan.files.length}`
         );
 
         console.log("");

@@ -26,3 +26,8 @@ export * from "./TemplateWizardInheritanceService";
 export * from "./TemplateInheritanceService";
 export * from "./TemplateCatalogService";
 export * from "./TemplateCatalogPresenter";
+export * from "./TemplateCompositionPlanner";
+export * from "./TemplateDependencyResolver";
+export * from "./TemplateCompositionService";
+export * from "./TemplateCompositionSelectionService";
+export * from "./TemplateCompositionPresenter";

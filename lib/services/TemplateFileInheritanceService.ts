@@ -19,9 +19,11 @@ export class TemplateFileInheritanceService {
     }
 
     /**
-     * Resolves a template chain ordered from:
+     * Resolves templates ordered from root parent
+     * through the final child.
      *
-     * root parent → final child
+     * Existing resolvedFiles are preserved so composed
+     * templates retain the source owner of each file.
      */
     public resolveChain(
         templates: readonly TemplatePackage[]
@@ -36,19 +38,17 @@ export class TemplateFileInheritanceService {
         for (const template of templates) {
 
             const files =
-                template.descriptors.files ?? [];
+                this.getTemplateFiles(
+                    template
+                );
 
-            for (const descriptor of files) {
+            for (const file of files) {
 
                 resolved.set(
                     this.getIdentity(
-                        descriptor
+                        file.descriptor
                     ),
-                    {
-                        descriptor,
-                        templatePath:
-                            template.path
-                    }
+                    file
                 );
 
             }
@@ -58,6 +58,38 @@ export class TemplateFileInheritanceService {
         return [
             ...resolved.values()
         ];
+
+    }
+
+    private getTemplateFiles(
+        template: TemplatePackage
+    ): readonly ResolvedTemplateFile[] {
+
+        const inheritedFiles =
+            template
+                .descriptors
+                .resolvedFiles;
+
+        if (
+            inheritedFiles !==
+            undefined
+        ) {
+
+            return inheritedFiles;
+
+        }
+
+        return (
+            template.descriptors.files ??
+            []
+        ).map(
+            (descriptor) => ({
+                descriptor,
+
+                templatePath:
+                    template.path
+            })
+        );
 
     }
 

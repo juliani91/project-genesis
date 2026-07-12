@@ -301,3 +301,29 @@ It displays:
 - Author
 - Tags
 - Parent template
+
+Template Discovery
+        │
+        ▼
+Template Catalog
+        │
+        ▼
+Template Selection
+        │
+        ▼
+Composition Planner
+        │
+        ▼
+Dependency Resolver
+        │
+        ▼
+Composition Service
+        │
+        ▼
+Preparation Service
+        │
+        ▼
+Generation Planner
+        │
+        ▼
+Renderer

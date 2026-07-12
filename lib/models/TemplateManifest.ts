@@ -1,18 +1,14 @@
+import { TemplateRole } from "./TemplateRole";
+
 export interface TemplateManifest {
 
     /**
      * Unique template identifier.
-     *
-     * Example:
-     * "project-genesis"
      */
     id: string;
 
     /**
      * Optional parent template identifier.
-     *
-     * Example:
-     * "base-web"
      */
     extends?: string | null;
 
@@ -38,22 +34,26 @@ export interface TemplateManifest {
 
     /**
      * Optional catalog category.
-     *
-     * Examples:
-     * "Web"
-     * "Python"
-     * "Game Development"
      */
     category?: string;
 
     /**
      * Optional searchable catalog tags.
-     *
-     * Examples:
-     * "typescript"
-     * "nextjs"
-     * "api"
      */
     tags?: string[];
+
+    /**
+     * Composition role.
+     *
+     * Missing values default to "base".
+     */
+    role?: TemplateRole;
+
+    /**
+     * Template IDs required by this template during composition.
+     *
+     * Version 1 supports feature-template dependencies.
+     */
+    requires?: string[];
 
 }

@@ -502,3 +502,26 @@ Create a discoverable catalog of templates and replace the CLI's hardcoded templ
 ## Status
 
 Complete
+
+# Sprint 16 – Template Composition
+
+## Objective
+
+Allow a generated project to be composed from one base template and zero or more feature templates.
+
+## Completed
+
+- Added template roles
+- Added template composition models
+- Added composition planner
+- Added feature dependency resolution
+- Added dependency cycle detection
+- Added composition merge service
+- Added composition selection service
+- Added composition presenter
+- Added CLI composition flow
+- Added end-to-end composition pipeline test
+
+## Status
+
+Complete

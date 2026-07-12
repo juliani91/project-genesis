@@ -21,3 +21,6 @@ export * from "./FieldVisibilityRule";
 export * from "./ComputedVariable";
 export * from "./ResolvedTemplateFile";
 export * from "./TemplateCatalogEntry";
+export * from "./TemplateRole";
+export * from "./TemplateCompositionPlan";
+export * from "./TemplateCompositionRequest";

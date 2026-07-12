@@ -261,3 +261,32 @@
 - Blank and missing tags are removed from catalog entries.
 - Blank search and filter values return the complete catalog.
 - Catalog operations do not mutate the original entry collection.
+
+## v0.12.0
+
+### Added
+
+- Template composition specification
+- Template roles
+- Template composition request model
+- Template composition plan model
+- Composition planner
+- Feature dependency resolution
+- Dependency cycle detection
+- Composition merge service
+- Composition selection service
+- Composition presenter
+- CLI support for composed projects
+- End-to-end composition pipeline test
+
+### Changed
+
+- The CLI now supports one base template plus optional feature templates.
+- Template inheritance now preserves existing resolved file ownership.
+- Inheritance services recognize already-enriched descriptor collections without reloading them from disk.
+
+### Fixed
+
+- Preserved source ownership during composed template generation.
+- Prevented descriptor reloading for intentionally empty descriptor collections.
+- Correctly retained feature file ownership after composition.
