@@ -1,19 +1,39 @@
 export interface TemplateManifest {
+
+    /**
+     * Unique template identifier.
+     *
+     * Example:
+     * "project-genesis"
+     */
     id: string;
 
+    /**
+     * Optional parent template identifier.
+     *
+     * Example:
+     * "base-web"
+     */
+    extends?: string;
+
+    /**
+     * Human-readable template name.
+     */
     name: string;
 
-    description: string;
-
+    /**
+     * Template version.
+     */
     version: string;
 
+    /**
+     * Template description.
+     */
+    description: string;
+
+    /**
+     * Template author.
+     */
     author: string;
 
-    category: string;
-
-    genesisVersion: string;
-
-    tags: string[];
-
-    capabilities: string[];
 }

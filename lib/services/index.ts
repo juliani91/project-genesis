@@ -19,4 +19,9 @@ export * from "./ProjectSlugGenerator";
 export * from "./CurrentDateGenerator";
 export * from "./CurrentYearGenerator";
 export * from "./ComputedVariableService";
+export * from "./ParentTemplateResolver";
+export * from "./TemplateFileInheritanceService";
+export * from "./TemplateFolderInheritanceService";
+export * from "./TemplateWizardInheritanceService";
+export * from "./TemplateInheritanceService";
 

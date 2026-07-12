@@ -224,3 +224,39 @@ The current architecture establishes the foundation for:
 - Additional descriptor types
 
 The architecture is intended to evolve while preserving the separation of responsibilities established by the layered design.
+
+```text
+TemplateDiscoveryService
+        ↓
+ParentTemplateResolver
+        ↓
+TemplateInheritanceService
+        ↓
+Resolved TemplatePackage
+        ↓
+PreparationService
+        ↓
+GenerationPlanner
+        ↓
+GenerationService
+
+## ParentTemplateResolver
+
+`ParentTemplateResolver` locates parent templates, resolves inheritance chains, rejects missing parents, detects circular references, and validates template ID uniqueness.
+
+## TemplateInheritanceService
+
+`TemplateInheritanceService` loads and merges descriptors from the root parent through the final child.
+
+It coordinates:
+
+- File inheritance
+- Folder inheritance
+- Wizard inheritance
+- Source-file ownership
+
+## ResolvedTemplateFile
+
+`ResolvedTemplateFile` connects a file descriptor to the template path that owns its source file.
+
+This allows inherited files to be rendered from the correct parent template directory.

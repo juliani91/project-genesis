@@ -409,3 +409,50 @@ Computed values are added only when the target variable is missing.
 ## Status
 
 Complete
+
+# Sprint 14 – Template Inheritance
+
+## Objective
+
+Allow templates to inherit common manifests, wizard steps, folders, files, and generation rules from a parent template.
+
+## Completed
+
+- Added the Template Inheritance specification.
+- Added optional `extends` support to `TemplateManifest`.
+- Added `ParentTemplateResolver`.
+- Added inheritance-chain resolution.
+- Added missing-parent detection.
+- Added circular inheritance detection.
+- Added duplicate template ID detection.
+- Added `ResolvedTemplateFile`.
+- Added file inheritance with source ownership.
+- Added folder and rule inheritance.
+- Added wizard-step inheritance.
+- Added `TemplateInheritanceService`.
+- Integrated inheritance into `PreparationService`.
+- Integrated inherited wizard resolution into the CLI.
+- Updated `GenerationPlanner` to read inherited files from their owning template paths.
+- Added focused and integration inheritance tests.
+
+## Resolution Rules
+
+- Version 1 supports one parent per template.
+- Parent descriptors are resolved first.
+- Child descriptors override matching parent descriptors.
+- Files are matched by destination.
+- Folders are matched by path.
+- Wizard steps are matched by step ID.
+- Child manifests remain authoritative.
+- Inherited file source ownership is preserved.
+
+## Validation
+
+- Missing parents are rejected.
+- Circular inheritance chains are rejected.
+- Self-referencing templates are rejected.
+- Duplicate template IDs are rejected.
+
+## Status
+
+Complete

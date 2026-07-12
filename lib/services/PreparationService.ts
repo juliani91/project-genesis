@@ -6,13 +6,33 @@ import {
     WizardAnswer
 } from "../models";
 
-import { TemplateValidator } from "../validators";
-import { ComputedVariableService } from "./ComputedVariableService";
+import {
+    TemplateValidator
+} from "../validators";
 
-import { TemplatePackageService } from "./TemplatePackageService";
-import { VariableCollectionBuilder } from "./VariableCollectionBuilder";
-import { VariableCollectionService } from "./VariableCollectionService";
-import { WizardRuntime } from "./WizardRuntime";
+import {
+    ComputedVariableService
+} from "./ComputedVariableService";
+
+import {
+    TemplateDiscoveryService
+} from "./TemplateDiscoveryService";
+
+import {
+    TemplateInheritanceService
+} from "./TemplateInheritanceService";
+
+import {
+    VariableCollectionBuilder
+} from "./VariableCollectionBuilder";
+
+import {
+    VariableCollectionService
+} from "./VariableCollectionService";
+
+import {
+    WizardRuntime
+} from "./WizardRuntime";
 
 export class PreparationService {
 
@@ -23,22 +43,19 @@ export class PreparationService {
 
         try {
 
-            const templatePackageService =
-                new TemplatePackageService();
+            const discoveryService =
+                new TemplateDiscoveryService();
 
-            let enrichedTemplate =
-                await templatePackageService.enrichWithWizard(
-                    template
-                );
+            const templates =
+                await discoveryService.discover();
 
-            enrichedTemplate =
-                await templatePackageService.enrichWithFolders(
-                    enrichedTemplate
-                );
+            const inheritanceService =
+                new TemplateInheritanceService();
 
-            enrichedTemplate =
-                await templatePackageService.enrichWithFiles(
-                    enrichedTemplate
+            const enrichedTemplate =
+                await inheritanceService.resolve(
+                    template,
+                    templates
                 );
 
             const validator =
@@ -49,7 +66,9 @@ export class PreparationService {
                     enrichedTemplate
                 );
 
-            if (validationErrors.length > 0) {
+            if (
+                validationErrors.length > 0
+            ) {
 
                 return {
                     success: false,
@@ -59,12 +78,15 @@ export class PreparationService {
             }
 
             const wizard =
-                enrichedTemplate.descriptors.wizard;
+                enrichedTemplate
+                    .descriptors
+                    .wizard;
 
             if (!wizard) {
 
                 return {
                     success: false,
+
                     errors: [
                         "Wizard descriptor has not been loaded."
                     ]
@@ -79,21 +101,28 @@ export class PreparationService {
                         answers
                     )
                     : new VariableCollectionService()
-                        .collect(enrichedTemplate);
-            const computedVariableService =
-                    new ComputedVariableService();
+                        .collect(
+                            enrichedTemplate
+                        );
 
-                computedVariableService.apply(
-                    variables
-                );
+            const computedVariableService =
+                new ComputedVariableService();
+
+            computedVariableService.apply(
+                variables
+            );
 
             return {
                 success: true,
 
                 template: {
-                    template: enrichedTemplate,
+                    template:
+                        enrichedTemplate,
+
                     variables,
-                    preparedAt: new Date()
+
+                    preparedAt:
+                        new Date()
                 },
 
                 errors: []
@@ -114,25 +143,28 @@ export class PreparationService {
         }
 
     }
-private buildVariablesFromAnswers(
-    wizard: Wizard,
-    answers: readonly WizardAnswer[]
-): VariableCollection {
 
-    const runtime =
-        new WizardRuntime();
+    private buildVariablesFromAnswers(
+        wizard: Wizard,
+        answers: readonly WizardAnswer[]
+    ): VariableCollection {
 
-    const session =
-        runtime.execute(
-            wizard,
-            answers
+        const runtime =
+            new WizardRuntime();
+
+        const session =
+            runtime.execute(
+                wizard,
+                answers
+            );
+
+        const builder =
+            new VariableCollectionBuilder();
+
+        return builder.build(
+            session
         );
 
-    const builder =
-        new VariableCollectionBuilder();
-
-    return builder.build(session);
-
-}
+    }
 
 }

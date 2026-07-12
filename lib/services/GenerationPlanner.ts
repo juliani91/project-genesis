@@ -5,11 +5,17 @@ import {
     GeneratedFolder,
     GenerationPlan,
     GenerationRule,
-    PreparedTemplate
+    PreparedTemplate,
+    ResolvedTemplateFile
 } from "../models";
 
-import { ConditionEvaluator } from "./ConditionEvaluator";
-import { TemplateRenderer } from "./TemplateRenderer";
+import {
+    ConditionEvaluator
+} from "./ConditionEvaluator";
+
+import {
+    TemplateRenderer
+} from "./TemplateRenderer";
 
 export class GenerationPlanner {
 
@@ -51,25 +57,28 @@ export class GenerationPlanner {
                 .folders ?? [];
 
         return folderDescriptors
-            .filter((descriptor) =>
-                this.shouldInclude(
-                    descriptor.rules,
-                    preparedTemplate
-                )
+            .filter(
+                (descriptor) =>
+                    this.shouldInclude(
+                        descriptor.rules,
+                        preparedTemplate
+                    )
             )
-            .map((descriptor) => {
+            .map(
+                (descriptor) => {
 
-                return {
-                    path: path.join(
-                        outputPath,
-                        descriptor.path
-                    ),
+                    return {
+                        path: path.join(
+                            outputPath,
+                            descriptor.path
+                        ),
 
-                    relativePath:
-                        descriptor.path
-                };
+                        relativePath:
+                            descriptor.path
+                    };
 
-            });
+                }
+            );
 
     }
 
@@ -81,15 +90,21 @@ export class GenerationPlanner {
         const template =
             preparedTemplate.template;
 
-        const fileDescriptors =
-            template.descriptors.files ?? [];
+        const resolvedFiles =
+            this.getResolvedFiles(
+                template
+            );
 
         const renderer =
             new TemplateRenderer();
 
-        const files: GeneratedFile[] = [];
+        const files:
+            GeneratedFile[] = [];
 
-        for (const descriptor of fileDescriptors) {
+        for (const resolvedFile of resolvedFiles) {
+
+            const descriptor =
+                resolvedFile.descriptor;
 
             if (
                 !this.shouldInclude(
@@ -100,16 +115,18 @@ export class GenerationPlanner {
                 continue;
             }
 
-            const sourcePath = path.join(
-                template.path,
-                "files",
-                descriptor.source
-            );
+            const sourcePath =
+                path.join(
+                    resolvedFile.templatePath,
+                    "files",
+                    descriptor.source
+                );
 
-            const destinationPath = path.join(
-                outputPath,
-                descriptor.destination
-            );
+            const destinationPath =
+                path.join(
+                    outputPath,
+                    descriptor.destination
+                );
 
             const renderedContent =
                 await renderer.render(
@@ -135,23 +152,70 @@ export class GenerationPlanner {
 
     }
 
+    private getResolvedFiles(
+        template: PreparedTemplate["template"]
+    ): readonly ResolvedTemplateFile[] {
+
+        const inheritedFiles =
+            template
+                .descriptors
+                .resolvedFiles;
+
+        if (
+            inheritedFiles &&
+            inheritedFiles.length > 0
+        ) {
+
+            return inheritedFiles;
+
+        }
+
+        /*
+         * Backward-compatible path for templates that
+         * have not gone through inheritance resolution.
+         */
+        return (
+            template.descriptors.files ??
+            []
+        ).map(
+            (descriptor) => {
+
+                return {
+                    descriptor,
+                    templatePath:
+                        template.path
+                };
+
+            }
+        );
+
+    }
+
     private shouldInclude(
-        rules: readonly GenerationRule[] | undefined,
-        preparedTemplate: PreparedTemplate
+        rules:
+            readonly GenerationRule[] |
+            undefined,
+
+        preparedTemplate:
+            PreparedTemplate
     ): boolean {
 
-        if (!rules || rules.length === 0) {
+        if (
+            !rules ||
+            rules.length === 0
+        ) {
             return true;
         }
 
         const evaluator =
             new ConditionEvaluator();
 
-        return rules.every((rule) =>
-            evaluator.evaluate(
-                rule,
-                preparedTemplate.variables
-            )
+        return rules.every(
+            (rule) =>
+                evaluator.evaluate(
+                    rule,
+                    preparedTemplate.variables
+                )
         );
 
     }

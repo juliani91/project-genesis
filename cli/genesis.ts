@@ -12,7 +12,7 @@ import {
 import {
     ProjectGenerationService,
     TemplateDiscoveryService,
-    TemplatePackageService,
+    TemplateInheritanceService,
     WizardRunner
 } from "../lib/services";
 
@@ -22,7 +22,9 @@ async function pathExists(
 
     try {
 
-        await fs.access(targetPath);
+        await fs.access(
+            targetPath
+        );
 
         return true;
 
@@ -37,10 +39,18 @@ async function pathExists(
 async function main(): Promise<void> {
 
     console.log("");
-    console.log("====================================");
-    console.log("      Project Genesis");
-    console.log("  Template Generation Engine");
-    console.log("====================================");
+    console.log(
+        "===================================="
+    );
+    console.log(
+        "      Project Genesis"
+    );
+    console.log(
+        "  Template Generation Engine"
+    );
+    console.log(
+        "===================================="
+    );
     console.log("");
 
     const promptProvider =
@@ -54,11 +64,12 @@ async function main(): Promise<void> {
         const templates =
             await discoveryService.discover();
 
-        const template = templates.find(
-            (item) =>
-                item.manifest.id ===
-                "project-genesis"
-        );
+        const template =
+            templates.find(
+                (item) =>
+                    item.manifest.id ===
+                    "project-genesis"
+            );
 
         if (!template) {
 
@@ -68,15 +79,21 @@ async function main(): Promise<void> {
 
         }
 
-        const templatePackageService =
-            new TemplatePackageService();
+        const inheritanceService =
+            new TemplateInheritanceService();
 
-        const enrichedTemplate =
-            await templatePackageService
-                .enrichWithWizard(template);
+        /*
+         * Resolve inheritance before collecting answers
+         * so inherited wizard steps are included.
+         */
+        const resolvedTemplate =
+            await inheritanceService.resolve(
+                template,
+                templates
+            );
 
         const wizard =
-            enrichedTemplate
+            resolvedTemplate
                 .descriptors
                 .wizard;
 
@@ -96,9 +113,6 @@ async function main(): Promise<void> {
                 wizard,
                 promptProvider
             );
-        
-            console.log("");
-            console.log("Collected wizard answers:");
 
         console.log("");
 
@@ -116,7 +130,9 @@ async function main(): Promise<void> {
         }
 
         const outputPath =
-            path.resolve(outputResponse);
+            path.resolve(
+                outputResponse
+            );
 
         if (
             await pathExists(
@@ -136,6 +152,11 @@ async function main(): Promise<void> {
         const request:
             GenerationRequest = {
 
+            /*
+             * Pass the original discovered template.
+             * PreparationService performs authoritative
+             * inheritance and descriptor resolution.
+             */
             template,
 
             answers,
@@ -154,12 +175,14 @@ async function main(): Promise<void> {
 
         const plan =
             await projectGenerationService
-                .generate(request);
+                .generate(
+                    request
+                );
 
         console.log("");
-
-        console.log("Generation completed successfully.");
-
+        console.log(
+            "Generation completed successfully."
+        );
         console.log("");
 
         console.log(
@@ -176,18 +199,6 @@ async function main(): Promise<void> {
 
         console.log("");
 
-        console.log(
-            `Output: ${plan.outputPath}`
-        );
-
-        console.log(
-            `Folders generated: ${plan.folders.length}`
-        );
-
-        console.log(
-            `Files generated: ${plan.files.length}`
-        );
-
     } finally {
 
         promptProvider.close();
@@ -196,16 +207,18 @@ async function main(): Promise<void> {
 
 }
 
-main().catch((error: unknown) => {
+main().catch(
+    (error: unknown) => {
 
-    console.error("");
+        console.error("");
 
-    console.error(
-        error instanceof Error
-            ? error.message
-            : "Project generation failed."
-    );
+        console.error(
+            error instanceof Error
+                ? error.message
+                : "Project generation failed."
+        );
 
-    process.exitCode = 1;
+        process.exitCode = 1;
 
-});
+    }
+);

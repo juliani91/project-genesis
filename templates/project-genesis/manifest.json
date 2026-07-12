@@ -1,0 +1,8 @@
+{
+  "id": "project-genesis",
+  "extends": null,
+  "name": "Project Genesis",
+  "version": "1.0.0",
+  "description": "Reference template for the Project Genesis Architect / Builder workflow.",
+  "author": "Project Genesis"
+}

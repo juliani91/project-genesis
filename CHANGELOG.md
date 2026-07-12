@@ -194,3 +194,36 @@
 
 - Computed variables no longer overwrite existing custom values.
 - Date and year generation now use one consistent UTC timestamp.
+
+## v0.10.0
+
+### Added
+
+- Template Inheritance specification
+- Optional `extends` property on template manifests
+- ParentTemplateResolver
+- Inheritance-chain resolution
+- Circular inheritance detection
+- Duplicate template ID detection
+- ResolvedTemplateFile model
+- File inheritance
+- Folder and rule inheritance
+- Wizard-step inheritance
+- TemplateInheritanceService
+- End-to-end inheritance pipeline test
+
+### Changed
+
+- PreparationService now resolves template inheritance before validation.
+- GenerationPlanner now preserves inherited source-file ownership.
+- The CLI now loads the resolved inherited wizard before collecting answers.
+- Child file descriptors override parent files with the same destination.
+- Child folder descriptors override parent folders with the same path.
+- Child wizard steps override parent steps with the same ID.
+
+### Fixed
+
+- Missing parent templates now produce actionable errors.
+- Circular inheritance chains no longer risk infinite resolution.
+- Duplicate template IDs are rejected before parent lookup.
+- Inherited files are no longer incorrectly loaded from the child template directory.
