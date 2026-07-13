@@ -19,5 +19,7 @@
     "cli"
   ],
   "requiresCapabilities": [],
-  "conflictsWith": []
+  "conflictsWith": [],
+  "minGenesisVersion": "0.14.0",
+  "deprecated": false
 }

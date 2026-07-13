@@ -383,3 +383,35 @@ Preparation Service
 Generation Planner
           ▼
 Renderer
+
+Template Discovery
+        │
+Profile Discovery
+        │
+        ▼
+Generation Mode
+   │           │
+   ▼           ▼
+Profile     Manual Selection
+   │           │
+   └──────┬────┘
+          ▼
+Composition Planner
+          ▼
+Capability Validator
+          ▼
+Version Report Service
+          ├───────────────┐
+          │               │
+          ▼               ▼
+Engine Validator   Template Validator
+          │               │
+          └──────┬────────┘
+                 ▼
+      Deprecation Validator
+                 ▼
+        Preparation Service
+                 ▼
+        Generation Planner
+                 ▼
+            Renderer

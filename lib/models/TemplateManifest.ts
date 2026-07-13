@@ -79,4 +79,50 @@ export interface TemplateManifest {
      */
     conflictsWith?: string[];
 
+    /**
+     * Minimum supported Project Genesis engine version.
+     *
+     * Example:
+     * "1.4.0"
+     */
+    minGenesisVersion?: string;
+
+    /**
+     * Maximum supported Project Genesis engine version.
+     *
+     * Example:
+     * "2.0.0"
+     */
+    maxGenesisVersion?: string;
+
+    /**
+     * Version constraints for other templates in the composition.
+     *
+     * Keys are template IDs.
+     * Values are semantic-version constraints.
+     *
+     * Example:
+     *
+     * {
+     *     "nextjs": ">=2.1.0",
+     *     "docker": "^1.5.0"
+     * }
+     */
+    requiresTemplateVersions?: Record<
+        string,
+        string
+    >;
+
+    /**
+     * Whether this template is deprecated.
+     */
+    deprecated?: boolean;
+
+    /**
+     * Optional replacement template ID.
+     *
+     * This is normally used when deprecated is true.
+     */
+    replacementTemplate?: string;
+
 }

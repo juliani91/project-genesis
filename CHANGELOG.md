@@ -346,3 +346,29 @@
 
 - Eliminated duplicated template-selection logic.
 - Preserved backward compatibility with manual generation.
+
+## v0.15.0
+
+### Added
+
+- SemanticVersionService
+- Engine version validator
+- Template version validator
+- Deprecation validator
+- Version report service
+- Version presenter
+- Engine version metadata
+- Template version constraints
+- Deprecation metadata
+- CLI version preview
+- End-to-end version validation tests
+
+### Changed
+
+- Generation now performs version validation after capability validation.
+- Version warnings are displayed without blocking generation.
+- Blocking version errors stop generation before the wizard.
+
+### Fixed
+
+- Prevented incompatible engine/template combinations from reaching generation.

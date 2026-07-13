@@ -31,3 +31,5 @@ export * from "./TemplateProfile";
 export * from "./ResolvedTemplateProfile";
 export * from "./TemplateProfileValidationResult";
 export * from "./TemplateProfileCompositionResult";
+export * from "./VersionIssue";
+export * from "./VersionReport";

@@ -568,3 +568,24 @@ Introduce reusable template profiles that encapsulate complete project stacks wh
 ## Status
 
 Complete
+
+# Sprint 19 – Template Versioning & Constraints
+
+## Objective
+
+Introduce engine-aware and template-aware version validation, including semantic version support, deprecation warnings, and CLI integration.
+
+## Completed
+
+- Added semantic version parsing and comparison
+- Added engine version validator
+- Added template version validator
+- Added deprecation validator
+- Added version report service
+- Added version presenter
+- Integrated version validation into the CLI
+- Added end-to-end version pipeline tests
+
+## Status
+
+Complete

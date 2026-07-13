@@ -29,8 +29,14 @@ import {
     TemplateProfileDiscoveryService,
     TemplateProfilePresenter,
     TemplateProfileSelectionService,
+    TemplateVersionPresenter,
+    TemplateVersionReportService,
     WizardRunner
 } from "../lib/services";
+
+import {
+    ENGINE_VERSION
+} from "../lib/constants";
 
 const DONE_FEATURE_VALUE =
     "__done__";
@@ -528,6 +534,42 @@ async function main(): Promise<void> {
                 [
                     "The selected template composition is incompatible.",
                     "Resolve the compatibility issues shown above and try again."
+                ].join(" ")
+            );
+
+        }
+
+        const versionReportService =
+            new TemplateVersionReportService();
+
+        const versionReport =
+            versionReportService.createReport(
+                compositionPlan,
+                ENGINE_VERSION
+            );
+
+        const versionPresenter =
+            new TemplateVersionPresenter();
+
+        console.log("");
+
+        console.log(
+            versionPresenter.format(
+                ENGINE_VERSION,
+                versionReport
+            )
+        );
+
+        console.log("");
+
+        if (
+            !versionReport.compatible
+        ) {
+
+            throw new Error(
+                [
+                    "The selected template composition is not compatible",
+                    "with the current Project Genesis engine version."
                 ].join(" ")
             );
 
