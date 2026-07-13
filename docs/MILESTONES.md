@@ -546,3 +546,25 @@ Introduce template capabilities and compatibility validation so that incompatibl
 ## Status
 
 Complete
+
+# Sprint 18 – Template Profiles
+
+## Objective
+
+Introduce reusable template profiles that encapsulate complete project stacks while reusing the existing composition and compatibility engine.
+
+## Completed
+
+- Added template profile models
+- Added profile discovery
+- Added profile resolver
+- Added profile validator
+- Added profile composition service
+- Added profile selection service
+- Added profile presenter
+- Integrated profile workflow into the CLI
+- Added end-to-end profile pipeline tests
+
+## Status
+
+Complete

@@ -1,0 +1,8 @@
+{
+  "id": "project-genesis-default",
+  "name": "Project Genesis Default",
+  "description": "Generates a standard Project Genesis project without additional feature templates.",
+  "category": "Project Scaffolding",
+  "baseTemplate": "project-genesis",
+  "featureTemplates": []
+}

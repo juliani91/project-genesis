@@ -27,3 +27,7 @@ export * from "./TemplateCompositionRequest";
 export * from "./TemplateCapability";
 export * from "./CompatibilityIssue";
 export * from "./CompatibilityReport";
+export * from "./TemplateProfile";
+export * from "./ResolvedTemplateProfile";
+export * from "./TemplateProfileValidationResult";
+export * from "./TemplateProfileCompositionResult";

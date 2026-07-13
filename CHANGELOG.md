@@ -317,3 +317,32 @@
 
 - Prevented incompatible template compositions from reaching the merge and generation pipeline.
 - Normalized capability identifiers for matching.
+
+## v0.14.0
+
+### Added
+
+- Template profile model
+- Resolved profile model
+- Profile validation result model
+- Profile composition result model
+- Profile discovery service
+- Profile resolver
+- Profile validator
+- Profile composition service
+- Profile selection service
+- Profile presenter
+- CLI profile generation workflow
+- End-to-end profile pipeline tests
+
+### Changed
+
+- CLI now supports:
+  - Profile-based generation
+  - Manual template composition
+- Both workflows reuse the same composition and compatibility engine.
+
+### Fixed
+
+- Eliminated duplicated template-selection logic.
+- Preserved backward compatibility with manual generation.

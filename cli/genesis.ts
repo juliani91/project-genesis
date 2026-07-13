@@ -4,6 +4,8 @@ import path from "path";
 import {
     GenerationRequest,
     TemplateCatalogEntry,
+    TemplateCompositionPlan,
+    TemplateProfile,
     WizardOption
 } from "../lib/models";
 
@@ -23,11 +25,21 @@ import {
     TemplateCompositionSelectionService,
     TemplateCompositionService,
     TemplateDiscoveryService,
+    TemplateProfileCompositionService,
+    TemplateProfileDiscoveryService,
+    TemplateProfilePresenter,
+    TemplateProfileSelectionService,
     WizardRunner
 } from "../lib/services";
 
 const DONE_FEATURE_VALUE =
     "__done__";
+
+const MODE_PROFILE =
+    "profile";
+
+const MODE_MANUAL =
+    "manual";
 
 async function pathExists(
     targetPath: string
@@ -56,13 +68,34 @@ function buildTemplateOptions(
 
     return entries.map(
         (entry) => ({
-            label: [
-                entry.name,
-                `(${entry.category})`
-            ].join(" "),
+            label:
+                [
+                    entry.name,
+                    `(${entry.category})`
+                ].join(" "),
 
             value:
                 entry.id
+        })
+    );
+
+}
+
+function buildProfileOptions(
+    profiles:
+        readonly TemplateProfile[]
+): WizardOption[] {
+
+    return profiles.map(
+        (profile) => ({
+            label:
+                [
+                    profile.name,
+                    `(${profile.category})`
+                ].join(" "),
+
+            value:
+                profile.id
         })
     );
 
@@ -106,7 +139,9 @@ async function selectFeatureTemplateIds(
         if (
             remainingEntries.length === 0
         ) {
+
             break;
+
         }
 
         const options:
@@ -115,7 +150,9 @@ async function selectFeatureTemplateIds(
                 remainingEntries
             ),
             {
-                label: "Done",
+                label:
+                    "Done",
+
                 value:
                     DONE_FEATURE_VALUE
             }
@@ -131,7 +168,9 @@ async function selectFeatureTemplateIds(
             selectedId ===
             DONE_FEATURE_VALUE
         ) {
+
             break;
+
         }
 
         selectedIds.push(
@@ -165,18 +204,23 @@ async function selectFeatureTemplateIds(
 async function main(): Promise<void> {
 
     console.log("");
+
     console.log(
         "===================================="
     );
+
     console.log(
         "      Project Genesis"
     );
+
     console.log(
         "  Template Generation Engine"
     );
+
     console.log(
         "===================================="
     );
+
     console.log("");
 
     const promptProvider =
@@ -184,6 +228,9 @@ async function main(): Promise<void> {
 
     try {
 
+        /*
+         * Discover available templates.
+         */
         const discoveryService =
             new TemplateDiscoveryService();
 
@@ -200,6 +247,10 @@ async function main(): Promise<void> {
 
         }
 
+        /*
+         * Build the template catalog used by the
+         * manual composition workflow.
+         */
         const catalogService =
             new TemplateCatalogService();
 
@@ -208,96 +259,230 @@ async function main(): Promise<void> {
                 templates
             );
 
-        const selectionService =
-            new TemplateCompositionSelectionService();
+        /*
+         * Discover and sort reusable profiles.
+         */
+        const profileDiscoveryService =
+            new TemplateProfileDiscoveryService();
 
-        const baseEntries =
-            selectionService.getBaseTemplates(
-                catalog
+        const discoveredProfiles =
+            await profileDiscoveryService.discover();
+
+        const profileSelectionService =
+            new TemplateProfileSelectionService();
+
+        const profiles =
+            profileSelectionService.sort(
+                discoveredProfiles
             );
 
-        const featureEntries =
-            selectionService.getFeatureTemplates(
-                catalog
+        /*
+         * Choose between profile-driven generation
+         * and manual template composition.
+         */
+        const modeOptions:
+            WizardOption[] = [
+            {
+                label:
+                    "Use a Profile",
+
+                value:
+                    MODE_PROFILE
+            },
+            {
+                label:
+                    "Build Manually",
+
+                value:
+                    MODE_MANUAL
+            }
+        ];
+
+        const selectedMode =
+            await promptProvider.select(
+                "Choose a generation mode",
+                modeOptions
             );
 
+        let compositionPlan:
+            TemplateCompositionPlan;
+
+        /*
+         * Profile workflow.
+         */
         if (
-            baseEntries.length === 0
+            selectedMode ===
+            MODE_PROFILE
         ) {
 
-            throw new Error(
-                "No base templates were discovered."
+            if (
+                profiles.length === 0
+            ) {
+
+                throw new Error(
+                    "No template profiles were discovered."
+                );
+
+            }
+
+            console.log("");
+
+            console.log(
+                "Available Profiles"
             );
 
-        }
+            console.log("");
 
-        console.log(
-            "Available Base Templates"
-        );
+            const selectedProfileId =
+                await promptProvider.select(
+                    "Select a profile",
+                    buildProfileOptions(
+                        profiles
+                    )
+                );
 
-        console.log("");
+            const selectedProfile =
+                profileSelectionService.findById(
+                    profiles,
+                    selectedProfileId
+                );
 
-        const selectedBaseId =
-            await promptProvider.select(
-                "Select a base template",
-                buildTemplateOptions(
-                    baseEntries
+            const profilePresenter =
+                new TemplateProfilePresenter();
+
+            console.log("");
+
+            console.log(
+                profilePresenter.format(
+                    selectedProfile
                 )
             );
 
-        const selectedBaseEntry =
-            baseEntries.find(
-                (entry) =>
-                    entry.id ===
-                    selectedBaseId
+            console.log("");
+
+            const profileCompositionService =
+                new TemplateProfileCompositionService();
+
+            const profileResult =
+                profileCompositionService.build(
+                    selectedProfile,
+                    templates
+                );
+
+            compositionPlan =
+                profileResult.plan;
+
+        } else if (
+            selectedMode ===
+            MODE_MANUAL
+        ) {
+
+            /*
+             * Manual composition workflow.
+             */
+            const selectionService =
+                new TemplateCompositionSelectionService();
+
+            const baseEntries =
+                selectionService.getBaseTemplates(
+                    catalog
+                );
+
+            const featureEntries =
+                selectionService.getFeatureTemplates(
+                    catalog
+                );
+
+            if (
+                baseEntries.length === 0
+            ) {
+
+                throw new Error(
+                    "No base templates were discovered."
+                );
+
+            }
+
+            console.log("");
+
+            console.log(
+                "Available Base Templates"
             );
 
-        if (!selectedBaseEntry) {
+            console.log("");
+
+            const selectedBaseId =
+                await promptProvider.select(
+                    "Select a base template",
+                    buildTemplateOptions(
+                        baseEntries
+                    )
+                );
+
+            const selectedBaseEntry =
+                baseEntries.find(
+                    (entry) =>
+                        entry.id ===
+                        selectedBaseId
+                );
+
+            if (!selectedBaseEntry) {
+
+                throw new Error(
+                    [
+                        "The selected base template could not be found:",
+                        selectedBaseId
+                    ].join(" ")
+                );
+
+            }
+
+            const catalogPresenter =
+                new TemplateCatalogPresenter();
+
+            console.log("");
+
+            console.log(
+                catalogPresenter.formatPreview(
+                    selectedBaseEntry
+                )
+            );
+
+            console.log("");
+
+            const selectedFeatureIds =
+                await selectFeatureTemplateIds(
+                    featureEntries,
+                    promptProvider
+                );
+
+            const compositionRequest =
+                selectionService.createRequest(
+                    selectedBaseId,
+                    selectedFeatureIds,
+                    templates
+                );
+
+            const planner =
+                new TemplateCompositionPlanner();
+
+            compositionPlan =
+                planner.createPlan(
+                    compositionRequest,
+                    templates
+                );
+
+        } else {
 
             throw new Error(
-                [
-                    "The selected base template could not be found:",
-                    selectedBaseId
-                ].join(" ")
+                `Unknown generation mode: ${selectedMode}`
             );
 
         }
 
-        const catalogPresenter =
-            new TemplateCatalogPresenter();
-
-        console.log("");
-
-        console.log(
-            catalogPresenter.formatPreview(
-                selectedBaseEntry
-            )
-        );
-
-        console.log("");
-
-        const selectedFeatureIds =
-            await selectFeatureTemplateIds(
-                featureEntries,
-                promptProvider
-            );
-
-        const compositionRequest =
-            selectionService.createRequest(
-                selectedBaseId,
-                selectedFeatureIds,
-                templates
-            );
-
-        const planner =
-            new TemplateCompositionPlanner();
-
-        const compositionPlan =
-            planner.createPlan(
-                compositionRequest,
-                templates
-            );
-
+        /*
+         * Show the dependency-aware composition plan.
+         */
         const compositionPresenter =
             new TemplateCompositionPresenter();
 
@@ -311,6 +496,10 @@ async function main(): Promise<void> {
 
         console.log("");
 
+        /*
+         * Validate capabilities before composing or
+         * running any wizard prompts.
+         */
         const compatibilityValidator =
             new TemplateCompatibilityValidator();
 
@@ -344,6 +533,10 @@ async function main(): Promise<void> {
 
         }
 
+        /*
+         * Merge the base template, resolved dependencies,
+         * and selected feature templates.
+         */
         const compositionService =
             new TemplateCompositionService();
 
@@ -366,6 +559,9 @@ async function main(): Promise<void> {
 
         }
 
+        /*
+         * Run the merged wizard.
+         */
         const wizardRunner =
             new WizardRunner();
 
@@ -377,6 +573,9 @@ async function main(): Promise<void> {
 
         console.log("");
 
+        /*
+         * Select the output location.
+         */
         const outputResponse =
             await promptProvider.ask(
                 "Output directory:"
@@ -413,11 +612,6 @@ async function main(): Promise<void> {
         const request:
             GenerationRequest = {
 
-            /*
-             * The composed package already contains the
-             * merged wizard, folders, files, and source
-             * ownership information.
-             */
             template:
                 composedTemplate,
 
@@ -427,9 +621,11 @@ async function main(): Promise<void> {
         };
 
         console.log("");
+
         console.log(
             "Generating project..."
         );
+
         console.log("");
 
         const generationService =
@@ -441,9 +637,11 @@ async function main(): Promise<void> {
             );
 
         console.log("");
+
         console.log(
             "Generation completed successfully."
         );
+
         console.log("");
 
         console.log(

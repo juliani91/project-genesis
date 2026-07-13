@@ -356,3 +356,30 @@ Generation Planner
         │
         ▼
 Renderer
+
+Template Discovery
+        │
+        ▼
+Profile Discovery
+        │
+        ▼
+Generation Mode
+   │           │
+   ▼           ▼
+Profile     Manual Selection
+   │           │
+   └──────┬────┘
+          ▼
+Composition Planner
+          ▼
+Capability Resolver
+          ▼
+Compatibility Validator
+          ▼
+Composition Service
+          ▼
+Preparation Service
+          ▼
+Generation Planner
+          ▼
+Renderer
