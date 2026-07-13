@@ -24,3 +24,6 @@ export * from "./TemplateCatalogEntry";
 export * from "./TemplateRole";
 export * from "./TemplateCompositionPlan";
 export * from "./TemplateCompositionRequest";
+export * from "./TemplateCapability";
+export * from "./CompatibilityIssue";
+export * from "./CompatibilityReport";

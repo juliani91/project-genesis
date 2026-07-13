@@ -56,4 +56,27 @@ export interface TemplateManifest {
      */
     requires?: string[];
 
+    /**
+     * Capability IDs provided by this template.
+     *
+     * Examples:
+     * node
+     * typescript
+     * react
+     */
+    provides?: string[];
+
+    /**
+     * Capability IDs required for this template to work.
+     *
+     * This is separate from `requires`, which contains
+     * required template IDs.
+     */
+    requiresCapabilities?: string[];
+
+    /**
+     * Capability IDs that cannot coexist with this template.
+     */
+    conflictsWith?: string[];
+
 }

@@ -16,6 +16,8 @@ import {
     ProjectGenerationService,
     TemplateCatalogPresenter,
     TemplateCatalogService,
+    TemplateCompatibilityPresenter,
+    TemplateCompatibilityValidator,
     TemplateCompositionPlanner,
     TemplateCompositionPresenter,
     TemplateCompositionSelectionService,
@@ -308,6 +310,39 @@ async function main(): Promise<void> {
         );
 
         console.log("");
+
+        const compatibilityValidator =
+            new TemplateCompatibilityValidator();
+
+        const compatibilityReport =
+            compatibilityValidator.validate(
+                compositionPlan
+            );
+
+        const compatibilityPresenter =
+            new TemplateCompatibilityPresenter();
+
+        console.log(
+            compatibilityPresenter.format(
+                compositionPlan,
+                compatibilityReport
+            )
+        );
+
+        console.log("");
+
+        if (
+            !compatibilityReport.compatible
+        ) {
+
+            throw new Error(
+                [
+                    "The selected template composition is incompatible.",
+                    "Resolve the compatibility issues shown above and try again."
+                ].join(" ")
+            );
+
+        }
 
         const compositionService =
             new TemplateCompositionService();

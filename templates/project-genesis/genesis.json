@@ -12,5 +12,12 @@
     "template",
     "generator"
   ],
-  "role": "base"
+  "role": "base",
+  "provides": [
+    "typescript",
+    "template-generation",
+    "cli"
+  ],
+  "requiresCapabilities": [],
+  "conflictsWith": []
 }

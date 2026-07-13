@@ -525,3 +525,24 @@ Allow a generated project to be composed from one base template and zero or more
 ## Status
 
 Complete
+
+# Sprint 17 – Template Capabilities
+
+## Objective
+
+Introduce template capabilities and compatibility validation so that incompatible template compositions are detected before generation begins.
+
+## Completed
+
+- Added template capability models
+- Extended template manifests with capability metadata
+- Added capability resolver
+- Added compatibility validator
+- Added conflict detection
+- Added compatibility presenter
+- Integrated compatibility validation into the CLI
+- Added end-to-end compatibility pipeline tests
+
+## Status
+
+Complete

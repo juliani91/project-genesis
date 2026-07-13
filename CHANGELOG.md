@@ -290,3 +290,30 @@
 - Preserved source ownership during composed template generation.
 - Prevented descriptor reloading for intentionally empty descriptor collections.
 - Correctly retained feature file ownership after composition.
+
+## v0.13.0
+
+### Added
+
+- Template capability model
+- Compatibility issue model
+- Compatibility report model
+- Capability resolver
+- Compatibility validator
+- Capability conflict detection
+- Compatibility presenter
+- CLI compatibility preview
+- End-to-end compatibility pipeline tests
+
+### Changed
+
+- Template manifests now support:
+  - provides
+  - requiresCapabilities
+  - conflictsWith
+- CLI validates compatibility before composition and generation.
+
+### Fixed
+
+- Prevented incompatible template compositions from reaching the merge and generation pipeline.
+- Normalized capability identifiers for matching.

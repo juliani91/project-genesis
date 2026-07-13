@@ -31,3 +31,6 @@ export * from "./TemplateDependencyResolver";
 export * from "./TemplateCompositionService";
 export * from "./TemplateCompositionSelectionService";
 export * from "./TemplateCompositionPresenter";
+export * from "./TemplateCompatibilityValidator";
+export * from "./TemplateCapabilityResolver";
+export * from "./TemplateCompatibilityPresenter";

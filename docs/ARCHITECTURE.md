@@ -327,3 +327,32 @@ Generation Planner
         │
         ▼
 Renderer
+
+Template Discovery
+        │
+        ▼
+Template Catalog
+        │
+        ▼
+Template Selection
+        │
+        ▼
+Composition Planner
+        │
+        ▼
+Capability Resolver
+        │
+        ▼
+Compatibility Validator
+        │
+        ▼
+Composition Service
+        │
+        ▼
+Preparation Service
+        │
+        ▼
+Generation Planner
+        │
+        ▼
+Renderer
