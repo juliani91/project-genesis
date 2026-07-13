@@ -612,3 +612,27 @@ Introduce registry-aware template discovery while preserving backward compatibil
 ## Status
 
 Complete
+
+# Sprint 21 – Remote Registry Support
+
+## Objective
+
+Introduce remote registry manifest retrieval and local cache fallback while preserving the existing local registry workflow.
+
+## Completed
+
+- Added remote registry specification
+- Added registry cache models
+- Added remote registry response models
+- Extended registry entries with remote package metadata
+- Added registry HTTP client
+- Added remote registry loader
+- Added atomic registry cache writes
+- Added unified local, network, and cache loading
+- Added registry source presentation
+- Added remote registry integration tests
+- Added cached remote registry pipeline tests
+
+## Status
+
+Complete

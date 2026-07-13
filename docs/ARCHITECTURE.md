@@ -450,3 +450,29 @@ Preparation
           │
           ▼
 Generation
+
+Registry Configuration
+          │
+          ▼
+Registry Resolver
+          │
+     ┌────┴────┐
+     ▼         ▼
+   Local     Remote
+     │         │
+     │     HTTP Client
+     │         │
+     │     Cache Service
+     │         │
+     └────┬────┘
+          ▼
+Registry Load Result
+          │
+          ▼
+Registry Preview
+          │
+          ▼
+Template Package Retrieval
+          │
+          ▼
+Existing Generation Pipeline

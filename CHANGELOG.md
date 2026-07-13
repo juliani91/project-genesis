@@ -396,3 +396,31 @@
 ### Fixed
 
 - Discovery is no longer tightly coupled to the local templates directory.
+
+## v0.17.0
+
+### Added
+
+- Remote registry specification
+- Registry cache entry models
+- Remote registry response and load-result models
+- Remote template download metadata
+- Registry HTTP client
+- Remote registry loader
+- Local registry cache service
+- Unified registry load service
+- Network, cache, and local source previews
+- Remote registry integration tests
+- Cached registry pipeline tests
+
+### Changed
+
+- Registry manifests can now be loaded from local storage, a remote HTTP endpoint, or a local cache.
+- Successful remote loads update the registry cache.
+- Failed remote loads fall back to a valid cached manifest.
+
+### Fixed
+
+- Registry cache writes use a temporary file to avoid partial cache corruption.
+- Unsafe registry IDs are rejected before being used as cache filenames.
+- Cached timestamps are restored as JavaScript Date objects.

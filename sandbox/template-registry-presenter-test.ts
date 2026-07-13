@@ -161,7 +161,60 @@ function main(): void {
     console.log(
         "Template registry presenter test completed successfully."
     );
+    
+    const networkPreview =
+    presenter.format(
+        registry,
+        "network"
+    );
 
+    if (
+        !networkPreview.includes(
+            "Source      : Network"
+        )
+    ) {
+
+        throw new Error(
+            "The network source was not displayed."
+        );
+
+    }
+
+    const cachePreview =
+        presenter.format(
+            registry,
+            "cache"
+        );
+
+    if (
+        !cachePreview.includes(
+            "Source      : Cache"
+        )
+    ) {
+
+        throw new Error(
+            "The cache source was not displayed."
+        );
+
+    }
+
+    const localPreview =
+        presenter.format(
+            registry,
+            "local"
+        );
+
+    if (
+        !localPreview.includes(
+            "Source      : Local"
+        )
+    ) {
+
+        throw new Error(
+            "The local source was not displayed."
+        );
+
+    }
 }
 
 main();

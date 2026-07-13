@@ -6,7 +6,12 @@ export class TemplateRegistryPresenter {
 
     public format(
         registry:
-            ResolvedTemplateRegistry
+            ResolvedTemplateRegistry,
+
+        source?:
+            "local" |
+            "network" |
+            "cache"
     ): string {
 
         const lines:
@@ -16,13 +21,27 @@ export class TemplateRegistryPresenter {
                 `Name        : ${registry.name}`,
                 `ID          : ${registry.id}`,
                 `Type        : ${registry.type}`,
-                `Location    : ${registry.resolvedLocation}`,
-                `Description : ${
-                    registry.description ??
-                    "No description provided."
-                }`,
-                `Templates   : ${registry.templates.length}`
-            ];
+                `Location    : ${registry.resolvedLocation}`
+        ];
+
+        if (source) {
+
+            lines.push(
+                `Source      : ${this.formatSource(source)}`
+            );
+
+        }
+
+        lines.push(
+            `Description : ${
+                registry.description ??
+                "No description provided."
+            }`
+        );
+
+        lines.push(
+            `Templates   : ${registry.templates.length}`
+        );
 
         if (
             registry.templates.length > 0
@@ -52,6 +71,28 @@ export class TemplateRegistryPresenter {
         }
 
         return lines.join("\n");
+
+    }
+
+        private formatSource(
+        source:
+            "local" |
+            "network" |
+            "cache"
+    ): string {
+
+        switch (source) {
+
+            case "local":
+                return "Local";
+
+            case "network":
+                return "Network";
+
+            case "cache":
+                return "Cache";
+
+        }
 
     }
 

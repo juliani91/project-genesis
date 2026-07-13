@@ -49,3 +49,7 @@ export * from "./TemplateVersionPresenter";
 export * from "./TemplateRegistryDiscoveryService";
 export * from "./TemplateRegistryResolver";
 export * from "./TemplateRegistryPresenter";
+export * from "./TemplateRegistryHttpClient";
+export * from "./TemplateRemoteRegistryLoader";
+export * from "./TemplateRegistryCacheService";
+export * from "./TemplateRegistryLoadService";
