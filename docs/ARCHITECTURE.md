@@ -415,3 +415,38 @@ Engine Validator   Template Validator
         Generation Planner
                  ▼
             Renderer
+
+            Template Registry Discovery
+          │
+          ▼
+Registry Resolver
+          │
+          ▼
+Registry Preview
+          │
+          ▼
+Template Discovery
+          │
+          ▼
+Template Catalog
+          │
+          ▼
+Profile Discovery
+          │
+          ▼
+Generation Mode
+          │
+          ▼
+Composition
+          │
+          ▼
+Capability Validation
+          │
+          ▼
+Version Validation
+          │
+          ▼
+Preparation
+          │
+          ▼
+Generation

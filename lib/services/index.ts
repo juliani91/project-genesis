@@ -46,3 +46,6 @@ export * from "./TemplateVersionValidator";
 export * from "./TemplateDeprecationValidator";
 export * from "./TemplateVersionReportService";
 export * from "./TemplateVersionPresenter";
+export * from "./TemplateRegistryDiscoveryService";
+export * from "./TemplateRegistryResolver";
+export * from "./TemplateRegistryPresenter";

@@ -2,10 +2,15 @@ import { promises as fs } from "fs";
 import path from "path";
 
 import {
+    ENGINE_VERSION
+} from "../lib/constants";
+
+import {
     GenerationRequest,
     TemplateCatalogEntry,
     TemplateCompositionPlan,
     TemplateProfile,
+    TemplateRegistryManifest,
     WizardOption
 } from "../lib/models";
 
@@ -29,14 +34,13 @@ import {
     TemplateProfileDiscoveryService,
     TemplateProfilePresenter,
     TemplateProfileSelectionService,
+    TemplateRegistryDiscoveryService,
+    TemplateRegistryPresenter,
+    TemplateRegistryResolver,
     TemplateVersionPresenter,
     TemplateVersionReportService,
     WizardRunner
 } from "../lib/services";
-
-import {
-    ENGINE_VERSION
-} from "../lib/constants";
 
 const DONE_FEATURE_VALUE =
     "__done__";
@@ -64,6 +68,26 @@ async function pathExists(
         return false;
 
     }
+
+}
+
+function buildRegistryOptions(
+    manifests:
+        readonly TemplateRegistryManifest[]
+): WizardOption[] {
+
+    return manifests.map(
+        (manifest) => ({
+            label:
+                [
+                    manifest.registry.name,
+                    `(${manifest.registry.type})`
+                ].join(" "),
+
+            value:
+                manifest.registry.id
+        })
+    );
 
 }
 
@@ -235,27 +259,107 @@ async function main(): Promise<void> {
     try {
 
         /*
-         * Discover available templates.
+         * Discover available registry manifests.
          */
-        const discoveryService =
+        const registryDiscovery =
+            new TemplateRegistryDiscoveryService();
+
+        const registryManifests =
+            await registryDiscovery.discover();
+
+        if (
+            registryManifests.length === 0
+        ) {
+
+            throw new Error(
+                "No template registries were discovered."
+            );
+
+        }
+
+        console.log(
+            "Available Template Registries"
+        );
+
+        console.log("");
+
+        const selectedRegistryId =
+            await promptProvider.select(
+                "Select a template registry",
+                buildRegistryOptions(
+                    registryManifests
+                )
+            );
+
+        const selectedRegistryManifest =
+            registryManifests.find(
+                (manifest) =>
+                    manifest.registry.id ===
+                    selectedRegistryId
+            );
+
+        if (!selectedRegistryManifest) {
+
+            throw new Error(
+                [
+                    "The selected template registry could not be found:",
+                    selectedRegistryId
+                ].join(" ")
+            );
+
+        }
+
+        /*
+         * Resolve the registry's location.
+         */
+        const registryResolver =
+            new TemplateRegistryResolver();
+
+        const selectedRegistry =
+            registryResolver.resolve(
+                selectedRegistryManifest
+            );
+
+        const registryPresenter =
+            new TemplateRegistryPresenter();
+
+        console.log("");
+
+        console.log(
+            registryPresenter.format(
+                selectedRegistry
+            )
+        );
+
+        console.log("");
+
+        /*
+         * Discover templates only from the selected registry.
+         */
+        const templateDiscovery =
             new TemplateDiscoveryService();
 
         const templates =
-            await discoveryService.discover();
+            await templateDiscovery
+                .discoverFromRegistry(
+                    selectedRegistry
+                );
 
         if (
             templates.length === 0
         ) {
 
             throw new Error(
-                "No Project Genesis templates were discovered."
+                [
+                    `Registry "${selectedRegistry.id}"`,
+                    "did not provide any loadable templates."
+                ].join(" ")
             );
 
         }
 
         /*
-         * Build the template catalog used by the
-         * manual composition workflow.
+         * Build the catalog from registry-loaded templates.
          */
         const catalogService =
             new TemplateCatalogService();
@@ -266,25 +370,28 @@ async function main(): Promise<void> {
             );
 
         /*
-         * Discover and sort reusable profiles.
+         * Profiles remain repository-level in Sprint 20.
+         *
+         * Future registry versions may advertise their own
+         * profiles, but current profile discovery continues
+         * to use the local profiles directory.
          */
-        const profileDiscoveryService =
+        const profileDiscovery =
             new TemplateProfileDiscoveryService();
 
         const discoveredProfiles =
-            await profileDiscoveryService.discover();
+            await profileDiscovery.discover();
 
-        const profileSelectionService =
+        const profileSelection =
             new TemplateProfileSelectionService();
 
         const profiles =
-            profileSelectionService.sort(
+            profileSelection.sort(
                 discoveredProfiles
             );
 
         /*
-         * Choose between profile-driven generation
-         * and manual template composition.
+         * Choose profile-driven or manual generation.
          */
         const modeOptions:
             WizardOption[] = [
@@ -313,9 +420,6 @@ async function main(): Promise<void> {
         let compositionPlan:
             TemplateCompositionPlan;
 
-        /*
-         * Profile workflow.
-         */
         if (
             selectedMode ===
             MODE_PROFILE
@@ -348,7 +452,7 @@ async function main(): Promise<void> {
                 );
 
             const selectedProfile =
-                profileSelectionService.findById(
+                profileSelection.findById(
                     profiles,
                     selectedProfileId
                 );
@@ -366,11 +470,11 @@ async function main(): Promise<void> {
 
             console.log("");
 
-            const profileCompositionService =
+            const profileComposition =
                 new TemplateProfileCompositionService();
 
             const profileResult =
-                profileCompositionService.build(
+                profileComposition.build(
                     selectedProfile,
                     templates
                 );
@@ -383,9 +487,6 @@ async function main(): Promise<void> {
             MODE_MANUAL
         ) {
 
-            /*
-             * Manual composition workflow.
-             */
             const selectionService =
                 new TemplateCompositionSelectionService();
 
@@ -487,7 +588,7 @@ async function main(): Promise<void> {
         }
 
         /*
-         * Show the dependency-aware composition plan.
+         * Display composition details.
          */
         const compositionPresenter =
             new TemplateCompositionPresenter();
@@ -503,8 +604,7 @@ async function main(): Promise<void> {
         console.log("");
 
         /*
-         * Validate capabilities before composing or
-         * running any wizard prompts.
+         * Validate template capabilities.
          */
         const compatibilityValidator =
             new TemplateCompatibilityValidator();
@@ -539,6 +639,9 @@ async function main(): Promise<void> {
 
         }
 
+        /*
+         * Validate engine and template versions.
+         */
         const versionReportService =
             new TemplateVersionReportService();
 
@@ -550,8 +653,6 @@ async function main(): Promise<void> {
 
         const versionPresenter =
             new TemplateVersionPresenter();
-
-        console.log("");
 
         console.log(
             versionPresenter.format(
@@ -576,8 +677,7 @@ async function main(): Promise<void> {
         }
 
         /*
-         * Merge the base template, resolved dependencies,
-         * and selected feature templates.
+         * Compose selected templates.
          */
         const compositionService =
             new TemplateCompositionService();
@@ -616,7 +716,7 @@ async function main(): Promise<void> {
         console.log("");
 
         /*
-         * Select the output location.
+         * Select output location.
          */
         const outputResponse =
             await promptProvider.ask(
@@ -685,6 +785,10 @@ async function main(): Promise<void> {
         );
 
         console.log("");
+
+        console.log(
+            `Registry      : ${selectedRegistry.name}`
+        );
 
         console.log(
             `Base Template : ${compositionPlan.baseTemplate.manifest.name}`

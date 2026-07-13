@@ -1,0 +1,17 @@
+{
+  "registry": {
+    "id": "local",
+    "name": "Local Project Genesis Templates",
+    "type": "local",
+    "location": "templates",
+    "description": "Templates stored in the local Project Genesis repository."
+  },
+  "templates": [
+    {
+      "templateId": "project-genesis",
+      "version": "1.0.0",
+      "name": "Project Genesis",
+      "description": "Reference template for the Project Genesis Architect / Builder workflow."
+    }
+  ]
+}

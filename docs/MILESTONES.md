@@ -589,3 +589,26 @@ Introduce engine-aware and template-aware version validation, including semantic
 ## Status
 
 Complete
+
+# Sprint 20 – Template Registry Foundations
+
+## Objective
+
+Introduce registry-aware template discovery while preserving backward compatibility with local template repositories.
+
+## Completed
+
+- Added registry specification
+- Added registry models
+- Added registry manifest
+- Added registry discovery
+- Added registry resolver
+- Added source-aware template discovery
+- Added registry presenter
+- Integrated registry selection into the CLI
+- Added registry integration tests
+- Added end-to-end registry pipeline tests
+
+## Status
+
+Complete

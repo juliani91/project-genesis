@@ -372,3 +372,27 @@
 ### Fixed
 
 - Prevented incompatible engine/template combinations from reaching generation.
+
+## v0.16.0
+
+### Added
+
+- Template registry specification
+- Registry models
+- Registry manifests
+- Registry discovery service
+- Registry resolver
+- Registry presenter
+- Source-aware template discovery
+- Registry-aware CLI workflow
+- Registry integration tests
+- Registry pipeline tests
+
+### Changed
+
+- Template discovery now supports registry-backed sources.
+- CLI now begins with registry selection before template discovery.
+
+### Fixed
+
+- Discovery is no longer tightly coupled to the local templates directory.

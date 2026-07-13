@@ -33,3 +33,8 @@ export * from "./TemplateProfileValidationResult";
 export * from "./TemplateProfileCompositionResult";
 export * from "./VersionIssue";
 export * from "./VersionReport";
+export * from "./RegistryType";
+export * from "./TemplateRegistry";
+export * from "./RegistryTemplate";
+export * from "./TemplateRegistryManifest";
+export * from "./ResolvedTemplateRegistry";
