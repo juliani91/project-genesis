@@ -120,3 +120,17 @@ Composition
 The existing local templates directory remains a valid registry.
 
 No existing repositories require modification.
+
+```md
+# Package Uploads
+
+Remote registries may expose a package-upload endpoint.
+
+A successful upload returns package identity metadata:
+
+```json
+{
+  "templateId": "nextjs",
+  "version": "4.0.0",
+  "packageUrl": "https://registry.example.com/packages/nextjs-4.0.0.zip"
+}

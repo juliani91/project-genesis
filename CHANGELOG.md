@@ -424,3 +424,88 @@
 - Registry cache writes use a temporary file to avoid partial cache corruption.
 - Unsafe registry IDs are rejected before being used as cache filenames.
 - Cached timestamps are restored as JavaScript Date objects.
+
+# Sprint 22
+
+## Added
+
+### Remote Package Infrastructure
+
+- Template package download models.
+- Template package extraction models.
+- Template package cache models.
+- Template package integrity models.
+
+### Services
+
+- TemplatePackageDownloader
+- TemplatePackageIntegrityService
+- TemplatePackageExtractionService
+- TemplatePackageCacheService
+- TemplatePackagePreparationService
+
+### Security
+
+- SHA-256 package verification.
+- ZIP Slip protection.
+- Safe temporary extraction.
+- Safe temporary downloads.
+
+### Caching
+
+- Versioned package archive cache.
+- Versioned extracted template cache.
+- Automatic cache reuse.
+- Automatic cache rebuild after invalidation.
+
+### Integration
+
+- Remote package discovery.
+- Remote template preparation.
+- Registry-to-package pipeline.
+
+### Tests
+
+Added comprehensive tests covering:
+
+- Package downloading.
+- Package integrity verification.
+- Package extraction.
+- Package caching.
+- Package preparation.
+- Remote package integration.
+- Remote package generation pipeline.
+
+## Changed
+
+- Template discovery now supports loading a single extracted template.
+- Remote templates now produce the same `TemplatePackage` model used by local templates.
+
+## v0.19.0
+
+### Added
+
+- Template package publish request, result, status, and outcome models
+- Template package metadata and build models
+- Template package validation service
+- ZIP package builder
+- SHA-256 package hash service
+- Template package publisher
+- Registry upload request and result models
+- Multipart registry upload service
+- Optional bearer-token authentication
+- Package publish pipeline tests
+- Registry publish pipeline tests
+
+### Changed
+
+- Template packages can now be created from valid local template directories.
+- Published packages use the `<template-id>-<version>.zip` naming convention.
+- Registry upload responses are validated against the expected template ID and version.
+
+### Security
+
+- Package uploads require validated SHA-256 metadata.
+- Upload URLs are restricted to HTTP and HTTPS.
+- Package paths must reference non-empty ZIP files.
+- Registry response identity mismatches are rejected.

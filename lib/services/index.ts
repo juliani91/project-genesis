@@ -58,3 +58,8 @@ export * from "./TemplatePackageIntegrityService";
 export * from "./TemplatePackageExtractionService";
 export * from "./TemplatePackageCacheService";
 export * from "./TemplatePackagePreparationService";
+export * from "./TemplatePackageValidationService";
+export * from "./TemplatePackageBuilder";
+export * from "./TemplatePackageHashService";
+export * from "./TemplatePackagePublisher";
+export * from "./TemplateRegistryUploadService";

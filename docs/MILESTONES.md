@@ -636,3 +636,64 @@ Introduce remote registry manifest retrieval and local cache fallback while pres
 ## Status
 
 Complete
+
+## Sprint 22 – Remote Template Packages ✅
+
+**Status:** Complete
+
+### Objectives
+
+- Support remote template package downloads.
+- Verify downloaded packages using SHA-256.
+- Extract ZIP template packages safely.
+- Cache downloaded archives.
+- Cache extracted templates.
+- Integrate remote packages into the existing template discovery pipeline.
+- Ensure local and remote templates share the same generation pipeline.
+
+### Completed
+
+- Added remote package download models.
+- Added package extraction models.
+- Implemented `TemplatePackageDownloader`.
+- Implemented `TemplatePackageIntegrityService`.
+- Implemented `TemplatePackageExtractionService`.
+- Implemented `TemplatePackageCacheService`.
+- Implemented `TemplatePackagePreparationService`.
+- Added versioned package cache.
+- Added versioned extracted template cache.
+- Added checksum verification.
+- Added ZIP Slip protection.
+- Added remote package integration tests.
+- Added complete remote package pipeline tests.
+
+### Result
+
+Project Genesis now supports both local template directories and remotely downloaded template packages through a unified `TemplatePackage` abstraction.
+
+## Sprint 23 – Package Publishing ✅
+
+**Status:** Complete
+
+### Objective
+
+Add template package publishing and remote registry upload support.
+
+### Completed
+
+- Added package publishing models
+- Added package metadata and build models
+- Added template package validation
+- Added ZIP package building
+- Added SHA-256 generation
+- Added package publishing orchestration
+- Added registry upload models
+- Added multipart registry upload support
+- Added bearer-token upload support
+- Added response identity validation
+- Added package publish pipeline tests
+- Added end-to-end registry publish pipeline tests
+
+### Result
+
+Project Genesis can now validate a template directory, create a versioned ZIP archive, generate package metadata and a SHA-256 checksum, upload the package to a remote registry, and consume the uploaded package through the existing remote-package pipeline.

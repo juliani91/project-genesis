@@ -476,3 +476,102 @@ Template Package Retrieval
           │
           ▼
 Existing Generation Pipeline
+
+## Remote Template Package Pipeline
+
+Project Genesis now supports template packages hosted by remote registries.
+
+The remote package workflow is:
+
+Registry
+    │
+    ▼
+Registry Template
+    │
+    ▼
+Download Package
+    │
+    ▼
+Verify SHA-256
+    │
+    ▼
+Extract ZIP
+    │
+    ▼
+Package Cache
+    │
+    ▼
+Template Discovery
+    │
+    ▼
+TemplatePackage
+
+Once a `TemplatePackage` has been produced, the remainder of the generation pipeline is identical to local templates.
+
+### Package Cache
+
+Downloaded archives are stored under:
+
+```text
+.cache/packages/
+    <template-id>/
+        <version>/
+            package.zip
+
+Current State:
+
+     Local Templates
+                           │
+                           │
+                    Template Discovery
+                           ▲
+                           │
+                 Extracted Package Cache
+                           ▲
+                           │
+                  ZIP Extraction Service
+                           ▲
+                           │
+                SHA-256 Integrity Service
+                           ▲
+                           │
+               Template Package Downloader
+                           ▲
+                           │
+                  Remote Template Registry
+                           │
+───────────────────────────┼──────────────────────────
+                           ▼
+                    TemplatePackage
+                           ▼
+                 Compatibility Engine
+                           ▼
+                  Composition Engine
+                           ▼
+                    Wizard Engine
+                           ▼
+                 Variable Collection
+                           ▼
+                  Rendering Pipeline
+                           ▼
+                  Project Generation
+
+                  Template Directory
+        │
+        ▼
+Package Validation
+        │
+        ▼
+ZIP Package Builder
+        │
+        ▼
+SHA-256 Generator
+        │
+        ▼
+Package Publisher
+        │
+        ▼
+Registry Upload Service
+        │
+        ▼
+Remote Registry

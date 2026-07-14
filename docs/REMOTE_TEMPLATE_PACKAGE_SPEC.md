@@ -150,3 +150,34 @@ Verification failures must:
 Local template directories remain fully supported.
 
 Remote template packages ultimately produce the same TemplatePackage model used throughout the existing generation pipeline.
+
+# Package Publishing
+
+A local template directory may be built into a distributable ZIP package.
+
+## Publishing Flow
+
+Template Validation
+
+↓
+
+ZIP Creation
+
+↓
+
+SHA-256 Generation
+
+↓
+
+Package Publish Result
+
+↓
+
+Registry Upload
+
+## Package Naming
+
+Published packages use:
+
+```text
+<template-id>-<version>.zip
