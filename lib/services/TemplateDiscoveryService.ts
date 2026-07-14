@@ -24,6 +24,78 @@ export class TemplateDiscoveryService {
 
     }
 
+    public async discoverTemplate(
+            templatePath: string
+        ): Promise<TemplatePackage> {
+
+            const resolvedTemplatePath =
+                path.resolve(
+                    templatePath
+                );
+
+            const manifestPath =
+                path.join(
+                    resolvedTemplatePath,
+                    "genesis.json"
+                );
+
+            let contents:
+                string;
+
+            try {
+
+                contents =
+                    await fs.readFile(
+                        manifestPath,
+                        "utf-8"
+                    );
+
+            } catch (error) {
+
+                throw new Error(
+                    [
+                        "Unable to load template manifest:",
+                        manifestPath,
+                        error instanceof Error
+                            ? error.message
+                            : String(error)
+                    ].join(" ")
+                );
+
+            }
+
+            let manifest:
+                TemplateManifest;
+
+            try {
+
+                manifest =
+                    JSON.parse(
+                        contents
+                    ) as TemplateManifest;
+
+            } catch {
+
+                throw new Error(
+                    [
+                        "Template manifest contains invalid JSON:",
+                        manifestPath
+                    ].join(" ")
+                );
+
+            }
+
+            return {
+                manifest,
+
+                path:
+                    resolvedTemplatePath,
+
+                descriptors: {}
+            };
+
+        }
+
     public async discoverFromRegistry(
         registry:
             ResolvedTemplateRegistry

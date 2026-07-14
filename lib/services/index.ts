@@ -53,3 +53,8 @@ export * from "./TemplateRegistryHttpClient";
 export * from "./TemplateRemoteRegistryLoader";
 export * from "./TemplateRegistryCacheService";
 export * from "./TemplateRegistryLoadService";
+export * from "./TemplatePackageDownloader";
+export * from "./TemplatePackageIntegrityService";
+export * from "./TemplatePackageExtractionService";
+export * from "./TemplatePackageCacheService";
+export * from "./TemplatePackagePreparationService";
