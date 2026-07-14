@@ -69,3 +69,4 @@ export * from "./TemplatePackageSearchService";
 export * from "./TemplateRegistryManager";
 export * from "./TemplatePackageInstallationService";
 export * from "./TemplatePackageRemovalService";
+export * from "./PackageCommandFormatter";

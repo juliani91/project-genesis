@@ -604,3 +604,19 @@ Installed Package Store
 The registry subsystem provides package discovery, installation,
 removal, and installed-package tracking while remaining independent
 from template generation.
+
+## Package Command Pipeline
+
+Package commands execute before the interactive project-generation workflow.
+
+CLI
+    ↓
+PackageCommandDispatcher
+    ↓
+Package Commands
+    ↓
+TemplateRegistryManager
+    ↓
+Registry / Installation Services
+    ↓
+Installed Package Store

@@ -542,3 +542,27 @@ Added comprehensive tests covering:
 - Safe uninstall process.
 - Cache reuse after uninstall.
 - Registry coordination.
+
+## Sprint 25
+
+### Added
+
+- PackageSearchCommand
+- PackageListCommand
+- PackageInfoCommand
+- PackageInstallCommand
+- PackageUninstallCommand
+- PackageCommandDispatcher
+- Package command formatter
+- Package command models
+- CLI pipeline integration tests
+- CLI entry-point tests
+
+### Changed
+
+- Genesis CLI now supports package management commands before entering interactive generation.
+
+### Verified
+
+- End-to-end CLI package workflow.
+- Interactive generation remains unaffected.

@@ -733,3 +733,23 @@ Status:
 - Registry manager complete.
 
 Ready for Sprint 25.
+
+## Sprint 25 — CLI Package Commands
+
+Completed:
+
+- Added package command models.
+- Added package output formatter.
+- Added package search command.
+- Added installed package list command.
+- Added package information command.
+- Added package installation command.
+- Added package removal command.
+- Added PackageCommandDispatcher.
+- Integrated package commands into the Genesis CLI entry point.
+- Added CLI pipeline integration tests.
+- Added end-to-end CLI entry-point tests.
+
+Status:
+
+- Package management is now fully available from the Project Genesis CLI.

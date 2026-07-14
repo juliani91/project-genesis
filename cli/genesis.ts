@@ -5,6 +5,10 @@ import {
     ENGINE_VERSION
 } from "../lib/constants";
 
+    import {
+    PackageCommandDispatcher
+} from "../lib/commands";
+
 import {
     GenerationRequest,
     TemplateCatalogEntry,
@@ -232,6 +236,36 @@ async function selectFeatureTemplateIds(
 }
 
 async function main(): Promise<void> {
+
+    /*
+     * Package commands run before the existing interactive
+     * project-generation workflow.
+     *
+     * Examples:
+     *
+     * npm run genesis -- search nextjs
+     * npm run genesis -- list
+     * npm run genesis -- info nextjs
+     * npm run genesis -- install nextjs
+     * npm run genesis -- uninstall nextjs 1.0.0
+     */
+    const packageDispatcher =
+        new PackageCommandDispatcher();
+
+    const packageCommandHandled =
+        await packageDispatcher.execute(
+            process.argv.slice(
+                2
+            )
+        );
+
+    if (
+        packageCommandHandled
+    ) {
+
+        return;
+
+    }
 
     console.log("");
 

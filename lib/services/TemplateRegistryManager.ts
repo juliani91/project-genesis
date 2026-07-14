@@ -2,7 +2,8 @@ import {
     InstalledTemplatePackage,
     RegistrySearchResult,
     TemplateRegistryIndex,
-    TemplateRegistryManifest
+    TemplateRegistryManifest,
+    RegistryIndexTemplate,
 } from "../models";
 
 import {
@@ -17,6 +18,14 @@ import {
     TemplateRegistryIndexService
 } from "./TemplateRegistryIndexService";
 
+import {
+    TemplatePackageInstallationService
+} from "./TemplatePackageInstallationService";
+
+import {
+    TemplatePackageRemovalService
+} from "./TemplatePackageRemovalService";
+
 export class TemplateRegistryManager {
 
     public constructor(
@@ -30,7 +39,15 @@ export class TemplateRegistryManager {
 
         private readonly installedStore:
             InstalledTemplatePackageStore =
-            new InstalledTemplatePackageStore()
+            new InstalledTemplatePackageStore(),
+
+        private readonly installationService:
+            TemplatePackageInstallationService =
+            new TemplatePackageInstallationService(),
+
+        private readonly removalService:
+            TemplatePackageRemovalService =
+            new TemplatePackageRemovalService()
     ) {}
 
     public buildIndex(
@@ -126,6 +143,36 @@ export class TemplateRegistryManager {
                             true
                     }
                 )
+        );
+
+    }
+
+    public async install(
+    template:
+        RegistryIndexTemplate,
+
+        version?:
+            string
+    ): Promise<InstalledTemplatePackage> {
+
+        return this.installationService.install(
+            template,
+            version
+        );
+
+    }
+
+    public async uninstall(
+    templateId:
+        string,
+
+        version:
+            string
+    ) {
+
+        return this.removalService.remove(
+            templateId,
+            version
         );
 
     }
