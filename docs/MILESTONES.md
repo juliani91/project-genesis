@@ -697,3 +697,39 @@ Add template package publishing and remote registry upload support.
 ### Result
 
 Project Genesis can now validate a template directory, create a versioned ZIP archive, generate package metadata and a SHA-256 checksum, upload the package to a remote registry, and consume the uploaded package through the existing remote-package pipeline.
+
+## Sprint 24 – Registry Management ✅
+
+### Registry Infrastructure
+
+- Added installed package models.
+- Added registry index models.
+- Added registry search result models.
+
+### Registry Services
+
+- Implemented InstalledTemplatePackageStore.
+- Implemented TemplateRegistryIndexService.
+- Implemented TemplatePackageSearchService.
+
+### Registry Management
+
+- Added TemplateRegistryManager façade.
+- Added TemplatePackageInstallationService.
+- Added TemplatePackageRemovalService.
+
+### Integration Testing
+
+- Added registry manager pipeline tests.
+- Added installation lifecycle pipeline tests.
+- Verified installation, removal, cache reuse, registry search, and installed package persistence.
+
+Status:
+
+- Remote registry indexing complete.
+- Package searching complete.
+- Package installation complete.
+- Package removal complete.
+- Registry manager complete.
+
+Ready for Sprint 25.

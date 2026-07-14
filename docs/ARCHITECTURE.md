@@ -575,3 +575,32 @@ Registry Upload Service
         │
         ▼
 Remote Registry
+
+## Registry Architecture
+
+```
+Remote Registry
+        │
+        ▼
+ Registry Manifest
+        │
+        ▼
+ Registry Index
+        │
+        ▼
+ Package Search
+        │
+        ▼
+ Registry Manager
+        │
+        ├─────────────┐
+        ▼             ▼
+ Installation     Removal
+        │             │
+        ▼             ▼
+Installed Package Store
+```
+
+The registry subsystem provides package discovery, installation,
+removal, and installed-package tracking while remaining independent
+from template generation.

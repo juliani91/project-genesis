@@ -69,3 +69,17 @@ Project Genesis is successful when:
 - Developers and AI assistants can begin work immediately.
 - New templates can be added without changing the generator.
 - Documentation remains useful throughout the life of the project.
+
+### Package Ecosystem
+
+Project Genesis now includes a package management foundation capable of:
+
+- discovering templates from remote registries,
+- searching available packages,
+- installing templates,
+- uninstalling templates,
+- tracking installed packages,
+- reusing verified package caches.
+
+Future releases will build upon this foundation with publishing,
+dependency resolution, and registry authentication.

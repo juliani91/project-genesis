@@ -509,3 +509,36 @@ Added comprehensive tests covering:
 - Upload URLs are restricted to HTTP and HTTPS.
 - Package paths must reference non-empty ZIP files.
 - Registry response identity mismatches are rejected.
+
+# Sprint 24
+
+## Added
+
+- Installed package metadata model.
+- Registry indexing model.
+- Registry search result model.
+- Installed package persistence store.
+- Registry indexing service.
+- Registry search service.
+- Registry manager.
+- Package installation service.
+- Package removal service.
+
+## Added Tests
+
+- installed-template-package-store-test
+- template-registry-index-service-test
+- template-package-search-service-test
+- template-registry-manager-test
+- template-package-installation-service-test
+- template-package-removal-service-test
+- template-registry-manager-pipeline-test
+- template-installation-lifecycle-pipeline-test
+
+## Improved
+
+- Registry package lifecycle.
+- Permanent installation workflow.
+- Safe uninstall process.
+- Cache reuse after uninstall.
+- Registry coordination.
