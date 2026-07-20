@@ -38,7 +38,7 @@ Defines the contracts used by the platform.
 
 - TEMPLATE_SPEC.md
 - ENGINE_SPEC.md
-
+- [PACKAGE_PUBLISHING.md](PACKAGE_PUBLISHING.md) — Package publishing architecture, workflow, and CLI usage.
 ---
 
 ## Architecture Decision Records
@@ -79,3 +79,18 @@ The documentation is intended for:
 - Template authors
 - Future maintainers
 - AI coding assistants
+
+## Package Publishing
+
+Project Genesis supports publishing template packages into a registry manifest.
+
+Example:
+
+```bash
+npm run genesis -- publish nextjs \
+    --version 1.0.0 \
+    --package ./packages/nextjs-1.0.0.zip \
+    --registry official
+```
+
+Publishing performs validation, calculates a SHA-256 checksum, and atomically updates the registry manifest.

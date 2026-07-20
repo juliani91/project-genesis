@@ -3,7 +3,8 @@ import {
     PackageInfoCommandResult,
     PackageInstallationCommandResult,
     PackageRemovalCommandResult,
-    PackageSearchCommandResult
+    PackageSearchCommandResult,
+    TemplatePublishingOutcome
 } from "../models";
 
 export class PackageCommandFormatter {
@@ -190,90 +191,130 @@ export class PackageCommandFormatter {
     }
 
     public formatInfo(
-    result:
-        PackageInfoCommandResult
-): string {
+        result:
+            PackageInfoCommandResult
+    ): string {
 
-    if (
-        !result.template
-    ) {
+        if (
+            !result.template
+        ) {
 
-        return result.message;
+            return result.message;
 
-    }
+        }
 
-    const template =
-        result.template;
+        const template =
+            result.template;
 
-    const lines:
-        string[] = [
-            result.message,
-            "",
-            "Package Information",
-            "-------------------",
-            `Template    : ${template.templateId}`,
-            `Name        : ${template.name}`,
-            [
-                "Description :",
-                template.description ??
-                    "No description provided."
-            ].join(" "),
-            `Registry    : ${template.registryId}`,
-            `Source      : ${template.source}`,
-            `Latest      : ${template.latestVersion}`,
-            "",
-            "Available Versions",
-            "------------------"
-        ];
-
-    for (
-        const version
-        of template.versions
-    ) {
-
-        lines.push(
-            `- ${version.version}`
-        );
-
-    }
-
-    lines.push(
-        "",
-        "Installed Versions",
-        "------------------"
-    );
-
-    if (
-        result.installedVersions.length ===
-        0
-    ) {
-
-        lines.push(
-            "None"
-        );
-
-    } else {
+        const lines:
+            string[] = [
+                result.message,
+                "",
+                "Package Information",
+                "-------------------",
+                `Template    : ${template.templateId}`,
+                `Name        : ${template.name}`,
+                [
+                    "Description :",
+                    template.description ??
+                        "No description provided."
+                ].join(" "),
+                `Registry    : ${template.registryId}`,
+                `Source      : ${template.source}`,
+                `Latest      : ${template.latestVersion}`,
+                "",
+                "Available Versions",
+                "------------------"
+            ];
 
         for (
-            const installed
-            of result.installedVersions
+            const version
+            of template.versions
         ) {
 
             lines.push(
-                [
-                    `- ${installed.version}`,
-                    `(${installed.installPath})`
-                ].join(" ")
+                `- ${version.version}`
             );
 
         }
 
+        lines.push(
+            "",
+            "Installed Versions",
+            "------------------"
+        );
+
+        if (
+            result.installedVersions.length ===
+            0
+        ) {
+
+            lines.push(
+                "None"
+            );
+
+        } else {
+
+            for (
+                const installed
+                of result.installedVersions
+            ) {
+
+                lines.push(
+                    [
+                        `- ${installed.version}`,
+                        `(${installed.installPath})`
+                    ].join(" ")
+                );
+
+            }
+
+        }
+
+        return lines.join(
+            "\n"
+        );
+
     }
 
-    return lines.join(
-        "\n"
-    );
+    public formatPublish(
+        outcome:
+            TemplatePublishingOutcome
+    ): string {
 
-}
+        if (
+            !outcome.result.success
+        ) {
+
+            return [
+                "Package publishing failed.",
+                "",
+                `Template : ${outcome.result.templateId}`,
+                `Version  : ${outcome.result.version}`,
+                `Registry : ${outcome.result.registryId}`
+            ].join(
+                "\n"
+            );
+
+        }
+
+        return [
+            "Package published successfully.",
+            "",
+            "Published Package",
+            "-----------------",
+            `Template : ${outcome.entry.templateId}`,
+            `Version  : ${outcome.entry.version}`,
+            `Registry : ${outcome.manifest.registryId}`,
+            `Package  : ${outcome.entry.packagePath}`,
+            `SHA-256  : ${outcome.entry.sha256}`,
+            `Published: ${outcome.entry.publishedAt.toISOString()}`,
+            "",
+            `Registry package entries: ${outcome.manifest.packages.length}`
+        ].join(
+            "\n"
+        );
+
+    }
 
 }

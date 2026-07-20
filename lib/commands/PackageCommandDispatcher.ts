@@ -22,6 +22,10 @@ import {
 } from "./PackageListCommand";
 
 import {
+    PackagePublishCommand
+} from "./PackagePublishCommand";
+
+import {
     PackageSearchCommand
 } from "./PackageSearchCommand";
 
@@ -69,6 +73,25 @@ interface PackageSelectionArguments {
 
 }
 
+interface PackagePublishArguments {
+
+    templateId:
+        string;
+
+    version:
+        string;
+
+    packagePath:
+        string;
+
+    registryId:
+        string;
+
+    manifestPath?:
+        string;
+
+}
+
 export class PackageCommandDispatcher {
 
     private readonly registryDiscovery:
@@ -94,6 +117,9 @@ export class PackageCommandDispatcher {
 
     private readonly uninstallCommand:
         PackageUninstallCommand;
+
+    private readonly publishCommand:
+        PackagePublishCommand;
 
     private readonly write:
         PackageCommandOutputWriter;
@@ -124,7 +150,14 @@ export class PackageCommandDispatcher {
             PackageUninstallCommand,
 
         write?:
-            PackageCommandOutputWriter
+            PackageCommandOutputWriter,
+
+        /*
+         * Added after the existing constructor parameters so
+         * earlier tests using positional arguments remain valid.
+         */
+        publishCommand?:
+            PackagePublishCommand
     ) {
 
         this.registryDiscovery =
@@ -172,6 +205,10 @@ export class PackageCommandDispatcher {
         this.write =
             write ??
             console.log;
+
+        this.publishCommand =
+            publishCommand ??
+            new PackagePublishCommand();
 
     }
 
@@ -246,6 +283,14 @@ export class PackageCommandDispatcher {
             case "remove":
 
                 await this.executeUninstall(
+                    commandArguments
+                );
+
+                return true;
+
+            case "publish":
+
+                await this.executePublish(
                     commandArguments
                 );
 
@@ -451,6 +496,51 @@ export class PackageCommandDispatcher {
 
     }
 
+    private async executePublish(
+        args:
+            readonly string[]
+    ): Promise<void> {
+
+        const parsed =
+            this.parsePublishArguments(
+                args
+            );
+
+        const outcome =
+            await this.publishCommand.execute({
+                templateId:
+                    parsed.templateId,
+
+                version:
+                    parsed.version,
+
+                packagePath:
+                    parsed.packagePath,
+
+                registryId:
+                    parsed.registryId,
+
+                manifestPath:
+                    parsed.manifestPath
+            });
+
+        this.write(
+            this.formatter.formatPublish(
+                outcome
+            )
+        );
+
+        if (
+            !outcome.result.success
+        ) {
+
+            process.exitCode =
+                1;
+
+        }
+
+    }
+
     private async loadIndex():
         Promise<TemplateRegistryIndex> {
 
@@ -583,6 +673,153 @@ export class PackageCommandDispatcher {
 
     }
 
+    private parsePublishArguments(
+        args:
+            readonly string[]
+    ): PackagePublishArguments {
+
+        const usage =
+            [
+                "Usage:",
+                "genesis publish <template-id>",
+                "--version <version>",
+                "--package <zip-path>",
+                "--registry <registry-id>",
+                "[--manifest <manifest-path>]"
+            ].join(" ");
+
+        const templateId =
+            args[0]
+                ?.trim();
+
+        if (!templateId) {
+
+            throw new Error(
+                usage
+            );
+
+        }
+
+        let version:
+            string | undefined;
+
+        let packagePath:
+            string | undefined;
+
+        let registryId:
+            string | undefined;
+
+        let manifestPath:
+            string | undefined;
+
+        let argumentIndex =
+            1;
+
+        while (
+            argumentIndex <
+            args.length
+        ) {
+
+            const argument =
+                args[
+                    argumentIndex
+                ];
+
+            switch (argument) {
+
+                case "--version":
+
+                    version =
+                        this.requireFlagValue(
+                            args,
+                            argumentIndex,
+                            "--version"
+                        );
+
+                    argumentIndex +=
+                        2;
+
+                    break;
+
+                case "--package":
+
+                    packagePath =
+                        this.requireFlagValue(
+                            args,
+                            argumentIndex,
+                            "--package"
+                        );
+
+                    argumentIndex +=
+                        2;
+
+                    break;
+
+                case "--registry":
+
+                    registryId =
+                        this.requireFlagValue(
+                            args,
+                            argumentIndex,
+                            "--registry"
+                        );
+
+                    argumentIndex +=
+                        2;
+
+                    break;
+
+                case "--manifest":
+
+                    manifestPath =
+                        this.requireFlagValue(
+                            args,
+                            argumentIndex,
+                            "--manifest"
+                        );
+
+                    argumentIndex +=
+                        2;
+
+                    break;
+
+                default:
+
+                    throw new Error(
+                        [
+                            "Unknown publish command argument:",
+                            String(
+                                argument
+                            )
+                        ].join(" ")
+                    );
+
+            }
+
+        }
+
+        if (
+            !version ||
+            !packagePath ||
+            !registryId
+        ) {
+
+            throw new Error(
+                usage
+            );
+
+        }
+
+        return {
+            templateId,
+            version,
+            packagePath,
+            registryId,
+            manifestPath
+        };
+
+    }
+
     private requireFlagValue(
         args:
             readonly string[],
@@ -624,7 +861,8 @@ export class PackageCommandDispatcher {
             "info",
             "install",
             "uninstall",
-            "remove"
+            "remove",
+            "publish"
         ].includes(
             command
         );

@@ -1,3 +1,20 @@
+/*
+ * Package commands run before the existing interactive
+ * project-generation workflow.
+ *
+ * Examples:
+ *
+ * npm run genesis -- search nextjs
+ * npm run genesis -- list
+ * npm run genesis -- info nextjs
+ * npm run genesis -- install nextjs
+ * npm run genesis -- uninstall nextjs 1.0.0
+ * npm run genesis -- publish nextjs
+ *     --version 1.0.0
+ *     --package ./packages/nextjs-1.0.0.zip
+ *     --registry official
+ */
+
 import { promises as fs } from "fs";
 import path from "path";
 

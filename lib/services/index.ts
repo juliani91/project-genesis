@@ -70,3 +70,8 @@ export * from "./TemplateRegistryManager";
 export * from "./TemplatePackageInstallationService";
 export * from "./TemplatePackageRemovalService";
 export * from "./PackageCommandFormatter";
+export * from "./RegistryPublishManifestBuilder";
+export * from "./TemplatePublishingService";
+export * from "./RegistryPublishManifestStore";
+export * from "./TemplatePublishValidationService";
+export * from "./TemplatePublishingPipeline";
