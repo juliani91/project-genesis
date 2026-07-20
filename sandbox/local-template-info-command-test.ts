@@ -23,7 +23,7 @@ async function main(): Promise<void> {
                 )
         );
 
-    const pageIds = [
+    const templateIds = [
         "nextjs-app",
         "react-spa",
         "fastapi-service",
@@ -42,7 +42,10 @@ async function main(): Promise<void> {
         "feature-tailwind",
         "feature-mobile-navigation",
         "feature-game-design-docs",
-        "feature-ai-workspace",
+        "feature-ai-workspace"
+    ];
+
+    const profileIds = [
         "web-saas-starter",
         "marketing-web-app",
         "frontend-dashboard",
@@ -55,7 +58,10 @@ async function main(): Promise<void> {
 
     for (
         const id
-        of pageIds
+        of [
+            ...templateIds,
+            ...profileIds
+        ]
     ) {
 
         const handled =
@@ -85,6 +91,50 @@ async function main(): Promise<void> {
 
             throw new Error(
                 `The info command did not find ${id}.`
+            );
+
+        }
+
+    }
+
+    for (
+        const id
+        of templateIds
+    ) {
+
+        const handled =
+            await dispatcher.execute([
+                "install",
+                id
+            ]);
+
+        if (!handled) {
+
+            throw new Error(
+                `The install command was not handled for ${id}.`
+            );
+
+        }
+
+        const installOutput =
+            output.at(
+                -1
+            ) ?? "";
+
+        if (
+            installOutput.includes(
+                "was not found"
+            ) ||
+            !installOutput.includes(
+                `Template : ${id}`
+            ) ||
+            !installOutput.includes(
+                "Installed Package"
+            )
+        ) {
+
+            throw new Error(
+                `The install command did not install ${id}.`
             );
 
         }
@@ -190,7 +240,7 @@ async function main(): Promise<void> {
     }
 
     console.log(
-        "Local template and profile info commands verified."
+        "Local template info, profile info, and template install commands verified."
     );
 
 }

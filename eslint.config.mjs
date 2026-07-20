@@ -13,6 +13,7 @@ const eslintConfig = defineConfig([
     "build/**",
     "templates/**",
     "sandbox-output/**",
+    ".genesis/**",
     "next-env.d.ts",
   ]),
 ]);

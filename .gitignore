@@ -43,5 +43,8 @@ next-env.d.ts
 # Project Genesis sandbox output
 /sandbox-output/
 
+# Project Genesis local package installs
+/.genesis/
+
 #.cache/
 .cache/

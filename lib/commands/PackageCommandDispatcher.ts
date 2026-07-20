@@ -1,12 +1,24 @@
 import {
+    createHash
+} from "crypto";
+
+import {
+    promises as fs
+} from "fs";
+
+import path from "path";
+
+import {
     LocalProfileInfo,
     LocalTemplateInfo,
+    PackageInstallationCommandResult,
     TemplateRegistryIndex,
     TemplateRegistryManifest
 } from "../models";
 
 import {
     PackageCommandFormatter,
+    InstalledTemplatePackageStore,
     TemplateDiscoveryService,
     TemplateProfileDiscoveryService,
     TemplateRegistryDiscoveryService,
@@ -118,6 +130,9 @@ export class PackageCommandDispatcher {
     private readonly registryResolver:
         TemplateRegistryResolver;
 
+    private readonly installedStore:
+        InstalledTemplatePackageStore;
+
     private readonly formatter:
         PackageCommandFormatter;
 
@@ -200,6 +215,9 @@ export class PackageCommandDispatcher {
 
         this.registryResolver =
             new TemplateRegistryResolver();
+
+        this.installedStore =
+            new InstalledTemplatePackageStore();
 
         this.formatter =
             formatter ??
@@ -481,7 +499,7 @@ export class PackageCommandDispatcher {
             await this.loadIndex();
 
         const result =
-            await this.installCommand.execute(
+            await this.executeInstallWithLocalFallback(
                 index,
                 parsed.templateId,
                 parsed.version,
@@ -682,6 +700,253 @@ export class PackageCommandDispatcher {
         return this.registryManager.buildIndex(
             manifests
         );
+
+    }
+
+    private async executeInstallWithLocalFallback(
+        index:
+            TemplateRegistryIndex,
+
+        templateId:
+            string,
+
+        version?:
+            string,
+
+        registryId?:
+            string
+    ): Promise<PackageInstallationCommandResult> {
+
+        try {
+
+            return await this.installCommand.execute(
+                index,
+                templateId,
+                version,
+                registryId
+            );
+
+        } catch (error) {
+
+            const message =
+                error instanceof Error
+                    ? error.message
+                    : String(error);
+
+            if (
+                !message.includes(
+                    "was not found"
+                )
+            ) {
+
+                throw error;
+
+            }
+
+            const localInfo =
+                await this.resolveLocalTemplateInfo(
+                    templateId,
+                    registryId
+                );
+
+            if (
+                !localInfo?.localTemplate
+            ) {
+
+                throw error;
+
+            }
+
+            return this.installLocalTemplate(
+                localInfo.localTemplate,
+                version
+            );
+
+        }
+
+    }
+
+    private async installLocalTemplate(
+        template:
+            LocalTemplateInfo,
+
+        requestedVersion?:
+            string
+    ): Promise<PackageInstallationCommandResult> {
+
+        const manifest =
+            template.manifest;
+
+        const version =
+            requestedVersion
+                ?.trim() ||
+            manifest.version;
+
+        if (
+            version !==
+            manifest.version
+        ) {
+
+            throw new Error(
+                [
+                    `Template "${manifest.id}"`,
+                    `does not advertise version "${version}".`
+                ].join(" ")
+            );
+
+        }
+
+        const installPath =
+            path.join(
+                process.cwd(),
+                ".genesis",
+                "templates",
+                this.normalizePathSegment(
+                    manifest.id,
+                    "Template ID"
+                ),
+                this.normalizePathSegment(
+                    version,
+                    "Template version"
+                )
+            );
+
+        const temporaryPath =
+            `${installPath}.tmp-${Date.now()}`;
+
+        await fs.rm(
+            temporaryPath,
+            {
+                recursive:
+                    true,
+
+                force:
+                    true
+            }
+        );
+
+        await fs.mkdir(
+            path.dirname(
+                installPath
+            ),
+            {
+                recursive:
+                    true
+            }
+        );
+
+        try {
+
+            await fs.cp(
+                template.path,
+                temporaryPath,
+                {
+                    recursive:
+                        true,
+
+                    force:
+                        true,
+
+                    errorOnExist:
+                        false
+                }
+            );
+
+            await fs.rm(
+                installPath,
+                {
+                    recursive:
+                        true,
+
+                    force:
+                        true
+                }
+            );
+
+            await fs.rename(
+                temporaryPath,
+                installPath
+            );
+
+        } catch (error) {
+
+            await fs.rm(
+                temporaryPath,
+                {
+                    recursive:
+                        true,
+
+                    force:
+                        true
+                }
+            );
+
+            throw new Error(
+                [
+                    `Unable to install local template "${manifest.id}".`,
+                    error instanceof Error
+                        ? error.message
+                        : String(error)
+                ].join(" ")
+            );
+
+        }
+
+        const installedPackage =
+            await this.installedStore
+                .install({
+                    templateId:
+                        manifest.id,
+
+                    version,
+
+                    installPath,
+
+                    sha256:
+                        this.hashLocalTemplateInfo(
+                            template
+                        ),
+
+                    source:
+                        template.source,
+
+                    installedAt:
+                        new Date()
+                });
+
+        return {
+            success:
+                true,
+
+            message:
+                [
+                    `Package "${installedPackage.templateId}"`,
+                    `version "${installedPackage.version}"`,
+                    "installed successfully."
+                ].join(" "),
+
+            package:
+                installedPackage
+        };
+
+    }
+
+    private hashLocalTemplateInfo(
+        template:
+            LocalTemplateInfo
+    ): string {
+
+        return createHash(
+            "sha256"
+        )
+            .update(
+                JSON.stringify(
+                    template.manifest
+                )
+            )
+            .digest(
+                "hex"
+            );
 
     }
 
@@ -1185,6 +1450,46 @@ export class PackageCommandDispatcher {
             registryId,
             manifestPath
         };
+
+    }
+
+    private normalizePathSegment(
+        value:
+            string,
+
+        label:
+            string
+    ): string {
+
+        const normalized =
+            value
+                .trim()
+                .toLowerCase();
+
+        if (!normalized) {
+
+            throw new Error(
+                `${label} is required.`
+            );
+
+        }
+
+        if (
+            !/^[a-z0-9._-]+$/.test(
+                normalized
+            )
+        ) {
+
+            throw new Error(
+                [
+                    `${label} contains unsupported characters:`,
+                    value
+                ].join(" ")
+            );
+
+        }
+
+        return normalized;
 
     }
 
