@@ -857,6 +857,7 @@ export function GenesisConsole({
                             <DocumentationSection
                                 title="Recommended Workflow"
                                 items={[
+                                    "After cloning Project Genesis, run npm install before any npm.cmd run genesis command. The CLI uses the local tsx dev dependency to run TypeScript files.",
                                     "Start on the Catalog tab and review available base and feature templates.",
                                     "Use the role and category filters to narrow the catalog to the kind of project you want.",
                                     "Open the Profiles tab when you want a complete stack without selecting individual feature templates.",
@@ -869,6 +870,7 @@ export function GenesisConsole({
                             <DocumentationSection
                                 title="Manual Generation Flow"
                                 items={[
+                                    "From a fresh clone, run npm install once so local tools such as tsx are available under node_modules/.bin.",
                                     "Run npm.cmd run genesis.",
                                     "Select a registry. The local registry currently exposes the built-in template library.",
                                     "Choose Build Manually.",
@@ -922,6 +924,8 @@ export function GenesisConsole({
                                 title="Install Guidance"
                                 items={[
                                     "Project Genesis does not install dependencies automatically.",
+                                    "Project Genesis itself requires Node.js LTS and a completed npm install before the CLI can run.",
+                                    "The genesis script runs through tsx, which is installed locally from package.json. You do not need a global tsx install.",
                                     "Generated packageInstall.md is the source of truth for setup commands.",
                                     "Web and Node starters prefer pnpm, with npm and Bun alternatives where useful.",
                                     "FastAPI starters prefer uv for Python environment and dependency management.",
@@ -934,6 +938,7 @@ export function GenesisConsole({
                             <DocumentationSection
                                 title="Common Problems"
                                 items={[
+                                    "If tsx is not recognized, run npm install in the Project Genesis repository and then rerun npm.cmd run genesis. Avoid running tsx directly unless you use npx tsx.",
                                     "If generation fails because the output directory already exists, choose a new empty directory.",
                                     "If a profile is incompatible, check whether one feature requires a capability that the base template does not provide.",
                                     "If two features conflict, remove one of them. Database features are the most likely conflict.",
@@ -947,6 +952,7 @@ export function GenesisConsole({
                         <aside className="space-y-6">
                             <CommandPanel
                                 commands={[
+                                    "npm install",
                                     "npm.cmd run dev -- --hostname 127.0.0.1 --port 3000",
                                     "npm.cmd run genesis",
                                     "npm.cmd run genesis -- sync",

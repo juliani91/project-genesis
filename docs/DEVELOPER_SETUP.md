@@ -11,7 +11,7 @@ Install globally:
 
 Project dependencies are installed locally.
 
-Do not install TypeScript, Next.js, or `tsx` globally.
+Do not install TypeScript, Next.js, or `tsx` globally. The `genesis` npm script uses the local `tsx` dev dependency installed by `npm install`.
 
 ---
 
@@ -25,6 +25,8 @@ cd project-genesis
 
 npm install
 ```
+
+If `npm.cmd run genesis` reports that `tsx` is not recognized, dependencies have not been installed in this checkout yet. Run `npm install` from the repository root, then rerun the command.
 
 ---
 

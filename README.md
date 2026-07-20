@@ -24,9 +24,12 @@ npm.cmd run dev -- --hostname 127.0.0.1 --port 3000
 
 Open `http://127.0.0.1:3000`.
 
+Project Genesis runs the CLI through `tsx`, which is installed as a local dev dependency by `npm install`. You do not need to install `tsx` globally. If `npm.cmd run genesis` reports that `tsx` is not recognized, run `npm install` from the repository root and try again.
+
 ## CLI
 
 ```powershell
+npm install
 npm.cmd run genesis
 npm.cmd run genesis -- search <query>
 npm.cmd run genesis -- info <template-id>
