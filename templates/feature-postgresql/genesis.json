@@ -1,0 +1,24 @@
+{
+  "id": "feature-postgresql",
+  "extends": null,
+  "name": "PostgreSQL",
+  "version": "1.0.0",
+  "description": "PostgreSQL docs, environment example, and migration folder.",
+  "author": "Project Genesis",
+  "category": "Database",
+  "tags": [
+    "database",
+    "postgresql"
+  ],
+  "role": "feature",
+  "provides": [
+    "postgres",
+    "database"
+  ],
+  "requiresCapabilities": [],
+  "conflictsWith": [
+    "sqlite"
+  ],
+  "minGenesisVersion": "0.14.0",
+  "deprecated": false
+}

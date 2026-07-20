@@ -1,0 +1,57 @@
+{
+  "title": "Install {{PROJECT_NAME}}",
+  "description": "Setup instructions for the generated FastAPI service.",
+  "packageManager": "Recommended: uv for Python environments and dependency sync.",
+  "prerequisites": [
+    "uv installed",
+    "uv can install and manage Python versions automatically",
+    "Optional: Docker for containerized development"
+  ],
+  "installSteps": [
+    {
+      "title": "Install uv",
+      "description": "Install uv if it is not already available.",
+      "commands": [
+        {
+          "label": "Windows installer",
+          "command": "powershell -ExecutionPolicy ByPass -c \"irm https://astral.sh/uv/install.ps1 | iex\"",
+          "platform": "PowerShell"
+        },
+        {
+          "label": "macOS/Linux installer",
+          "command": "curl -LsSf https://astral.sh/uv/install.sh | sh",
+          "platform": "bash"
+        }
+      ]
+    },
+    {
+      "title": "Create environment and install dependencies",
+      "description": "Install requirements into the project environment.",
+      "commands": [
+        {
+          "label": "uv pip",
+          "command": "uv pip install -r requirements.txt",
+          "platform": "PowerShell"
+        }
+      ]
+    }
+  ],
+  "runCommands": [
+    {
+      "label": "Run API",
+      "command": "uv run uvicorn app.main:app --reload",
+      "platform": "PowerShell"
+    }
+  ],
+  "verifyCommands": [
+    {
+      "label": "Run tests",
+      "command": "uv run pytest",
+      "platform": "PowerShell"
+    }
+  ],
+  "environmentVariables": [],
+  "notes": [
+    "If Python is missing, run uv python install before dependency installation."
+  ]
+}

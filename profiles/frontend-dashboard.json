@@ -1,0 +1,13 @@
+{
+  "id": "frontend-dashboard",
+  "name": "Frontend Dashboard",
+  "description": "React dashboard starter with styling and E2E testing.",
+  "category": "Web",
+  "baseTemplate": "react-spa",
+  "featureTemplates": [
+    "feature-tailwind",
+    "feature-playwright",
+    "feature-github-actions",
+    "feature-ai-workspace"
+  ]
+}

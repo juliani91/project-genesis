@@ -1,0 +1,12 @@
+{
+  "id": "marketing-web-app",
+  "name": "Marketing Web App",
+  "description": "Polished web app starter for marketing/product sites.",
+  "category": "Web",
+  "baseTemplate": "nextjs-app",
+  "featureTemplates": [
+    "feature-tailwind",
+    "feature-github-actions",
+    "feature-ai-workspace"
+  ]
+}

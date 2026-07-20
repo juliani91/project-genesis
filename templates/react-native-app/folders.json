@@ -1,0 +1,17 @@
+[
+  {
+    "path": "app"
+  },
+  {
+    "path": "src"
+  },
+  {
+    "path": "src/screens"
+  },
+  {
+    "path": "assets"
+  },
+  {
+    "path": "Docs"
+  }
+]

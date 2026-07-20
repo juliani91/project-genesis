@@ -1,0 +1,23 @@
+{
+  "id": "feature-docker",
+  "extends": null,
+  "name": "Docker Support",
+  "version": "1.0.0",
+  "description": "Container files and Docker usage notes.",
+  "author": "Project Genesis",
+  "category": "Infrastructure",
+  "tags": [
+    "docker",
+    "containers"
+  ],
+  "role": "feature",
+  "provides": [
+    "docker"
+  ],
+  "requiresCapabilities": [
+    "containerizable"
+  ],
+  "conflictsWith": [],
+  "minGenesisVersion": "0.14.0",
+  "deprecated": false
+}

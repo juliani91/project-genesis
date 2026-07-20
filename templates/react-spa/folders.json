@@ -1,0 +1,17 @@
+[
+  {
+    "path": "src"
+  },
+  {
+    "path": "src/components"
+  },
+  {
+    "path": "src/routes"
+  },
+  {
+    "path": "public"
+  },
+  {
+    "path": "Docs"
+  }
+]

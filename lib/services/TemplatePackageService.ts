@@ -3,6 +3,7 @@ import path from "path";
 import {
     loadFiles,
     loadFolders,
+    loadPackageInstall,
     loadWizard
 } from "../loaders";
 
@@ -59,6 +60,28 @@ export class TemplatePackageService {
             descriptors: {
                 ...template.descriptors,
                 files
+            }
+        };
+
+    }
+
+    public async enrichWithPackageInstall(
+        template: TemplatePackage
+    ): Promise<TemplatePackage> {
+
+        const packageInstall =
+            await loadPackageInstall(
+                path.join(
+                    template.path,
+                    "packageInstall.json"
+                )
+            );
+
+        return {
+            ...template,
+            descriptors: {
+                ...template.descriptors,
+                packageInstall
             }
         };
 

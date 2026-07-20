@@ -1,0 +1,28 @@
+{
+  "id": "react-native-app",
+  "extends": null,
+  "name": "React Native App",
+  "version": "1.0.0",
+  "description": "Runnable Expo-style React Native mobile application starter.",
+  "author": "Project Genesis",
+  "category": "Mobile",
+  "tags": [
+    "mobile",
+    "react-native",
+    "expo",
+    "typescript"
+  ],
+  "role": "base",
+  "provides": [
+    "mobile",
+    "node",
+    "typescript",
+    "react",
+    "containerizable",
+    "app-runtime"
+  ],
+  "requiresCapabilities": [],
+  "conflictsWith": [],
+  "minGenesisVersion": "0.14.0",
+  "deprecated": false
+}

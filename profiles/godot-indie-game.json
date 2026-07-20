@@ -1,0 +1,12 @@
+{
+  "id": "godot-indie-game",
+  "name": "Godot Indie Game",
+  "description": "Godot workspace with game design docs and CI.",
+  "category": "Game Development",
+  "baseTemplate": "godot-game",
+  "featureTemplates": [
+    "feature-game-design-docs",
+    "feature-github-actions",
+    "feature-ai-workspace"
+  ]
+}

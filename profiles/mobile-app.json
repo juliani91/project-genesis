@@ -1,0 +1,12 @@
+{
+  "id": "mobile-app",
+  "name": "Mobile App",
+  "description": "React Native mobile app starter with navigation and CI.",
+  "category": "Mobile",
+  "baseTemplate": "react-native-app",
+  "featureTemplates": [
+    "feature-mobile-navigation",
+    "feature-github-actions",
+    "feature-ai-workspace"
+  ]
+}

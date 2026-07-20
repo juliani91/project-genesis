@@ -1,0 +1,17 @@
+[
+  {
+    "source": "Docker/Dockerfile",
+    "destination": "Docker/Dockerfile",
+    "mode": "copy"
+  },
+  {
+    "source": "Docker/.dockerignore",
+    "destination": "Docker/.dockerignore",
+    "mode": "copy"
+  },
+  {
+    "source": "Docs/Docker.md",
+    "destination": "Docs/Docker.md",
+    "mode": "render"
+  }
+]

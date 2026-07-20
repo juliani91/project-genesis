@@ -96,3 +96,17 @@ export * from "./SerializedRegistryPublishEntry";
 export * from "./SerializedRegistryPublishManifest";
 export * from "./TemplatePublishValidationResult";
 export * from "./PackagePublishCommandOptions";
+export * from "./TemplateRegistrySyncEntry";
+export * from "./TemplateRegistrySyncResult";
+export * from "./EnterprisePermission";
+export * from "./EnterpriseRole";
+export * from "./EnterpriseMember";
+export * from "./EnterpriseOrganization";
+export * from "./EnterprisePolicyCheck";
+export * from "./EnterpriseAuditEvent";
+export * from "./EnterpriseWorkspaceSummary";
+export * from "./PackageInstallCommand";
+export * from "./PackageInstallEnvironmentVariable";
+export * from "./PackageInstallStep";
+export * from "./PackageInstallDescriptor";
+

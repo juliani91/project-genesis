@@ -1,0 +1,17 @@
+[
+  {
+    "source": "Database/PostgreSQL/README.md",
+    "destination": "Database/PostgreSQL/README.md",
+    "mode": "render"
+  },
+  {
+    "source": "Database/PostgreSQL/.env.example",
+    "destination": "Database/PostgreSQL/.env.example",
+    "mode": "copy"
+  },
+  {
+    "source": "Database/PostgreSQL/Migrations/001_init.sql",
+    "destination": "Database/PostgreSQL/Migrations/001_init.sql",
+    "mode": "copy"
+  }
+]

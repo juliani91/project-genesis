@@ -1,0 +1,26 @@
+{
+  "id": "unity-game",
+  "extends": null,
+  "name": "Unity Game",
+  "version": "1.0.0",
+  "description": "Unity game workspace starter with folders, docs, and placeholder scripts.",
+  "author": "Project Genesis",
+  "category": "Game Development",
+  "tags": [
+    "game",
+    "unity",
+    "csharp"
+  ],
+  "role": "base",
+  "provides": [
+    "game",
+    "unity",
+    "csharp",
+    "game-workspace",
+    "containerizable"
+  ],
+  "requiresCapabilities": [],
+  "conflictsWith": [],
+  "minGenesisVersion": "0.14.0",
+  "deprecated": false
+}

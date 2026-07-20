@@ -1,0 +1,12 @@
+[
+  {
+    "source": "Security/Auth/README.md",
+    "destination": "Security/Auth/README.md",
+    "mode": "render"
+  },
+  {
+    "source": "Security/Auth/.env.example",
+    "destination": "Security/Auth/.env.example",
+    "mode": "copy"
+  }
+]

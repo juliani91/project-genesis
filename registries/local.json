@@ -8,10 +8,118 @@
   },
   "templates": [
     {
+      "templateId": "fastapi-service",
+      "version": "1.0.0",
+      "name": "FastAPI Service",
+      "description": "Runnable Python FastAPI service starter with health endpoint."
+    },
+    {
+      "templateId": "feature-ai-workspace",
+      "version": "1.0.0",
+      "name": "AI Workspace",
+      "description": "AI collaboration docs and planning workspace."
+    },
+    {
+      "templateId": "feature-auth",
+      "version": "1.0.0",
+      "name": "Authentication Planning",
+      "description": "Authentication docs, env placeholders, and protected-route notes."
+    },
+    {
+      "templateId": "feature-docker",
+      "version": "1.0.0",
+      "name": "Docker Support",
+      "description": "Container files and Docker usage notes."
+    },
+    {
+      "templateId": "feature-game-design-docs",
+      "version": "1.0.0",
+      "name": "Game Design Docs",
+      "description": "Game design, mechanics, asset pipeline, and sprint planning docs."
+    },
+    {
+      "templateId": "feature-github-actions",
+      "version": "1.0.0",
+      "name": "GitHub Actions CI",
+      "description": "Continuous integration workflow scaffold."
+    },
+    {
+      "templateId": "feature-mobile-navigation",
+      "version": "1.0.0",
+      "name": "Mobile Navigation",
+      "description": "Mobile screen navigation scaffold."
+    },
+    {
+      "templateId": "feature-playwright",
+      "version": "1.0.0",
+      "name": "Playwright E2E",
+      "description": "Playwright end-to-end test scaffold."
+    },
+    {
+      "templateId": "feature-postgresql",
+      "version": "1.0.0",
+      "name": "PostgreSQL",
+      "description": "PostgreSQL docs, environment example, and migration folder."
+    },
+    {
+      "templateId": "feature-pytest",
+      "version": "1.0.0",
+      "name": "Pytest",
+      "description": "Python pytest scaffold."
+    },
+    {
+      "templateId": "feature-sqlite",
+      "version": "1.0.0",
+      "name": "SQLite",
+      "description": "SQLite docs and data folder scaffold."
+    },
+    {
+      "templateId": "feature-tailwind",
+      "version": "1.0.0",
+      "name": "Tailwind Styling",
+      "description": "Tailwind styling scaffold and notes."
+    },
+    {
+      "templateId": "godot-game",
+      "version": "1.0.0",
+      "name": "Godot Game",
+      "description": "Godot game starter with scene, script, docs, and export checklist."
+    },
+    {
+      "templateId": "nextjs-app",
+      "version": "1.0.0",
+      "name": "Next.js App",
+      "description": "Runnable Next.js TypeScript web application starter."
+    },
+    {
+      "templateId": "node-cli",
+      "version": "1.0.0",
+      "name": "Node CLI",
+      "description": "Runnable TypeScript command-line application starter."
+    },
+    {
       "templateId": "project-genesis",
       "version": "1.0.0",
       "name": "Project Genesis",
       "description": "Reference template for the Project Genesis Architect / Builder workflow."
+    },
+    {
+      "templateId": "react-native-app",
+      "version": "1.0.0",
+      "name": "React Native App",
+      "description": "Runnable Expo-style React Native mobile application starter."
+    },
+    {
+      "templateId": "react-spa",
+      "version": "1.0.0",
+      "name": "React SPA",
+      "description": "Runnable React TypeScript single-page application starter."
+    },
+    {
+      "templateId": "unity-game",
+      "version": "1.0.0",
+      "name": "Unity Game",
+      "description": "Unity game workspace starter with folders, docs, and placeholder scripts."
     }
   ]
 }

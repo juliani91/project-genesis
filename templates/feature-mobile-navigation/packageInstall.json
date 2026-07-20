@@ -1,0 +1,38 @@
+{
+  "title": "Mobile Navigation Setup",
+  "description": "Navigation setup appended by the mobile navigation feature.",
+  "packageManager": "Use Expo-compatible navigation packages.",
+  "prerequisites": [
+    "React Native or Expo project"
+  ],
+  "installSteps": [
+    {
+      "title": "Install navigation packages",
+      "description": "Install React Navigation packages appropriate for the app.",
+      "commands": [
+        {
+          "label": "npm",
+          "command": "npm install @react-navigation/native @react-navigation/native-stack",
+          "platform": "PowerShell"
+        },
+        {
+          "label": "pnpm",
+          "command": "pnpm add @react-navigation/native @react-navigation/native-stack",
+          "platform": "PowerShell"
+        }
+      ]
+    }
+  ],
+  "runCommands": [],
+  "verifyCommands": [
+    {
+      "label": "Start Expo",
+      "command": "npx expo start",
+      "platform": "PowerShell"
+    }
+  ],
+  "environmentVariables": [],
+  "notes": [
+    "Expo projects may require additional native dependencies for navigation gestures/screens."
+  ]
+}

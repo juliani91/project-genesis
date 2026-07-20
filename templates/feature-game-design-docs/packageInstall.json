@@ -1,0 +1,33 @@
+{
+  "title": "Game Design Docs Setup",
+  "description": "Game design documentation setup.",
+  "packageManager": "Markdown docs live in the generated repository.",
+  "prerequisites": [
+    "A game base template"
+  ],
+  "installSteps": [
+    {
+      "title": "Review game design document",
+      "description": "Start by editing the generated GDD and sprint plan.",
+      "commands": [
+        {
+          "label": "Open docs",
+          "command": "Open GameDesign/GDD.md and GameDesign/Sprints/SPRINT-001.md",
+          "platform": "manual"
+        }
+      ]
+    }
+  ],
+  "runCommands": [],
+  "verifyCommands": [
+    {
+      "label": "Review asset pipeline",
+      "command": "Confirm GameDesign/Assets/PIPELINE.md matches your art workflow",
+      "platform": "manual"
+    }
+  ],
+  "environmentVariables": [],
+  "notes": [
+    "Keep design docs versioned with gameplay changes."
+  ]
+}

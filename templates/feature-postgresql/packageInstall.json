@@ -1,0 +1,40 @@
+{
+  "title": "PostgreSQL Setup",
+  "description": "PostgreSQL setup appended by the database feature.",
+  "packageManager": "Use local PostgreSQL, Docker, or managed PostgreSQL.",
+  "prerequisites": [
+    "PostgreSQL available locally or remotely"
+  ],
+  "installSteps": [
+    {
+      "title": "Configure database URL",
+      "description": "Copy the example env file and update credentials.",
+      "commands": [
+        {
+          "label": "Copy env",
+          "command": "Copy Database/PostgreSQL/.env.example into your application environment",
+          "platform": "manual"
+        }
+      ]
+    }
+  ],
+  "runCommands": [],
+  "verifyCommands": [
+    {
+      "label": "Test connection",
+      "command": "psql \"$env:DATABASE_URL\" -c \"select 1\"",
+      "platform": "PowerShell"
+    }
+  ],
+  "environmentVariables": [
+    {
+      "key": "DATABASE_URL",
+      "description": "PostgreSQL connection string.",
+      "example": "postgres://postgres:postgres@localhost:5432/app",
+      "required": true
+    }
+  ],
+  "notes": [
+    "Never commit real database credentials."
+  ]
+}

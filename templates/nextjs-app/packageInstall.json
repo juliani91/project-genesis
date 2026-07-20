@@ -1,0 +1,57 @@
+{
+  "title": "Install {{PROJECT_NAME}}",
+  "description": "Setup instructions for the generated Next.js starter.",
+  "packageManager": "Recommended: pnpm. Alternatives: npm install or bun install.",
+  "prerequisites": [
+    "Node.js LTS installed",
+    "pnpm enabled with Corepack: corepack enable",
+    "Optional: npm and Bun can also install dependencies",
+    "Next.js requires Node.js 20.9 or newer."
+  ],
+  "installSteps": [
+    {
+      "title": "Install dependencies",
+      "description": "Install project dependencies from package.json.",
+      "commands": [
+        {
+          "label": "pnpm",
+          "command": "pnpm install",
+          "platform": "PowerShell"
+        },
+        {
+          "label": "npm",
+          "command": "npm install",
+          "platform": "PowerShell"
+        },
+        {
+          "label": "bun",
+          "command": "bun install",
+          "platform": "PowerShell"
+        }
+      ]
+    }
+  ],
+  "runCommands": [
+    {
+      "label": "Start dev server",
+      "command": "pnpm dev",
+      "platform": "PowerShell"
+    },
+    {
+      "label": "Production build",
+      "command": "pnpm build",
+      "platform": "PowerShell"
+    }
+  ],
+  "verifyCommands": [
+    {
+      "label": "Build verification",
+      "command": "pnpm build",
+      "platform": "PowerShell"
+    }
+  ],
+  "environmentVariables": [],
+  "notes": [
+    "Next.js recommended defaults include TypeScript, Tailwind CSS, ESLint, App Router, and Turbopack."
+  ]
+}

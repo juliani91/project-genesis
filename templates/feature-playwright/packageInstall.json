@@ -1,0 +1,43 @@
+{
+  "title": "Playwright Setup",
+  "description": "Playwright setup appended by the E2E feature.",
+  "packageManager": "Use the package manager from the base web template.",
+  "prerequisites": [
+    "Node.js LTS installed"
+  ],
+  "installSteps": [
+    {
+      "title": "Install Playwright",
+      "description": "Install Playwright and browser binaries.",
+      "commands": [
+        {
+          "label": "pnpm",
+          "command": "pnpm add -D @playwright/test && pnpm exec playwright install",
+          "platform": "PowerShell"
+        },
+        {
+          "label": "npm",
+          "command": "npm install -D @playwright/test && npx playwright install",
+          "platform": "PowerShell"
+        },
+        {
+          "label": "bun",
+          "command": "bun add -d @playwright/test && bunx playwright install",
+          "platform": "PowerShell"
+        }
+      ]
+    }
+  ],
+  "runCommands": [],
+  "verifyCommands": [
+    {
+      "label": "Run E2E tests",
+      "command": "pnpm exec playwright test",
+      "platform": "PowerShell"
+    }
+  ],
+  "environmentVariables": [],
+  "notes": [
+    "Start the app before running E2E tests unless your Playwright config starts it automatically."
+  ]
+}

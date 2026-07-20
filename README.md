@@ -1,36 +1,60 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Project Genesis
 
-## Getting Started
+Project Genesis generates AI-ready project workspaces from reusable templates.
 
-First, run the development server:
+It provides a layered template engine, registry and package management, package publishing, registry synchronization, an inspection UI, and an enterprise policy foundation.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+## Capabilities
+
+- Template discovery, inheritance, composition, capabilities, profiles, and version validation
+- Wizard-driven project generation
+- Remote registry loading with cache fallback
+- Remote template package download, verification, extraction, and installation
+- Package publishing and registry manifest updates
+- CLI package commands for search, info, install, uninstall, publish, and sync
+- Web console for catalog, registry, profile, package, enterprise, and roadmap inspection
+- Organization, role, permission, policy check, and audit summary foundations
+
+## Development
+
+```powershell
+npm install
+npm.cmd run dev -- --hostname 127.0.0.1 --port 3000
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open `http://127.0.0.1:3000`.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## CLI
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```powershell
+npm.cmd run genesis
+npm.cmd run genesis -- search <query>
+npm.cmd run genesis -- info <template-id>
+npm.cmd run genesis -- install <template-id>
+npm.cmd run genesis -- uninstall <template-id> <version>
+npm.cmd run genesis -- publish <template-id> --version <version> --package <zip-path> --registry <registry-id>
+npm.cmd run genesis -- sync
+```
 
-## Learn More
+## Verification
 
-To learn more about Next.js, take a look at the following resources:
+```powershell
+npm.cmd run verify
+npm.cmd run test:registry-sync
+npm.cmd run test:enterprise
+```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Documentation
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+Primary documentation lives in `docs/`.
 
-## Deploy on Vercel
+Start with:
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- `docs/VISION.md`
+- `docs/ARCHITECTURE.md`
+- `docs/MILESTONES.md`
+- `docs/REMOTE_REGISTRY_SPEC.md`
+- `docs/ENTERPRISE_FEATURES_SPEC.md`
+- `docs/TEMPLATE_LIBRARY_GUIDE.md`
+- `docs/PACKAGE_INSTALL_DESCRIPTOR_SPEC.md`
+- `docs/RELEASE_CHECKLIST.md`

@@ -1,0 +1,23 @@
+{
+  "id": "feature-auth",
+  "extends": null,
+  "name": "Authentication Planning",
+  "version": "1.0.0",
+  "description": "Authentication docs, env placeholders, and protected-route notes.",
+  "author": "Project Genesis",
+  "category": "Security",
+  "tags": [
+    "auth",
+    "security"
+  ],
+  "role": "feature",
+  "provides": [
+    "auth"
+  ],
+  "requiresCapabilities": [
+    "app-runtime"
+  ],
+  "conflictsWith": [],
+  "minGenesisVersion": "0.14.0",
+  "deprecated": false
+}

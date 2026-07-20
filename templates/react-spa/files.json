@@ -1,0 +1,32 @@
+[
+  {
+    "source": "README.md",
+    "destination": "README.md",
+    "mode": "render"
+  },
+  {
+    "source": "package.json",
+    "destination": "package.json",
+    "mode": "copy"
+  },
+  {
+    "source": "src/main.tsx",
+    "destination": "src/main.tsx",
+    "mode": "copy"
+  },
+  {
+    "source": "src/App.tsx",
+    "destination": "src/App.tsx",
+    "mode": "render"
+  },
+  {
+    "source": "index.html",
+    "destination": "index.html",
+    "mode": "copy"
+  },
+  {
+    "source": "Docs/ARCHITECTURE.md",
+    "destination": "Docs/ARCHITECTURE.md",
+    "mode": "render"
+  }
+]

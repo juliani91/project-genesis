@@ -1,0 +1,72 @@
+{
+  "title": "Install {{PROJECT_NAME}}",
+  "description": "Setup instructions for the generated Expo/React Native starter.",
+  "packageManager": "Recommended: npm or pnpm with Expo CLI commands through npx.",
+  "prerequisites": [
+    "Node.js LTS installed",
+    "Expo Go installed on a physical device or emulator",
+    "Android Studio or Xcode when building native targets"
+  ],
+  "installSteps": [
+    {
+      "title": "Install dependencies",
+      "description": "Install Expo and React Native dependencies.",
+      "commands": [
+        {
+          "label": "npm",
+          "command": "npm install",
+          "platform": "PowerShell"
+        },
+        {
+          "label": "pnpm",
+          "command": "pnpm install",
+          "platform": "PowerShell"
+        },
+        {
+          "label": "bun",
+          "command": "bun install",
+          "platform": "PowerShell"
+        }
+      ]
+    },
+    {
+      "title": "Create fresh Expo reference project if needed",
+      "description": "Use Expo current project generator for comparison or migration.",
+      "commands": [
+        {
+          "label": "Expo latest",
+          "command": "npx create-expo-app@latest --template default@sdk-57",
+          "platform": "PowerShell"
+        }
+      ]
+    }
+  ],
+  "runCommands": [
+    {
+      "label": "Start Expo",
+      "command": "npx expo start",
+      "platform": "PowerShell"
+    },
+    {
+      "label": "Android",
+      "command": "npx expo start --android",
+      "platform": "PowerShell"
+    },
+    {
+      "label": "iOS",
+      "command": "npx expo start --ios",
+      "platform": "PowerShell"
+    }
+  ],
+  "verifyCommands": [
+    {
+      "label": "Expo doctor",
+      "command": "npx expo-doctor",
+      "platform": "PowerShell"
+    }
+  ],
+  "environmentVariables": [],
+  "notes": [
+    "During SDK transitions, Expo may recommend a specific SDK template for Expo Go compatibility."
+  ]
+}

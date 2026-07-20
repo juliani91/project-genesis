@@ -1,0 +1,40 @@
+{
+  "title": "SQLite Setup",
+  "description": "SQLite setup appended by the SQLite feature.",
+  "packageManager": "SQLite is file-based and usually requires no server.",
+  "prerequisites": [
+    "SQLite CLI optional for manual inspection"
+  ],
+  "installSteps": [
+    {
+      "title": "Initialize schema",
+      "description": "Apply schema.sql with your application or SQLite CLI.",
+      "commands": [
+        {
+          "label": "SQLite CLI",
+          "command": "sqlite3 Data/app.db < Database/SQLite/schema.sql",
+          "platform": "PowerShell"
+        }
+      ]
+    }
+  ],
+  "runCommands": [],
+  "verifyCommands": [
+    {
+      "label": "Inspect database",
+      "command": "sqlite3 Data/app.db \".tables\"",
+      "platform": "PowerShell"
+    }
+  ],
+  "environmentVariables": [
+    {
+      "key": "SQLITE_PATH",
+      "description": "Path to the SQLite database file.",
+      "example": "Data/app.db",
+      "required": false
+    }
+  ],
+  "notes": [
+    "SQLite and PostgreSQL features conflict; choose one database feature."
+  ]
+}

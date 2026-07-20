@@ -1,0 +1,11 @@
+[
+  {
+    "path": "src"
+  },
+  {
+    "path": "tests"
+  },
+  {
+    "path": "Docs"
+  }
+]

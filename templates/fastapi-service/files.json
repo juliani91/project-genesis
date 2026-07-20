@@ -1,0 +1,27 @@
+[
+  {
+    "source": "README.md",
+    "destination": "README.md",
+    "mode": "render"
+  },
+  {
+    "source": "requirements.txt",
+    "destination": "requirements.txt",
+    "mode": "copy"
+  },
+  {
+    "source": "app/main.py",
+    "destination": "app/main.py",
+    "mode": "render"
+  },
+  {
+    "source": "tests/test_health.py",
+    "destination": "tests/test_health.py",
+    "mode": "copy"
+  },
+  {
+    "source": "Docs/ARCHITECTURE.md",
+    "destination": "Docs/ARCHITECTURE.md",
+    "mode": "render"
+  }
+]

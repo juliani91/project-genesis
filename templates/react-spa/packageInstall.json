@@ -1,0 +1,56 @@
+{
+  "title": "Install {{PROJECT_NAME}}",
+  "description": "Setup instructions for the generated React SPA starter.",
+  "packageManager": "Recommended: pnpm. Alternatives: npm install or bun install.",
+  "prerequisites": [
+    "Node.js LTS installed",
+    "pnpm enabled with Corepack: corepack enable",
+    "Optional: npm and Bun can also install dependencies"
+  ],
+  "installSteps": [
+    {
+      "title": "Install dependencies",
+      "description": "Install React/Vite dependencies.",
+      "commands": [
+        {
+          "label": "pnpm",
+          "command": "pnpm install",
+          "platform": "PowerShell"
+        },
+        {
+          "label": "npm",
+          "command": "npm install",
+          "platform": "PowerShell"
+        },
+        {
+          "label": "bun",
+          "command": "bun install",
+          "platform": "PowerShell"
+        }
+      ]
+    }
+  ],
+  "runCommands": [
+    {
+      "label": "Start dev server",
+      "command": "pnpm dev",
+      "platform": "PowerShell"
+    },
+    {
+      "label": "Build app",
+      "command": "pnpm build",
+      "platform": "PowerShell"
+    }
+  ],
+  "verifyCommands": [
+    {
+      "label": "Run tests",
+      "command": "pnpm test",
+      "platform": "PowerShell"
+    }
+  ],
+  "environmentVariables": [],
+  "notes": [
+    "If using Bun, run equivalent scripts with bun run."
+  ]
+}

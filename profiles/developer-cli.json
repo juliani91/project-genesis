@@ -1,0 +1,11 @@
+{
+  "id": "developer-cli",
+  "name": "Developer CLI",
+  "description": "TypeScript CLI starter with CI and AI workspace docs.",
+  "category": "Software",
+  "baseTemplate": "node-cli",
+  "featureTemplates": [
+    "feature-github-actions",
+    "feature-ai-workspace"
+  ]
+}

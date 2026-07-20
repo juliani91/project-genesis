@@ -101,6 +101,34 @@ Future enhancements include:
 
 ---
 
+# Synchronization
+
+Registry synchronization refreshes discovered registries into the local runtime view.
+
+Local registries are passed through without cache writes.
+
+Remote registries are fetched from the network and written to the registry cache atomically.
+
+If a remote registry cannot be reached, synchronization falls back to the last valid cached manifest when one exists.
+
+Command line:
+
+```bash
+npm run genesis -- sync
+npm run genesis -- sync --registry official
+```
+
+Synchronization reports:
+
+- registry ID
+- registry name
+- source (`local`, `network`, or `cache`)
+- template count
+- cache path when a cache entry is used or refreshed
+- cache timestamp when available
+
+---
+
 # Error Handling
 
 Network failures must:

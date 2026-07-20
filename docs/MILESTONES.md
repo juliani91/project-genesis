@@ -753,3 +753,129 @@ Completed:
 Status:
 
 - Package management is now fully available from the Project Genesis CLI.
+
+## Sprint 31-35 — Registry Synchronization
+
+Completed:
+
+- Added registry synchronization models.
+- Added `TemplateRegistrySyncService`.
+- Added local registry passthrough synchronization.
+- Added remote registry network refresh synchronization.
+- Added remote registry cache fallback during synchronization.
+- Added `genesis sync` package command.
+- Added optional `--registry <registry-id>` sync targeting.
+- Added synchronization formatter output.
+- Added registry synchronization sandbox coverage.
+
+Status:
+
+- Registry synchronization is available from the service layer and CLI.
+- Remote registry manifests can be refreshed into the local cache and reused offline.
+
+## Sprint 36-40 — UI Feature Completion
+
+Completed:
+
+- Split the web UI into a server data-loading page and a client-side console.
+- Added a tabbed workspace for catalog, registries, profiles, packages, and roadmap views.
+- Added template catalog search.
+- Added template role filtering.
+- Added template category filtering.
+- Added template detail inspection.
+- Added registry inspection with synchronization command guidance.
+- Added profile inspection with generation-flow guidance.
+- Added package visibility for installable registry packages and installed packages.
+- Added workflow-specific CLI command panels.
+- Updated sprint readiness status in the UI.
+
+Status:
+
+- The Project Genesis web UI now exposes the main service-backed workflows needed to inspect the template ecosystem before generation.
+- The UI remains layered: server-side loading uses services, while client-side interaction is limited to presentation state.
+
+## Sprint 41-44 — Enterprise Features
+
+Completed:
+
+- Added enterprise organization models.
+- Added enterprise member models.
+- Added enterprise role and permission models.
+- Added enterprise policy check results.
+- Added enterprise audit event summaries.
+- Added `EnterprisePolicyService`.
+- Added `EnterpriseWorkspaceService`.
+- Added a default organization workspace scoped to discovered registries.
+- Added policy checks for organization management, template publishing, and registry synchronization.
+- Added enterprise sandbox coverage.
+- Added an Enterprise tab to the web console.
+- Added enterprise documentation.
+
+Status:
+
+- Project Genesis now has a service-backed enterprise foundation for organizations, permissions, policy checks, registry scope, and audit summaries.
+
+## Sprint 45-48 — Polish, Optimization, Documentation, Packaging
+
+Completed:
+
+- Replaced the default Next.js README with Project Genesis documentation.
+- Added release verification scripts.
+- Added registry synchronization and enterprise test scripts.
+- Added a release checklist.
+- Updated developer setup with release verification commands.
+- Updated the web roadmap to show Sprint 26-48 complete.
+- Updated release readiness UI items.
+- Verified type checking, linting, production build, registry sync test, and enterprise test.
+
+Status:
+
+- Project Genesis has a documented release-readiness workflow and a single verification command for final handoff.
+
+## Template Library Expansion
+
+Completed:
+
+- Added runnable base templates for web, software, mobile, and game development.
+- Added composable feature templates for Docker, CI, databases, testing, auth, styling, mobile navigation, game design docs, and AI workspace docs.
+- Added selectable profiles for common project stacks.
+- Updated the local registry manifest so the CLI can select the new templates.
+- Added template library documentation.
+- Added sandbox coverage for template discovery, catalog entries, profile composition, compatibility, and representative generated outputs.
+
+Status:
+
+- Users can select from multiple base templates manually or choose complete predefined profiles.
+
+## Package Install Guidance Expansion
+
+Completed:
+
+- Added optional `packageInstall.json` metadata descriptors.
+- Added package install descriptor models, loader, composition service, and Markdown renderer.
+- Generated composed `packageInstall.md` files for selected templates and features.
+- Added install metadata to base and feature templates.
+- Added install guidance visibility to the web catalog detail panel.
+- Added descriptor documentation.
+- Added sandbox coverage for descriptor loading, composition, deduplication, and generated install guides.
+
+Status:
+
+- Generated projects now include manual install/setup guidance when selected templates provide install metadata.
+
+## Website Documentation Tab
+
+Completed:
+
+- Added an in-app Documentation tab next to Roadmap.
+- Documented manual generation flow.
+- Documented profile generation flow.
+- Documented template selection rules.
+- Documented generated files users should read first.
+- Documented install guidance expectations.
+- Documented common troubleshooting scenarios.
+- Added essential CLI and verification command reference panels.
+
+Status:
+
+- Users can now learn how to operate Project Genesis from the web console without opening repository documentation first.

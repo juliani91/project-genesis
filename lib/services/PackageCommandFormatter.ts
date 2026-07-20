@@ -4,7 +4,8 @@ import {
     PackageInstallationCommandResult,
     PackageRemovalCommandResult,
     PackageSearchCommandResult,
-    TemplatePublishingOutcome
+    TemplatePublishingOutcome,
+    TemplateRegistrySyncResult
 } from "../models";
 
 export class PackageCommandFormatter {
@@ -312,6 +313,81 @@ export class PackageCommandFormatter {
             "",
             `Registry package entries: ${outcome.manifest.packages.length}`
         ].join(
+            "\n"
+        );
+
+    }
+
+    public formatSync(
+        result:
+            TemplateRegistrySyncResult
+    ): string {
+
+        const lines:
+            string[] = [
+                result.message
+            ];
+
+        if (
+            result.synced.length ===
+            0
+        ) {
+
+            return lines.join(
+                "\n"
+            );
+
+        }
+
+        lines.push(
+            "",
+            "Synchronized Registries",
+            "-----------------------"
+        );
+
+        for (
+            const entry
+            of result.synced
+        ) {
+
+            lines.push(
+                [
+                    entry.registryName,
+                    `(${entry.registryId})`
+                ].join(" ")
+            );
+
+            lines.push(
+                `  Source    : ${entry.source}`
+            );
+
+            lines.push(
+                `  Templates : ${entry.templateCount}`
+            );
+
+            if (
+                entry.cachePath
+            ) {
+
+                lines.push(
+                    `  Cache     : ${entry.cachePath}`
+                );
+
+            }
+
+            if (
+                entry.cachedAt
+            ) {
+
+                lines.push(
+                    `  Cached At : ${entry.cachedAt.toISOString()}`
+                );
+
+            }
+
+        }
+
+        return lines.join(
             "\n"
         );
 

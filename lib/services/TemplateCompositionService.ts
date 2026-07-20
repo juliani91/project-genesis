@@ -1,10 +1,15 @@
 import {
     FolderDescriptor,
+    PackageInstallDescriptor,
     ResolvedTemplateFile,
     TemplateCompositionPlan,
     TemplatePackage,
     Wizard
 } from "../models";
+
+import {
+    PackageInstallCompositionService
+} from "./PackageInstallCompositionService";
 
 import {
     TemplateInheritanceService
@@ -57,6 +62,11 @@ export class TemplateCompositionService {
                 resolvedTemplates
             );
 
+        const packageInstall =
+            this.mergePackageInstall(
+                resolvedTemplates
+            );
+
         const baseTemplate =
             resolvedTemplates[0];
 
@@ -84,7 +94,9 @@ export class TemplateCompositionService {
                             file.descriptor
                     ),
 
-                resolvedFiles
+                resolvedFiles,
+
+                packageInstall
             }
         };
 
@@ -225,6 +237,24 @@ export class TemplateCompositionService {
         }
 
         return resolved;
+
+    }
+
+    private mergePackageInstall(
+        templates:
+            readonly TemplatePackage[]
+    ): PackageInstallDescriptor | undefined {
+
+        const service =
+            new PackageInstallCompositionService();
+
+        return service.compose(
+            templates.map(
+                (template) =>
+                    template.descriptors
+                        .packageInstall
+            )
+        );
 
     }
 

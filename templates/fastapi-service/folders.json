@@ -1,0 +1,14 @@
+[
+  {
+    "path": "app"
+  },
+  {
+    "path": "app/routes"
+  },
+  {
+    "path": "tests"
+  },
+  {
+    "path": "Docs"
+  }
+]

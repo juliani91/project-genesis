@@ -1,0 +1,23 @@
+{
+  "id": "feature-mobile-navigation",
+  "extends": null,
+  "name": "Mobile Navigation",
+  "version": "1.0.0",
+  "description": "Mobile screen navigation scaffold.",
+  "author": "Project Genesis",
+  "category": "Mobile",
+  "tags": [
+    "mobile",
+    "navigation"
+  ],
+  "role": "feature",
+  "provides": [
+    "mobile-navigation"
+  ],
+  "requiresCapabilities": [
+    "mobile"
+  ],
+  "conflictsWith": [],
+  "minGenesisVersion": "0.14.0",
+  "deprecated": false
+}

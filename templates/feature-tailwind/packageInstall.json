@@ -1,0 +1,43 @@
+{
+  "title": "Tailwind Setup",
+  "description": "Tailwind setup appended by the styling feature.",
+  "packageManager": "Use the package manager from the base web template.",
+  "prerequisites": [
+    "Node.js LTS installed"
+  ],
+  "installSteps": [
+    {
+      "title": "Install Tailwind",
+      "description": "Install Tailwind packages and move generated config into the project root if needed.",
+      "commands": [
+        {
+          "label": "pnpm",
+          "command": "pnpm add -D tailwindcss @tailwindcss/postcss",
+          "platform": "PowerShell"
+        },
+        {
+          "label": "npm",
+          "command": "npm install -D tailwindcss @tailwindcss/postcss",
+          "platform": "PowerShell"
+        },
+        {
+          "label": "bun",
+          "command": "bun add -d tailwindcss @tailwindcss/postcss",
+          "platform": "PowerShell"
+        }
+      ]
+    }
+  ],
+  "runCommands": [],
+  "verifyCommands": [
+    {
+      "label": "Build styles",
+      "command": "pnpm build",
+      "platform": "PowerShell"
+    }
+  ],
+  "environmentVariables": [],
+  "notes": [
+    "Next.js recommended defaults can include Tailwind automatically when creating a fresh app."
+  ]
+}

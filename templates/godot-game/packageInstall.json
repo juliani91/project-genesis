@@ -1,0 +1,51 @@
+{
+  "title": "Install {{PROJECT_NAME}}",
+  "description": "Setup instructions for the generated Godot workspace.",
+  "packageManager": "Godot editor and export templates are managed outside the project.",
+  "prerequisites": [
+    "Godot stable editor installed",
+    "Export templates installed for target platforms"
+  ],
+  "installSteps": [
+    {
+      "title": "Open project",
+      "description": "Open project.godot with the Godot editor.",
+      "commands": [
+        {
+          "label": "Godot editor",
+          "command": "Open Godot, import project.godot, then run the main scene",
+          "platform": "manual"
+        }
+      ]
+    },
+    {
+      "title": "Install export templates",
+      "description": "Install matching export templates before building packages.",
+      "commands": [
+        {
+          "label": "Godot export templates",
+          "command": "Editor > Manage Export Templates > Download and Install",
+          "platform": "manual"
+        }
+      ]
+    }
+  ],
+  "runCommands": [
+    {
+      "label": "Run game",
+      "command": "Open the project in Godot and press Run",
+      "platform": "manual"
+    }
+  ],
+  "verifyCommands": [
+    {
+      "label": "Verify export setup",
+      "command": "Project > Export should show configured templates without missing-template errors",
+      "platform": "manual"
+    }
+  ],
+  "environmentVariables": [],
+  "notes": [
+    "Export templates must match the installed Godot editor version."
+  ]
+}

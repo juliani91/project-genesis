@@ -1,0 +1,52 @@
+{
+  "title": "Install {{PROJECT_NAME}}",
+  "description": "Setup instructions for the generated Unity workspace.",
+  "packageManager": "Unity Hub manages editor installs and modules.",
+  "prerequisites": [
+    "Unity Hub installed",
+    "Unity Editor installed through Unity Hub",
+    "Git LFS installed for large assets"
+  ],
+  "installSteps": [
+    {
+      "title": "Install Git LFS",
+      "description": "Enable large file tracking before committing art assets.",
+      "commands": [
+        {
+          "label": "Git LFS",
+          "command": "git lfs install",
+          "platform": "PowerShell"
+        }
+      ]
+    },
+    {
+      "title": "Open project",
+      "description": "Open the generated folder from Unity Hub.",
+      "commands": [
+        {
+          "label": "Unity Hub",
+          "command": "Open Unity Hub, select Add project, and choose this generated folder",
+          "platform": "manual"
+        }
+      ]
+    }
+  ],
+  "runCommands": [
+    {
+      "label": "Open in Unity",
+      "command": "Use Unity Hub to open the project",
+      "platform": "manual"
+    }
+  ],
+  "verifyCommands": [
+    {
+      "label": "Verify project",
+      "command": "Open the project in Unity and confirm scripts compile",
+      "platform": "manual"
+    }
+  ],
+  "environmentVariables": [],
+  "notes": [
+    "Install Android, iOS, or WebGL modules from Unity Hub when targeting those platforms."
+  ]
+}

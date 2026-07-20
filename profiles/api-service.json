@@ -1,0 +1,14 @@
+{
+  "id": "api-service",
+  "name": "API Service",
+  "description": "FastAPI service with database, Docker, CI, and pytest.",
+  "category": "Software",
+  "baseTemplate": "fastapi-service",
+  "featureTemplates": [
+    "feature-postgresql",
+    "feature-pytest",
+    "feature-docker",
+    "feature-github-actions",
+    "feature-ai-workspace"
+  ]
+}

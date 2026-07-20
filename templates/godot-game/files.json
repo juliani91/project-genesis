@@ -1,0 +1,27 @@
+[
+  {
+    "source": "README.md",
+    "destination": "README.md",
+    "mode": "render"
+  },
+  {
+    "source": "project.godot",
+    "destination": "project.godot",
+    "mode": "render"
+  },
+  {
+    "source": "scenes/main.tscn",
+    "destination": "scenes/main.tscn",
+    "mode": "copy"
+  },
+  {
+    "source": "scripts/main.gd",
+    "destination": "scripts/main.gd",
+    "mode": "render"
+  },
+  {
+    "source": "Docs/ARCHITECTURE.md",
+    "destination": "Docs/ARCHITECTURE.md",
+    "mode": "render"
+  }
+]

@@ -1,0 +1,24 @@
+{
+  "id": "feature-tailwind",
+  "extends": null,
+  "name": "Tailwind Styling",
+  "version": "1.0.0",
+  "description": "Tailwind styling scaffold and notes.",
+  "author": "Project Genesis",
+  "category": "Styling",
+  "tags": [
+    "tailwind",
+    "styling",
+    "css"
+  ],
+  "role": "feature",
+  "provides": [
+    "tailwind"
+  ],
+  "requiresCapabilities": [
+    "web"
+  ],
+  "conflictsWith": [],
+  "minGenesisVersion": "0.14.0",
+  "deprecated": false
+}

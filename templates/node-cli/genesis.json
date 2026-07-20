@@ -1,0 +1,26 @@
+{
+  "id": "node-cli",
+  "extends": null,
+  "name": "Node CLI",
+  "version": "1.0.0",
+  "description": "Runnable TypeScript command-line application starter.",
+  "author": "Project Genesis",
+  "category": "Software",
+  "tags": [
+    "cli",
+    "node",
+    "typescript"
+  ],
+  "role": "base",
+  "provides": [
+    "node",
+    "typescript",
+    "cli",
+    "containerizable",
+    "app-runtime"
+  ],
+  "requiresCapabilities": [],
+  "conflictsWith": [],
+  "minGenesisVersion": "0.14.0",
+  "deprecated": false
+}

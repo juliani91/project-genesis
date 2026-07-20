@@ -1,0 +1,17 @@
+[
+  {
+    "path": "Assets"
+  },
+  {
+    "path": "Assets/Scripts"
+  },
+  {
+    "path": "Assets/Scenes"
+  },
+  {
+    "path": "ProjectSettings"
+  },
+  {
+    "path": "Docs"
+  }
+]

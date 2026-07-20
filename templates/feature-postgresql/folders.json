@@ -1,0 +1,8 @@
+[
+  {
+    "path": "Database/PostgreSQL"
+  },
+  {
+    "path": "Database/PostgreSQL/Migrations"
+  }
+]

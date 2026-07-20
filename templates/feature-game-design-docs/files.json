@@ -1,0 +1,17 @@
+[
+  {
+    "source": "GameDesign/GDD.md",
+    "destination": "GameDesign/GDD.md",
+    "mode": "render"
+  },
+  {
+    "source": "GameDesign/Assets/PIPELINE.md",
+    "destination": "GameDesign/Assets/PIPELINE.md",
+    "mode": "copy"
+  },
+  {
+    "source": "GameDesign/Sprints/SPRINT-001.md",
+    "destination": "GameDesign/Sprints/SPRINT-001.md",
+    "mode": "copy"
+  }
+]

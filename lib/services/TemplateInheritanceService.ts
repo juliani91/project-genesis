@@ -1,9 +1,14 @@
 import {
     FolderDescriptor,
+    PackageInstallDescriptor,
     ResolvedTemplateFile,
     TemplatePackage,
     Wizard
 } from "../models";
+
+import {
+    PackageInstallCompositionService
+} from "./PackageInstallCompositionService";
 
 import {
     ParentTemplateResolver
@@ -80,6 +85,11 @@ export class TemplateInheritanceService {
                 enrichedChain
             );
 
+        const packageInstall =
+            this.resolvePackageInstall(
+                enrichedChain
+            );
+
         const childTemplate =
             enrichedChain[
                 enrichedChain.length - 1
@@ -106,7 +116,9 @@ export class TemplateInheritanceService {
 
                 resolvedFiles: [
                     ...resolvedFiles
-                ]
+                ],
+
+                packageInstall
             }
         };
 
@@ -145,10 +157,17 @@ private async enrichTemplate(
             "files"
         );
 
+    const hasPackageInstallDescriptor =
+        Object.prototype.hasOwnProperty.call(
+            descriptors,
+            "packageInstall"
+        );
+
     if (
         hasWizardDescriptor &&
         hasFolderDescriptors &&
-        hasFileDescriptors
+        hasFileDescriptors &&
+        hasPackageInstallDescriptor
     ) {
 
         return template;
@@ -186,6 +205,16 @@ private async enrichTemplate(
         enriched =
             await packageService
                 .enrichWithFiles(
+                    enriched
+                );
+
+    }
+
+    if (!hasPackageInstallDescriptor) {
+
+        enriched =
+            await packageService
+                .enrichWithPackageInstall(
                     enriched
                 );
 
@@ -279,6 +308,24 @@ private async enrichTemplate(
         }
 
         return resolved;
+
+    }
+
+    private resolvePackageInstall(
+        chain:
+            readonly TemplatePackage[]
+    ): PackageInstallDescriptor | undefined {
+
+        const service =
+            new PackageInstallCompositionService();
+
+        return service.compose(
+            chain.map(
+                (template) =>
+                    template.descriptors
+                        .packageInstall
+            )
+        );
 
     }
 

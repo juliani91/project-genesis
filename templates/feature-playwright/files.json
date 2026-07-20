@@ -1,0 +1,12 @@
+[
+  {
+    "source": "Tests/E2E/example.spec.ts",
+    "destination": "Tests/E2E/example.spec.ts",
+    "mode": "copy"
+  },
+  {
+    "source": "Docs/Playwright.md",
+    "destination": "Docs/Playwright.md",
+    "mode": "copy"
+  }
+]

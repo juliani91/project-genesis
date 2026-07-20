@@ -1,0 +1,28 @@
+{
+  "id": "react-spa",
+  "extends": null,
+  "name": "React SPA",
+  "version": "1.0.0",
+  "description": "Runnable React TypeScript single-page application starter.",
+  "author": "Project Genesis",
+  "category": "Web",
+  "tags": [
+    "web",
+    "react",
+    "vite",
+    "typescript"
+  ],
+  "role": "base",
+  "provides": [
+    "web",
+    "node",
+    "typescript",
+    "react",
+    "containerizable",
+    "app-runtime"
+  ],
+  "requiresCapabilities": [],
+  "conflictsWith": [],
+  "minGenesisVersion": "0.14.0",
+  "deprecated": false
+}

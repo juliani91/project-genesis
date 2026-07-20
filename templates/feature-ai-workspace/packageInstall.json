@@ -1,0 +1,33 @@
+{
+  "title": "AI Workspace Setup",
+  "description": "AI collaboration workspace setup.",
+  "packageManager": "Use generated Markdown docs as source of truth.",
+  "prerequisites": [
+    "An AI coding assistant or human planning workflow"
+  ],
+  "installSteps": [
+    {
+      "title": "Review AI context",
+      "description": "Read CLAUDE.md and planning state before implementation.",
+      "commands": [
+        {
+          "label": "Open AI docs",
+          "command": "Open CLAUDE.md, AI/ARCHITECT_PROMPT.md, and Planning/STATE.md",
+          "platform": "manual"
+        }
+      ]
+    }
+  ],
+  "runCommands": [],
+  "verifyCommands": [
+    {
+      "label": "Verify docs",
+      "command": "Confirm AI context describes the intended project accurately",
+      "platform": "manual"
+    }
+  ],
+  "environmentVariables": [],
+  "notes": [
+    "Update AI context whenever architecture or workflow changes."
+  ]
+}

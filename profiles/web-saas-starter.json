@@ -1,0 +1,15 @@
+{
+  "id": "web-saas-starter",
+  "name": "Web SaaS Starter",
+  "description": "Full-stack web SaaS starter.",
+  "category": "Web",
+  "baseTemplate": "nextjs-app",
+  "featureTemplates": [
+    "feature-tailwind",
+    "feature-postgresql",
+    "feature-auth",
+    "feature-playwright",
+    "feature-github-actions",
+    "feature-ai-workspace"
+  ]
+}

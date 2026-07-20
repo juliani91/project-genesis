@@ -1,0 +1,22 @@
+[
+  {
+    "source": "README.md",
+    "destination": "README.md",
+    "mode": "render"
+  },
+  {
+    "source": "Assets/Scripts/GameManager.cs",
+    "destination": "Assets/Scripts/GameManager.cs",
+    "mode": "render"
+  },
+  {
+    "source": ".gitattributes",
+    "destination": ".gitattributes",
+    "mode": "copy"
+  },
+  {
+    "source": "Docs/ARCHITECTURE.md",
+    "destination": "Docs/ARCHITECTURE.md",
+    "mode": "render"
+  }
+]

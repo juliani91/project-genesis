@@ -1,0 +1,12 @@
+[
+  {
+    "source": "Styling/Tailwind/tailwind.config.ts",
+    "destination": "Styling/Tailwind/tailwind.config.ts",
+    "mode": "copy"
+  },
+  {
+    "source": "Styling/Tailwind/README.md",
+    "destination": "Styling/Tailwind/README.md",
+    "mode": "copy"
+  }
+]

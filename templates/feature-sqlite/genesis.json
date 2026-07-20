@@ -1,0 +1,24 @@
+{
+  "id": "feature-sqlite",
+  "extends": null,
+  "name": "SQLite",
+  "version": "1.0.0",
+  "description": "SQLite docs and data folder scaffold.",
+  "author": "Project Genesis",
+  "category": "Database",
+  "tags": [
+    "database",
+    "sqlite"
+  ],
+  "role": "feature",
+  "provides": [
+    "sqlite",
+    "database"
+  ],
+  "requiresCapabilities": [],
+  "conflictsWith": [
+    "postgres"
+  ],
+  "minGenesisVersion": "0.14.0",
+  "deprecated": false
+}

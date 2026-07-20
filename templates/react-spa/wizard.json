@@ -1,0 +1,31 @@
+{
+  "title": "Starter Project",
+  "description": "Configure the generated starter project.",
+  "steps": [
+    {
+      "id": "project",
+      "title": "Project Information",
+      "description": "Basic project metadata.",
+      "fields": [
+        {
+          "key": "PROJECT_NAME",
+          "label": "Project Name",
+          "type": "string",
+          "required": true
+        },
+        {
+          "key": "PROJECT_DESCRIPTION",
+          "label": "Project Description",
+          "type": "multiline",
+          "required": true
+        },
+        {
+          "key": "PACKAGE_NAME",
+          "label": "Package Name",
+          "type": "string",
+          "required": true
+        }
+      ]
+    }
+  ]
+}

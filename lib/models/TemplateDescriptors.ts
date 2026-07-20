@@ -1,6 +1,7 @@
 import { FileDescriptor } from "./FileDescriptor";
 import { FolderDescriptor } from "./FolderDescriptor";
 import { ResolvedTemplateFile } from "./ResolvedTemplateFile";
+import { PackageInstallDescriptor } from "./PackageInstallDescriptor";
 import { Wizard } from "./Wizard";
 
 export interface TemplateDescriptors {
@@ -18,5 +19,7 @@ export interface TemplateDescriptors {
      * This is populated after inheritance resolution.
      */
     resolvedFiles?: ResolvedTemplateFile[];
+
+    packageInstall?: PackageInstallDescriptor;
 
 }

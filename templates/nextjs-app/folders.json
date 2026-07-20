@@ -1,0 +1,17 @@
+[
+  {
+    "path": "app"
+  },
+  {
+    "path": "components"
+  },
+  {
+    "path": "lib"
+  },
+  {
+    "path": "public"
+  },
+  {
+    "path": "Docs"
+  }
+]

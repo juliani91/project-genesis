@@ -1,0 +1,25 @@
+{
+  "id": "fastapi-service",
+  "extends": null,
+  "name": "FastAPI Service",
+  "version": "1.0.0",
+  "description": "Runnable Python FastAPI service starter with health endpoint.",
+  "author": "Project Genesis",
+  "category": "Software",
+  "tags": [
+    "api",
+    "python",
+    "fastapi"
+  ],
+  "role": "base",
+  "provides": [
+    "api",
+    "python",
+    "containerizable",
+    "app-runtime"
+  ],
+  "requiresCapabilities": [],
+  "conflictsWith": [],
+  "minGenesisVersion": "0.14.0",
+  "deprecated": false
+}

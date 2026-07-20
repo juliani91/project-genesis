@@ -1,0 +1,12 @@
+[
+  {
+    "source": "Mobile/Navigation/README.md",
+    "destination": "Mobile/Navigation/README.md",
+    "mode": "copy"
+  },
+  {
+    "source": "Mobile/Navigation/AppNavigator.tsx",
+    "destination": "Mobile/Navigation/AppNavigator.tsx",
+    "mode": "copy"
+  }
+]

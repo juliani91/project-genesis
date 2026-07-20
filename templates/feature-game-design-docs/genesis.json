@@ -1,0 +1,23 @@
+{
+  "id": "feature-game-design-docs",
+  "extends": null,
+  "name": "Game Design Docs",
+  "version": "1.0.0",
+  "description": "Game design, mechanics, asset pipeline, and sprint planning docs.",
+  "author": "Project Genesis",
+  "category": "Game Development",
+  "tags": [
+    "game-design",
+    "planning"
+  ],
+  "role": "feature",
+  "provides": [
+    "game-design-docs"
+  ],
+  "requiresCapabilities": [
+    "game"
+  ],
+  "conflictsWith": [],
+  "minGenesisVersion": "0.14.0",
+  "deprecated": false
+}

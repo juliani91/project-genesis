@@ -1,0 +1,12 @@
+[
+  {
+    "source": "Tests/Pytest/test_smoke.py",
+    "destination": "Tests/Pytest/test_smoke.py",
+    "mode": "copy"
+  },
+  {
+    "source": "Docs/Pytest.md",
+    "destination": "Docs/Pytest.md",
+    "mode": "copy"
+  }
+]

@@ -1,0 +1,12 @@
+{
+  "id": "unity-game-jam",
+  "name": "Unity Game Jam",
+  "description": "Unity workspace with game design docs and CI.",
+  "category": "Game Development",
+  "baseTemplate": "unity-game",
+  "featureTemplates": [
+    "feature-game-design-docs",
+    "feature-github-actions",
+    "feature-ai-workspace"
+  ]
+}

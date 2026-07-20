@@ -1,0 +1,28 @@
+{
+  "id": "nextjs-app",
+  "extends": null,
+  "name": "Next.js App",
+  "version": "1.0.0",
+  "description": "Runnable Next.js TypeScript web application starter.",
+  "author": "Project Genesis",
+  "category": "Web",
+  "tags": [
+    "web",
+    "nextjs",
+    "typescript",
+    "react"
+  ],
+  "role": "base",
+  "provides": [
+    "web",
+    "node",
+    "typescript",
+    "react",
+    "containerizable",
+    "app-runtime"
+  ],
+  "requiresCapabilities": [],
+  "conflictsWith": [],
+  "minGenesisVersion": "0.14.0",
+  "deprecated": false
+}

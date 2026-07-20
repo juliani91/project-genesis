@@ -1,0 +1,21 @@
+{
+  "id": "feature-github-actions",
+  "extends": null,
+  "name": "GitHub Actions CI",
+  "version": "1.0.0",
+  "description": "Continuous integration workflow scaffold.",
+  "author": "Project Genesis",
+  "category": "Tooling",
+  "tags": [
+    "ci",
+    "github-actions"
+  ],
+  "role": "feature",
+  "provides": [
+    "ci"
+  ],
+  "requiresCapabilities": [],
+  "conflictsWith": [],
+  "minGenesisVersion": "0.14.0",
+  "deprecated": false
+}

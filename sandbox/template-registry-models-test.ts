@@ -14,9 +14,15 @@ function main(): void {
         RegistryType =
             "remote";
 
+    const registryTypes =
+        new Set<RegistryType>([
+            localType,
+            remoteType
+        ]);
+
     if (
-        localType ===
-        remoteType
+        registryTypes.size !==
+        2
     ) {
 
         throw new Error(

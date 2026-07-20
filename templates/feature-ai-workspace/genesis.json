@@ -1,0 +1,22 @@
+{
+  "id": "feature-ai-workspace",
+  "extends": null,
+  "name": "AI Workspace",
+  "version": "1.0.0",
+  "description": "AI collaboration docs and planning workspace.",
+  "author": "Project Genesis",
+  "category": "Documentation",
+  "tags": [
+    "ai",
+    "docs",
+    "planning"
+  ],
+  "role": "feature",
+  "provides": [
+    "ai-workspace"
+  ],
+  "requiresCapabilities": [],
+  "conflictsWith": [],
+  "minGenesisVersion": "0.14.0",
+  "deprecated": false
+}

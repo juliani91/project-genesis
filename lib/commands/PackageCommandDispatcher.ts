@@ -30,6 +30,10 @@ import {
 } from "./PackageSearchCommand";
 
 import {
+    PackageSyncCommand
+} from "./PackageSyncCommand";
+
+import {
     PackageUninstallCommand
 } from "./PackageUninstallCommand";
 
@@ -121,6 +125,9 @@ export class PackageCommandDispatcher {
     private readonly publishCommand:
         PackagePublishCommand;
 
+    private readonly syncCommand:
+        PackageSyncCommand;
+
     private readonly write:
         PackageCommandOutputWriter;
 
@@ -157,7 +164,10 @@ export class PackageCommandDispatcher {
          * earlier tests using positional arguments remain valid.
          */
         publishCommand?:
-            PackagePublishCommand
+            PackagePublishCommand,
+
+        syncCommand?:
+            PackageSyncCommand
     ) {
 
         this.registryDiscovery =
@@ -209,6 +219,10 @@ export class PackageCommandDispatcher {
         this.publishCommand =
             publishCommand ??
             new PackagePublishCommand();
+
+        this.syncCommand =
+            syncCommand ??
+            new PackageSyncCommand();
 
     }
 
@@ -291,6 +305,14 @@ export class PackageCommandDispatcher {
             case "publish":
 
                 await this.executePublish(
+                    commandArguments
+                );
+
+                return true;
+
+            case "sync":
+
+                await this.executeSync(
                     commandArguments
                 );
 
@@ -538,6 +560,68 @@ export class PackageCommandDispatcher {
                 1;
 
         }
+
+    }
+
+    private async executeSync(
+        args:
+            readonly string[]
+    ): Promise<void> {
+
+        if (
+            args.length >
+            2
+        ) {
+
+            throw new Error(
+                "Usage: genesis sync [--registry <registry-id>]"
+            );
+
+        }
+
+        let registryId:
+            string | undefined;
+
+        if (
+            args.length >
+            0
+        ) {
+
+            if (
+                args[0] !==
+                "--registry"
+            ) {
+
+                throw new Error(
+                    "Usage: genesis sync [--registry <registry-id>]"
+                );
+
+            }
+
+            registryId =
+                this.requireFlagValue(
+                    args,
+                    0,
+                    "--registry"
+                );
+
+        }
+
+        const manifests =
+            await this.registryDiscovery
+                .discover();
+
+        const result =
+            await this.syncCommand.execute(
+                manifests,
+                registryId
+            );
+
+        this.write(
+            this.formatter.formatSync(
+                result
+            )
+        );
 
     }
 
@@ -862,7 +946,8 @@ export class PackageCommandDispatcher {
             "install",
             "uninstall",
             "remove",
-            "publish"
+            "publish",
+            "sync"
         ].includes(
             command
         );

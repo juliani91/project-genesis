@@ -1,0 +1,26 @@
+{
+  "id": "godot-game",
+  "extends": null,
+  "name": "Godot Game",
+  "version": "1.0.0",
+  "description": "Godot game starter with scene, script, docs, and export checklist.",
+  "author": "Project Genesis",
+  "category": "Game Development",
+  "tags": [
+    "game",
+    "godot",
+    "gdscript"
+  ],
+  "role": "base",
+  "provides": [
+    "game",
+    "godot",
+    "gdscript",
+    "game-workspace",
+    "containerizable"
+  ],
+  "requiresCapabilities": [],
+  "conflictsWith": [],
+  "minGenesisVersion": "0.14.0",
+  "deprecated": false
+}

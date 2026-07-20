@@ -1,0 +1,7 @@
+[
+  {
+    "source": ".github/workflows/project-genesis-ci.yml",
+    "destination": ".github/workflows/project-genesis-ci.yml",
+    "mode": "copy"
+  }
+]

@@ -1,0 +1,12 @@
+[
+  {
+    "source": "Database/SQLite/README.md",
+    "destination": "Database/SQLite/README.md",
+    "mode": "render"
+  },
+  {
+    "source": "Database/SQLite/schema.sql",
+    "destination": "Database/SQLite/schema.sql",
+    "mode": "copy"
+  }
+]

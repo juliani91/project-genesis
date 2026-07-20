@@ -1,0 +1,46 @@
+{
+  "title": "Authentication Setup",
+  "description": "Authentication setup appended by the auth feature.",
+  "packageManager": "Provider-specific SDKs should be chosen after requirements are finalized.",
+  "prerequisites": [
+    "An auth provider decision: Auth.js, Clerk, Auth0, custom OIDC, or service-native auth"
+  ],
+  "installSteps": [
+    {
+      "title": "Configure auth environment",
+      "description": "Set auth secrets before enabling protected routes.",
+      "commands": [
+        {
+          "label": "Create secret",
+          "command": "Set AUTH_SECRET and AUTH_ISSUER in your environment",
+          "platform": "manual"
+        }
+      ]
+    }
+  ],
+  "runCommands": [],
+  "verifyCommands": [
+    {
+      "label": "Verify env",
+      "command": "Confirm AUTH_SECRET is present before deploying",
+      "platform": "manual"
+    }
+  ],
+  "environmentVariables": [
+    {
+      "key": "AUTH_SECRET",
+      "description": "Secret used to sign auth state or tokens.",
+      "example": "change-me",
+      "required": true
+    },
+    {
+      "key": "AUTH_ISSUER",
+      "description": "Identity provider issuer URL.",
+      "example": "https://example.com",
+      "required": false
+    }
+  ],
+  "notes": [
+    "Do not commit production auth secrets."
+  ]
+}

@@ -1,0 +1,56 @@
+{
+  "title": "Install {{PROJECT_NAME}}",
+  "description": "Setup instructions for the generated TypeScript CLI starter.",
+  "packageManager": "Recommended: pnpm. Alternatives: npm install or bun install.",
+  "prerequisites": [
+    "Node.js LTS installed",
+    "pnpm enabled with Corepack: corepack enable",
+    "Optional: npm and Bun can also install dependencies"
+  ],
+  "installSteps": [
+    {
+      "title": "Install dependencies",
+      "description": "Install CLI dependencies.",
+      "commands": [
+        {
+          "label": "pnpm",
+          "command": "pnpm install",
+          "platform": "PowerShell"
+        },
+        {
+          "label": "npm",
+          "command": "npm install",
+          "platform": "PowerShell"
+        },
+        {
+          "label": "bun",
+          "command": "bun install",
+          "platform": "PowerShell"
+        }
+      ]
+    }
+  ],
+  "runCommands": [
+    {
+      "label": "Build CLI",
+      "command": "pnpm build",
+      "platform": "PowerShell"
+    },
+    {
+      "label": "Run CLI",
+      "command": "pnpm start",
+      "platform": "PowerShell"
+    }
+  ],
+  "verifyCommands": [
+    {
+      "label": "Run tests",
+      "command": "pnpm test",
+      "platform": "PowerShell"
+    }
+  ],
+  "environmentVariables": [],
+  "notes": [
+    "Add the generated bin entry to your PATH only after reviewing the CLI."
+  ]
+}

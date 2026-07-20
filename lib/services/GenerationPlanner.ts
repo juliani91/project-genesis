@@ -14,6 +14,10 @@ import {
 } from "./ConditionEvaluator";
 
 import {
+    PackageInstallMarkdownService
+} from "./PackageInstallMarkdownService";
+
+import {
     TemplateRenderer
 } from "./TemplateRenderer";
 
@@ -144,6 +148,38 @@ export class GenerationPlanner {
 
                 contents:
                     renderedContent.contents
+            });
+
+        }
+
+        const packageInstall =
+            template.descriptors
+                .packageInstall;
+
+        if (packageInstall) {
+
+            const markdown =
+                new PackageInstallMarkdownService()
+                    .render(
+                        packageInstall,
+                        preparedTemplate.variables
+                    );
+
+            files.push({
+                sourcePath:
+                    "[generated:packageInstall]",
+
+                destinationPath:
+                    path.join(
+                        outputPath,
+                        "packageInstall.md"
+                    ),
+
+                relativePath:
+                    "packageInstall.md",
+
+                contents:
+                    markdown
             });
 
         }

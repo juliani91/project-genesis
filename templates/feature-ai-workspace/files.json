@@ -1,0 +1,22 @@
+[
+  {
+    "source": "CLAUDE.md",
+    "destination": "CLAUDE.md",
+    "mode": "render"
+  },
+  {
+    "source": "AI/ARCHITECT_PROMPT.md",
+    "destination": "AI/ARCHITECT_PROMPT.md",
+    "mode": "copy"
+  },
+  {
+    "source": "Planning/STATE.md",
+    "destination": "Planning/STATE.md",
+    "mode": "render"
+  },
+  {
+    "source": "Planning/Sprints/REQUIREMENTS.md",
+    "destination": "Planning/Sprints/REQUIREMENTS.md",
+    "mode": "copy"
+  }
+]

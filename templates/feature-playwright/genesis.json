@@ -1,0 +1,25 @@
+{
+  "id": "feature-playwright",
+  "extends": null,
+  "name": "Playwright E2E",
+  "version": "1.0.0",
+  "description": "Playwright end-to-end test scaffold.",
+  "author": "Project Genesis",
+  "category": "Testing",
+  "tags": [
+    "testing",
+    "playwright",
+    "e2e"
+  ],
+  "role": "feature",
+  "provides": [
+    "e2e-testing"
+  ],
+  "requiresCapabilities": [
+    "web",
+    "node"
+  ],
+  "conflictsWith": [],
+  "minGenesisVersion": "0.14.0",
+  "deprecated": false
+}

@@ -1,0 +1,33 @@
+{
+  "title": "GitHub Actions Setup",
+  "description": "CI setup appended by the GitHub Actions feature.",
+  "packageManager": "GitHub Actions runs in GitHub-hosted runners.",
+  "prerequisites": [
+    "Repository hosted on GitHub"
+  ],
+  "installSteps": [
+    {
+      "title": "Enable workflow",
+      "description": "Commit the generated workflow file to GitHub.",
+      "commands": [
+        {
+          "label": "Commit workflow",
+          "command": "git add .github/workflows/project-genesis-ci.yml && git commit -m \"Add CI workflow\"",
+          "platform": "bash"
+        }
+      ]
+    }
+  ],
+  "runCommands": [],
+  "verifyCommands": [
+    {
+      "label": "Check workflow",
+      "command": "Open the Actions tab in GitHub after pushing",
+      "platform": "manual"
+    }
+  ],
+  "environmentVariables": [],
+  "notes": [
+    "Replace placeholder CI commands with project-specific install, lint, test, and build commands."
+  ]
+}

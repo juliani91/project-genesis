@@ -1,0 +1,27 @@
+[
+  {
+    "source": "README.md",
+    "destination": "README.md",
+    "mode": "render"
+  },
+  {
+    "source": "package.json",
+    "destination": "package.json",
+    "mode": "copy"
+  },
+  {
+    "source": "src/index.ts",
+    "destination": "src/index.ts",
+    "mode": "render"
+  },
+  {
+    "source": "tsconfig.json",
+    "destination": "tsconfig.json",
+    "mode": "copy"
+  },
+  {
+    "source": "Docs/ARCHITECTURE.md",
+    "destination": "Docs/ARCHITECTURE.md",
+    "mode": "render"
+  }
+]

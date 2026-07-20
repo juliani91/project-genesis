@@ -1,0 +1,39 @@
+{
+  "title": "Docker Feature Setup",
+  "description": "Docker setup appended by the Docker feature.",
+  "packageManager": "Docker Desktop or Docker Engine.",
+  "prerequisites": [
+    "Docker installed"
+  ],
+  "installSteps": [
+    {
+      "title": "Build image",
+      "description": "Build from the generated Docker folder after adapting the Dockerfile to your runtime.",
+      "commands": [
+        {
+          "label": "Docker build",
+          "command": "docker build -f Docker/Dockerfile -t {{PACKAGE_NAME}} .",
+          "platform": "PowerShell"
+        }
+      ]
+    }
+  ],
+  "runCommands": [
+    {
+      "label": "Run container",
+      "command": "docker run --rm {{PACKAGE_NAME}}",
+      "platform": "PowerShell"
+    }
+  ],
+  "verifyCommands": [
+    {
+      "label": "Docker version",
+      "command": "docker --version",
+      "platform": "PowerShell"
+    }
+  ],
+  "environmentVariables": [],
+  "notes": [
+    "The generated Dockerfile is intentionally minimal and should be adapted for production."
+  ]
+}

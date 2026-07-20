@@ -2,12 +2,19 @@
   "name": "project-genesis",
   "version": "0.1.0",
   "private": true,
+  "description": "AI-ready project workspace generator with templates, registries, package publishing, synchronization, UI inspection, and enterprise policy foundations.",
   "scripts": {
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
     "lint": "eslint",
+    "typecheck": "tsc --noEmit",
+    "verify": "npm run typecheck && npm run lint && npm run build",
     "test:rendering": "tsx sandbox/rendering-pipeline-test.ts",
+    "test:registry-sync": "tsx sandbox/template-registry-sync-service-test.ts",
+    "test:enterprise": "tsx sandbox/enterprise-workspace-service-test.ts",
+    "test:template-library": "tsx sandbox/template-library-expansion-test.ts",
+    "test:package-install": "tsx sandbox/package-install-guidance-test.ts",
     "genesis": "tsx cli/genesis.ts"
   },
   "dependencies": {

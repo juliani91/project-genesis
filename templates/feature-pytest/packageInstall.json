@@ -1,0 +1,33 @@
+{
+  "title": "Pytest Setup",
+  "description": "Pytest setup appended by the Python testing feature.",
+  "packageManager": "Recommended: uv.",
+  "prerequisites": [
+    "uv installed"
+  ],
+  "installSteps": [
+    {
+      "title": "Install pytest",
+      "description": "Install pytest into the Python environment.",
+      "commands": [
+        {
+          "label": "uv",
+          "command": "uv pip install pytest",
+          "platform": "PowerShell"
+        }
+      ]
+    }
+  ],
+  "runCommands": [],
+  "verifyCommands": [
+    {
+      "label": "Run pytest",
+      "command": "uv run pytest",
+      "platform": "PowerShell"
+    }
+  ],
+  "environmentVariables": [],
+  "notes": [
+    "Keep tests under Tests/Pytest or migrate them into the base service tests folder."
+  ]
+}
