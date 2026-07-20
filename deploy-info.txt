@@ -1,2 +1,3 @@
 Project Genesis GitHub Pages deployment
 Published from the gh-pages branch.
+Refreshed after switching to branch-based Pages deployment.
