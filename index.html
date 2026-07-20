@@ -1,0 +1,269 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Project Genesis template catalog, profiles, documentation, and setup guide.">
+  <title>Project Genesis</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="hero">
+    <nav class="nav" aria-label="Primary navigation">
+      <a class="brand" href="#top" aria-label="Project Genesis home">
+        <span class="brand-mark">PG</span>
+        <span>Project Genesis</span>
+      </a>
+      <div class="nav-links">
+        <a href="#templates">Templates</a>
+        <a href="#profiles">Profiles</a>
+        <a href="#docs">Documentation</a>
+        <a href="#install">Install</a>
+        <a href="https://github.com/juliani91/project-genesis">GitHub</a>
+      </div>
+    </nav>
+
+    <section id="top" class="hero-grid">
+      <div class="hero-copy">
+        <p class="eyebrow">AI-ready project workspace generator</p>
+        <h1>Generate runnable project starters from composable templates.</h1>
+        <p class="lead">
+          Project Genesis combines one base template with optional feature templates, profile presets,
+          registry synchronization, package installation guidance, and enterprise policy foundations.
+        </p>
+        <div class="hero-actions">
+          <a class="button primary" href="#docs">Use the Tool</a>
+          <a class="button secondary" href="#templates">Browse Templates</a>
+        </div>
+      </div>
+
+      <div class="terminal" aria-label="Project Genesis quick commands">
+        <div class="terminal-bar">
+          <span></span><span></span><span></span>
+        </div>
+        <pre><code>git clone https://github.com/juliani91/project-genesis.git
+cd project-genesis
+npm install
+npm.cmd run genesis</code></pre>
+      </div>
+    </section>
+  </header>
+
+  <main>
+    <section class="stats" aria-label="Project Genesis summary">
+      <article>
+        <strong>19</strong>
+        <span>Local templates</span>
+      </article>
+      <article>
+        <strong>8</strong>
+        <span>Ready-made profiles</span>
+      </article>
+      <article>
+        <strong>7</strong>
+        <span>Base starters</span>
+      </article>
+      <article>
+        <strong>11</strong>
+        <span>Feature add-ons</span>
+      </article>
+    </section>
+
+    <section id="templates" class="section">
+      <div class="section-heading">
+        <p class="eyebrow">Template catalog</p>
+        <h2>Select a base, then compose features.</h2>
+        <p>
+          Base templates define the project type. Feature templates add focused capabilities such as
+          Docker, CI, auth, databases, tests, docs, styling, mobile navigation, or game planning.
+        </p>
+      </div>
+
+      <div class="filters" aria-label="Template filters">
+        <label>
+          <span>Search templates</span>
+          <input id="templateSearch" type="search" placeholder="Search by name, tag, or capability">
+        </label>
+        <label>
+          <span>Role</span>
+          <select id="roleFilter">
+            <option value="all">All roles</option>
+            <option value="base">Base templates</option>
+            <option value="feature">Feature templates</option>
+          </select>
+        </label>
+        <label>
+          <span>Category</span>
+          <select id="categoryFilter">
+            <option value="all">All categories</option>
+          </select>
+        </label>
+      </div>
+
+      <div id="templateGrid" class="card-grid" aria-live="polite"></div>
+    </section>
+
+    <section id="profiles" class="section band">
+      <div class="section-heading">
+        <p class="eyebrow">Profiles</p>
+        <h2>Pick a complete stack when you want fast defaults.</h2>
+        <p>
+          Profiles are prebuilt combinations that resolve to exactly one base template plus a safe set of features.
+          They are the easiest path when you want a complete starter without hand-picking every piece.
+        </p>
+      </div>
+      <div id="profileGrid" class="card-grid"></div>
+    </section>
+
+    <section id="docs" class="section docs-layout">
+      <div class="section-heading">
+        <p class="eyebrow">Documentation</p>
+        <h2>How to use Project Genesis.</h2>
+        <p>
+          This public guide mirrors the practical website documentation from the app, with the setup steps
+          most likely to matter after cloning the repository.
+        </p>
+      </div>
+
+      <div class="doc-panels">
+        <article class="panel">
+          <h3>1. Prepare the repository</h3>
+          <p>
+            Install Git and Node.js LTS, then clone the repository. Dependencies are local to the project,
+            so run <code>npm install</code> before running the CLI.
+          </p>
+          <pre><code>git clone https://github.com/juliani91/project-genesis.git
+cd project-genesis
+npm install</code></pre>
+          <p>
+            The <code>genesis</code> script uses <code>tsx</code> from <code>node_modules/.bin</code>.
+            You do not need a global <code>tsx</code> install.
+          </p>
+        </article>
+
+        <article class="panel">
+          <h3>2. Open the console</h3>
+          <p>
+            The local web console shows templates, registries, profiles, package metadata,
+            enterprise policy summaries, documentation, and generated install metadata.
+          </p>
+          <pre><code>npm.cmd run dev -- --hostname 127.0.0.1 --port 3000</code></pre>
+          <p>Open <code>http://127.0.0.1:3000</code> in your browser.</p>
+        </article>
+
+        <article class="panel">
+          <h3>3. Generate a project manually</h3>
+          <ol>
+            <li>Run <code>npm.cmd run genesis</code>.</li>
+            <li>Select a registry. The local registry exposes the built-in template library.</li>
+            <li>Choose manual generation.</li>
+            <li>Select exactly one base template.</li>
+            <li>Add compatible feature templates.</li>
+            <li>Answer the wizard prompts.</li>
+            <li>Choose a new output directory.</li>
+            <li>Open the generated <code>README.md</code> and <code>packageInstall.md</code>.</li>
+          </ol>
+        </article>
+
+        <article class="panel">
+          <h3>4. Generate from a profile</h3>
+          <ol>
+            <li>Run <code>npm.cmd run genesis</code>.</li>
+            <li>Choose the profile flow.</li>
+            <li>Select a profile such as <code>web-saas-starter</code>, <code>api-service</code>, or <code>mobile-app</code>.</li>
+            <li>Review compatibility and version reports.</li>
+            <li>Answer prompts and choose a new output directory.</li>
+            <li>Follow the generated <code>packageInstall.md</code>.</li>
+          </ol>
+        </article>
+
+        <article class="panel">
+          <h3>5. Verify the repository</h3>
+          <p>Before release work or template changes, run the project checks.</p>
+          <pre><code>npm.cmd run verify
+npm.cmd run test:template-library
+npm.cmd run test:package-install
+npm.cmd run test:registry-sync
+npm.cmd run test:enterprise</code></pre>
+        </article>
+
+        <article class="panel">
+          <h3>6. Troubleshooting</h3>
+          <ul>
+            <li>If <code>tsx is not recognized</code>, run <code>npm install</code> from the repository root.</li>
+            <li>If generation fails because a directory exists, choose a new empty output directory.</li>
+            <li>If compatibility fails, remove the feature named in the report or choose a matching base template.</li>
+            <li>If two database features conflict, keep one database feature for the first generated starter.</li>
+            <li>If E2E tests fail, confirm the generated web app is running before running Playwright.</li>
+          </ul>
+        </article>
+      </div>
+    </section>
+
+    <section id="install" class="section band">
+      <div class="section-heading">
+        <p class="eyebrow">Install guidance</p>
+        <h2>Generated projects explain their own setup.</h2>
+        <p>
+          Templates may provide <code>packageInstall.json</code>. During composition, Project Genesis merges those
+          descriptors and writes a generated <code>packageInstall.md</code> at the project root.
+        </p>
+      </div>
+      <div class="info-grid">
+        <article class="panel">
+          <h3>System Requirements</h3>
+          <p>Lists runtimes and external tools such as Node.js LTS, Python, uv, Expo, Unity Hub, Godot, Docker, or PostgreSQL.</p>
+        </article>
+        <article class="panel">
+          <h3>Install Steps</h3>
+          <p>Provides PowerShell-friendly commands first, with macOS and Linux alternatives where useful.</p>
+        </article>
+        <article class="panel">
+          <h3>Feature Setup</h3>
+          <p>Adds scoped instructions for selected features such as Playwright, Pytest, Tailwind, auth, CI, and databases.</p>
+        </article>
+        <article class="panel">
+          <h3>Verify and Run</h3>
+          <p>Documents verification commands and local run commands for the generated starter stack.</p>
+        </article>
+      </div>
+    </section>
+
+    <section id="enterprise" class="section">
+      <div class="section-heading">
+        <p class="eyebrow">Governance foundation</p>
+        <h2>Enterprise-ready concepts are built into the model.</h2>
+        <p>
+          Project Genesis includes organization, role, permission, audit, and policy-check foundations so template
+          workflows can grow into governed team usage.
+        </p>
+      </div>
+      <div class="info-grid">
+        <article class="panel">
+          <h3>Organizations</h3>
+          <p>Workspace metadata can group members, roles, policy checks, and audit history.</p>
+        </article>
+        <article class="panel">
+          <h3>Permissions</h3>
+          <p>Role permissions describe who can manage templates, registries, packages, and policy-sensitive workflows.</p>
+        </article>
+        <article class="panel">
+          <h3>Audit Events</h3>
+          <p>Audit summaries provide a base for traceability across publishing, sync, install, and governance actions.</p>
+        </article>
+        <article class="panel">
+          <h3>Registry Sync</h3>
+          <p>Registry synchronization supports repeatable package discovery and installation from configured sources.</p>
+        </article>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <p>Project Genesis is maintained in <a href="https://github.com/juliani91/project-genesis">juliani91/project-genesis</a>.</p>
+    <p>This page intentionally omits the internal roadmap and focuses on public usage documentation.</p>
+  </footer>
+
+  <script src="site.js"></script>
+</body>
+</html>
