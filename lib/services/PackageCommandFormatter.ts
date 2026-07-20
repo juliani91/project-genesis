@@ -197,6 +197,16 @@ export class PackageCommandFormatter {
     ): string {
 
         if (
+            result.localTemplate
+        ) {
+
+            return this.formatLocalTemplateInfo(
+                result
+            );
+
+        }
+
+        if (
             !result.template
         ) {
 
@@ -275,6 +285,123 @@ export class PackageCommandFormatter {
         return lines.join(
             "\n"
         );
+
+    }
+
+    private formatLocalTemplateInfo(
+        result:
+            PackageInfoCommandResult
+    ): string {
+
+        const localTemplate =
+            result.localTemplate;
+
+        if (!localTemplate) {
+
+            return result.message;
+
+        }
+
+        const manifest =
+            localTemplate.manifest;
+
+        const lines:
+            string[] = [
+                result.message,
+                "",
+                "Local Template Information",
+                "--------------------------",
+                `Template    : ${manifest.id}`,
+                `Name        : ${manifest.name}`,
+                `Description : ${manifest.description}`,
+                `Version     : ${manifest.version}`,
+                `Role        : ${manifest.role ?? "base"}`,
+                `Category    : ${manifest.category ?? "Uncategorized"}`,
+                `Author      : ${manifest.author}`,
+                `Registry    : ${localTemplate.registryId}`,
+                `Source      : ${localTemplate.source}`,
+                `Path        : ${localTemplate.path}`,
+                "",
+                "Capabilities Provided",
+                "---------------------"
+            ];
+
+        this.appendList(
+            lines,
+            manifest.provides
+        );
+
+        lines.push(
+            "",
+            "Capabilities Required",
+            "---------------------"
+        );
+
+        this.appendList(
+            lines,
+            manifest.requiresCapabilities
+        );
+
+        lines.push(
+            "",
+            "Conflicts",
+            "---------"
+        );
+
+        this.appendList(
+            lines,
+            manifest.conflictsWith
+        );
+
+        lines.push(
+            "",
+            "Tags",
+            "----"
+        );
+
+        this.appendList(
+            lines,
+            manifest.tags
+        );
+
+        return lines.join(
+            "\n"
+        );
+
+    }
+
+    private appendList(
+        lines:
+            string[],
+
+        values:
+            readonly string[] | undefined
+    ): void {
+
+        if (
+            !values ||
+            values.length ===
+                0
+        ) {
+
+            lines.push(
+                "None"
+            );
+
+            return;
+
+        }
+
+        for (
+            const value
+            of values
+        ) {
+
+            lines.push(
+                `- ${value}`
+            );
+
+        }
 
     }
 

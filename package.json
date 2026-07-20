@@ -14,7 +14,7 @@
     "test:registry-sync": "tsx sandbox/template-registry-sync-service-test.ts",
     "test:enterprise": "tsx sandbox/enterprise-workspace-service-test.ts",
     "test:template-library": "tsx sandbox/template-library-expansion-test.ts",
-    "test:package-install": "tsx sandbox/package-install-guidance-test.ts",
+    "test:package-install": "tsx sandbox/package-install-guidance-test.ts && tsx sandbox/local-template-info-command-test.ts",
     "genesis": "tsx cli/genesis.ts"
   },
   "dependencies": {

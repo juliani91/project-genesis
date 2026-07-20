@@ -1,12 +1,15 @@
 import {
+    LocalTemplateInfo,
     TemplateRegistryIndex,
     TemplateRegistryManifest
 } from "../models";
 
 import {
     PackageCommandFormatter,
+    TemplateDiscoveryService,
     TemplateRegistryDiscoveryService,
-    TemplateRegistryManager
+    TemplateRegistryManager,
+    TemplateRegistryResolver
 } from "../services";
 
 import {
@@ -104,6 +107,12 @@ export class PackageCommandDispatcher {
     private readonly registryManager:
         TemplateRegistryManager;
 
+    private readonly templateDiscovery:
+        TemplateDiscoveryService;
+
+    private readonly registryResolver:
+        TemplateRegistryResolver;
+
     private readonly formatter:
         PackageCommandFormatter;
 
@@ -177,6 +186,12 @@ export class PackageCommandDispatcher {
         this.registryManager =
             registryManager ??
             new TemplateRegistryManager();
+
+        this.templateDiscovery =
+            new TemplateDiscoveryService();
+
+        this.registryResolver =
+            new TemplateRegistryResolver();
 
         this.formatter =
             formatter ??
@@ -413,14 +428,22 @@ export class PackageCommandDispatcher {
                 parsed.registryId
             );
 
+        const resolvedResult =
+            result.success
+                ? result
+                : await this.resolveLocalTemplateInfo(
+                    parsed.templateId,
+                    parsed.registryId
+                ) ?? result;
+
         this.write(
             this.formatter.formatInfo(
-                result
+                resolvedResult
             )
         );
 
         if (
-            !result.success
+            !resolvedResult.success
         ) {
 
             process.exitCode =
@@ -646,6 +669,179 @@ export class PackageCommandDispatcher {
         return this.registryManager.buildIndex(
             manifests
         );
+
+    }
+
+    private async resolveLocalTemplateInfo(
+        templateId:
+            string,
+
+        registryId?:
+            string
+    ) {
+
+        const normalizedTemplateId =
+            templateId
+                .trim()
+                .toLowerCase();
+
+        const normalizedRegistryId =
+            registryId
+                ?.trim()
+                .toLowerCase();
+
+        const manifests =
+            await this.registryDiscovery
+                .discover();
+
+        const matches:
+            LocalTemplateInfo[] = [];
+
+        for (
+            const manifest
+            of manifests
+        ) {
+
+            const resolvedRegistry =
+                this.registryResolver
+                    .resolve(
+                        manifest
+                    );
+
+            if (
+                resolvedRegistry.type !==
+                    "local"
+            ) {
+
+                continue;
+
+            }
+
+            if (
+                normalizedRegistryId &&
+                resolvedRegistry.id
+                    .toLowerCase() !==
+                    normalizedRegistryId
+            ) {
+
+                continue;
+
+            }
+
+            const advertised =
+                resolvedRegistry.templates
+                    .some(
+                        (template) =>
+                            template.templateId
+                                .toLowerCase() ===
+                            normalizedTemplateId
+                    );
+
+            if (!advertised) {
+
+                continue;
+
+            }
+
+            const templates =
+                await this.templateDiscovery
+                    .discoverFromRegistry(
+                        resolvedRegistry
+                    );
+
+            const template =
+                templates.find(
+                    (candidate) =>
+                        candidate.manifest.id
+                            .toLowerCase() ===
+                        normalizedTemplateId
+                );
+
+            if (!template) {
+
+                continue;
+
+            }
+
+            matches.push({
+                manifest:
+                    template.manifest,
+
+                registryId:
+                    resolvedRegistry.id,
+
+                source:
+                    resolvedRegistry.resolvedLocation,
+
+                path:
+                    template.path
+            });
+
+        }
+
+        if (
+            matches.length ===
+            0
+        ) {
+
+            return undefined;
+
+        }
+
+        if (
+            matches.length >
+            1
+        ) {
+
+            const registries =
+                matches
+                    .map(
+                        (match) =>
+                            match.registryId
+                    )
+                    .sort()
+                    .join(
+                        ", "
+                    );
+
+            return {
+                success:
+                    false,
+
+                message:
+                    [
+                        `Template "${templateId.trim()}"`,
+                        "exists in multiple local registries.",
+                        `Specify one of: ${registries}.`
+                    ].join(" "),
+
+                installedVersions:
+                    []
+            };
+
+        }
+
+        const localTemplate =
+            matches[0];
+
+        if (!localTemplate) {
+
+            return undefined;
+
+        }
+
+        return {
+            success:
+                true,
+
+            message:
+                `Template information for "${localTemplate.manifest.id}".`,
+
+            localTemplate,
+
+            installedVersions:
+                []
+        };
 
     }
 
