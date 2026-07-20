@@ -207,6 +207,16 @@ export class PackageCommandFormatter {
         }
 
         if (
+            result.localProfile
+        ) {
+
+            return this.formatLocalProfileInfo(
+                result
+            );
+
+        }
+
+        if (
             !result.template
         ) {
 
@@ -362,6 +372,51 @@ export class PackageCommandFormatter {
         this.appendList(
             lines,
             manifest.tags
+        );
+
+        return lines.join(
+            "\n"
+        );
+
+    }
+
+    private formatLocalProfileInfo(
+        result:
+            PackageInfoCommandResult
+    ): string {
+
+        const localProfile =
+            result.localProfile;
+
+        if (!localProfile) {
+
+            return result.message;
+
+        }
+
+        const profile =
+            localProfile.profile;
+
+        const lines:
+            string[] = [
+                result.message,
+                "",
+                "Local Profile Information",
+                "-------------------------",
+                `Profile     : ${profile.id}`,
+                `Name        : ${profile.name}`,
+                `Description : ${profile.description}`,
+                `Category    : ${profile.category}`,
+                `Source      : ${localProfile.source}`,
+                `Base        : ${profile.baseTemplate}`,
+                "",
+                "Feature Templates",
+                "-----------------"
+            ];
+
+        this.appendList(
+            lines,
+            profile.featureTemplates
         );
 
         return lines.join(

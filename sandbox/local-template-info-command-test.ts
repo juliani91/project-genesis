@@ -23,13 +23,81 @@ async function main(): Promise<void> {
                 )
         );
 
-    const handled =
+    const pageIds = [
+        "nextjs-app",
+        "react-spa",
+        "fastapi-service",
+        "node-cli",
+        "react-native-app",
+        "unity-game",
+        "godot-game",
+        "project-genesis",
+        "feature-docker",
+        "feature-github-actions",
+        "feature-postgresql",
+        "feature-sqlite",
+        "feature-playwright",
+        "feature-pytest",
+        "feature-auth",
+        "feature-tailwind",
+        "feature-mobile-navigation",
+        "feature-game-design-docs",
+        "feature-ai-workspace",
+        "web-saas-starter",
+        "marketing-web-app",
+        "frontend-dashboard",
+        "api-service",
+        "developer-cli",
+        "mobile-app",
+        "unity-game-jam",
+        "godot-indie-game"
+    ];
+
+    for (
+        const id
+        of pageIds
+    ) {
+
+        const handled =
+            await dispatcher.execute([
+                "info",
+                id
+            ]);
+
+        if (!handled) {
+
+            throw new Error(
+                `The info command was not handled for ${id}.`
+            );
+
+        }
+
+        const currentOutput =
+            output.at(
+                -1
+            ) ?? "";
+
+        if (
+            currentOutput.includes(
+                "was not found"
+            )
+        ) {
+
+            throw new Error(
+                `The info command did not find ${id}.`
+            );
+
+        }
+
+    }
+
+    const nextJsHandled =
         await dispatcher.execute([
             "info",
             "nextjs-app"
         ]);
 
-    if (!handled) {
+    if (!nextJsHandled) {
 
         throw new Error(
             "The local template info command was not handled."
@@ -74,8 +142,55 @@ async function main(): Promise<void> {
 
     }
 
+    const profileHandled =
+        await dispatcher.execute([
+            "info",
+            "web-saas-starter"
+        ]);
+
+    if (!profileHandled) {
+
+        throw new Error(
+            "The local profile info command was not handled."
+        );
+
+    }
+
+    const profileOutput =
+        output.at(
+            -1
+        ) ?? "";
+
+    const expectedProfileValues = [
+        'Profile information for "web-saas-starter".',
+        "Local Profile Information",
+        "Profile     : web-saas-starter",
+        "Base        : nextjs-app",
+        "- feature-tailwind",
+        "- feature-ai-workspace"
+    ];
+
+    for (
+        const expected
+        of expectedProfileValues
+    ) {
+
+        if (
+            !profileOutput.includes(
+                expected
+            )
+        ) {
+
+            throw new Error(
+                `Local profile info output was missing: ${expected}`
+            );
+
+        }
+
+    }
+
     console.log(
-        "Local template info command verified."
+        "Local template and profile info commands verified."
     );
 
 }

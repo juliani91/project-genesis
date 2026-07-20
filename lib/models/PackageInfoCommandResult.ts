@@ -14,6 +14,10 @@ import {
     TemplateManifest
 } from "./TemplateManifest";
 
+import {
+    TemplateProfile
+} from "./TemplateProfile";
+
 export interface LocalTemplateInfo {
 
     manifest:
@@ -30,6 +34,16 @@ export interface LocalTemplateInfo {
 
 }
 
+export interface LocalProfileInfo {
+
+    profile:
+        TemplateProfile;
+
+    source:
+        string;
+
+}
+
 export interface PackageInfoCommandResult
     extends PackageCommandResult {
 
@@ -38,6 +52,9 @@ export interface PackageInfoCommandResult
 
     localTemplate?:
         LocalTemplateInfo;
+
+    localProfile?:
+        LocalProfileInfo;
 
     installedVersions:
         readonly InstalledTemplatePackage[];

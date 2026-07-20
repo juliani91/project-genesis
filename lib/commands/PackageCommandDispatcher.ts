@@ -1,4 +1,5 @@
 import {
+    LocalProfileInfo,
     LocalTemplateInfo,
     TemplateRegistryIndex,
     TemplateRegistryManifest
@@ -7,6 +8,7 @@ import {
 import {
     PackageCommandFormatter,
     TemplateDiscoveryService,
+    TemplateProfileDiscoveryService,
     TemplateRegistryDiscoveryService,
     TemplateRegistryManager,
     TemplateRegistryResolver
@@ -110,6 +112,9 @@ export class PackageCommandDispatcher {
     private readonly templateDiscovery:
         TemplateDiscoveryService;
 
+    private readonly profileDiscovery:
+        TemplateProfileDiscoveryService;
+
     private readonly registryResolver:
         TemplateRegistryResolver;
 
@@ -189,6 +194,9 @@ export class PackageCommandDispatcher {
 
         this.templateDiscovery =
             new TemplateDiscoveryService();
+
+        this.profileDiscovery =
+            new TemplateProfileDiscoveryService();
 
         this.registryResolver =
             new TemplateRegistryResolver();
@@ -434,7 +442,12 @@ export class PackageCommandDispatcher {
                 : await this.resolveLocalTemplateInfo(
                     parsed.templateId,
                     parsed.registryId
-                ) ?? result;
+                ) ??
+                await this.resolveLocalProfileInfo(
+                    parsed.templateId,
+                    parsed.registryId
+                ) ??
+                result;
 
         this.write(
             this.formatter.formatInfo(
@@ -838,6 +851,81 @@ export class PackageCommandDispatcher {
                 `Template information for "${localTemplate.manifest.id}".`,
 
             localTemplate,
+
+            installedVersions:
+                []
+        };
+
+    }
+
+    private async resolveLocalProfileInfo(
+        profileId:
+            string,
+
+        registryId?:
+            string
+    ) {
+
+        if (
+            registryId?.trim()
+        ) {
+
+            return undefined;
+
+        }
+
+        const normalizedProfileId =
+            profileId
+                .trim()
+                .toLowerCase();
+
+        const profiles =
+            await this.profileDiscovery
+                .discover();
+
+        const matches:
+            LocalProfileInfo[] =
+            profiles
+                .filter(
+                    (profile) =>
+                        profile.id
+                            .toLowerCase() ===
+                        normalizedProfileId
+                )
+                .map(
+                    (profile) => ({
+                        profile,
+                        source:
+                            "profiles"
+                    })
+                );
+
+        if (
+            matches.length ===
+            0
+        ) {
+
+            return undefined;
+
+        }
+
+        const localProfile =
+            matches[0];
+
+        if (!localProfile) {
+
+            return undefined;
+
+        }
+
+        return {
+            success:
+                true,
+
+            message:
+                `Profile information for "${localProfile.profile.id}".`,
+
+            localProfile,
 
             installedVersions:
                 []
