@@ -10,8 +10,6 @@ The public GitHub Pages site includes the template catalog, profile combinations
 
 [https://juliani91.github.io/project-genesis/](https://juliani91.github.io/project-genesis/)
 
-If the URL returns 404 in a new checkout or fork, enable GitHub Pages in the repository settings and publish from the `gh-pages` branch at `/ (root)`. The repository also includes a GitHub Actions Pages workflow for deployments from `master`.
-
 ## Capabilities
 
 - Template discovery, inheritance, composition, capabilities, profiles, and version validation
