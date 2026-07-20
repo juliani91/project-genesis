@@ -4,6 +4,12 @@ Project Genesis generates AI-ready project workspaces from reusable templates.
 
 It provides a layered template engine, registry and package management, package publishing, registry synchronization, an inspection UI, and an enterprise policy foundation.
 
+## Website
+
+The public GitHub Pages site includes the template catalog, profile combinations, documentation, install guidance, and enterprise overview:
+
+[https://juliani91.github.io/project-genesis/](https://juliani91.github.io/project-genesis/)
+
 ## Capabilities
 
 - Template discovery, inheritance, composition, capabilities, profiles, and version validation
